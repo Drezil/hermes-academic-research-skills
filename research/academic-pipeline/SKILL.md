@@ -1,44 +1,42 @@
 ---
 name: academic-pipeline
 title: Academic Pipeline — Research-to-Publication Orchestrator
-description: Use when coordinating the full research-to-publication workflow from research
-  through drafting, integrity checks, review, revision, and finalization.
-version: 3.13.0
-author: Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills
+description: Use when coordinating the full research-to-publication workflow from research through drafting, integrity checks, review, revision, and finalization.
+version: 3.15.0
+author: "Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills"
 license: CC-BY-NC-4.0
 metadata:
   hermes:
     category: research
     tags:
-    - academic
-    - pipeline
-    - orchestration
-    - research
-    - writing
-    - review
-    - integrity
+      - academic
+      - pipeline
+      - orchestration
+      - research
+      - writing
+      - review
+      - integrity
     related_skills:
-    - deep-research
-    - academic-paper
-    - academic-paper-reviewer
+      - deep-research
+      - academic-paper
+      - academic-paper-reviewer
     requires_toolsets:
-    - file
-    - search
-    - web
-    - browser
-    - todo
-    - delegation
-    homepage: https://github.com/Imbad0202/academic-research-skills
-  source_repository: https://github.com/Imbad0202/academic-research-skills
-  source_commit: 96e4f98b6e7a8b59be3f062bf854b0499e02b092
-  source_suite_version: 3.13.0
+      - file
+      - search
+      - web
+      - browser
+      - todo
+      - delegation
+    homepage: 'https://github.com/Imbad0202/academic-research-skills'
+  source_repository: 'https://github.com/Imbad0202/academic-research-skills'
+  source_commit: ad0a7759cee9e7d2db5ca7ea1666096dea8e5d3c
+  source_suite_version: 3.15.0
   source_skill: academic-pipeline
-  upstream_version: 3.13.0
-  upstream_last_updated: '2026-06-18'
+  upstream_version: 3.15.0
+  upstream_last_updated: 2026-07-04
   data_access_level: verified_only
   task_type: open-ended
-  adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks,
-    and model routing are not installed.
+  adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
 ---
 
 # Academic Pipeline — Research-to-Publication Orchestrator
@@ -46,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-pipeline` from
-`Imbad0202/academic-research-skills` at commit `96e4f98` (2026-07-01).
+`Imbad0202/academic-research-skills` at commit `ad0a775` (2026-07-08).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -57,6 +55,8 @@ This is a Hermes Agent adaptation of upstream `academic-pipeline` from
 ## When to Use
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.
+
+# Academic Pipeline v3.15.0 — Full Academic Research Workflow Orchestrator
 
 A lightweight orchestrator that manages the complete academic pipeline from research exploration to final manuscript. It does not perform substantive work — it only detects stages, recommends modes, dispatches skills, manages transitions, and tracks state.
 
@@ -367,7 +367,7 @@ In Mode B, **single-phase agents (Bucket A per `docs/design/2026-05-18-ars-v3.9.
 
 Routing into Mode B requires an explicit user signal, such as naming the desired mode or using a `[direct-mode]` prefix. Ambiguous cross-phase input defaults to clarification using `references/shared/references/intent_clarification_protocol.md`. **Critically:** if `pipeline_orchestrator_agent` is dispatched on ambiguous cross-phase materials, the orchestrator itself currently cannot reconcile (this is the v3.10 conductor #134 work) — v3.9.2 routes such cases to clarification BEFORE the orchestrator runs.
 
-**Enforcement (v3.9.2):** prompt-level via Phase Boundary blocks on upstream Bucket A agents. The Claude Code PreToolUse hook mentioned upstream is not installed in this Hermes adaptation; treat the phase boundary as a workflow rule and verify manually or with referenced scripts when available.
+**Enforcement (v3.9.2):** Phase Boundary blocks on downstream Bucket A agents + advisory verifier (`scripts/check_pipeline_integrity.py`) + a deterministic PreToolUse write-scope guard in hook-enabled runtimes (#134 rescope, PR #294). Multi-phase envelope + orchestrator structured intake remain forward-scope (#134 Slices 3-5).
 
 ---
 
@@ -651,8 +651,8 @@ Stage 5: academic-paper (format-convert mode)
 
 | Item | Content |
 |------|---------|
-| Skill Version | 3.13.0 |
-| Last Updated | 2026-06-18 |
+| Skill Version | 3.15.0 |
+| Last Updated | 2026-07-04 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | deep-research v2.0+, academic-paper v2.0+, academic-paper-reviewer v1.1+ |
 | Role | Full academic research workflow orchestrator |

@@ -1,44 +1,42 @@
 ---
 name: academic-paper
 title: Academic Paper — Academic Paper Writing Agent Team
-description: Use when planning, outlining, drafting, revising, formatting, citation-checking,
-  or preparing disclosure/rebuttal material for academic papers.
+description: Use when planning, outlining, drafting, revising, formatting, citation-checking, or preparing disclosure/rebuttal material for academic papers.
 version: 3.2.0
-author: Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills
+author: "Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills"
 license: CC-BY-NC-4.0
 metadata:
   hermes:
     category: research
     tags:
-    - academic
-    - writing
-    - paper
-    - citations
-    - latex
-    - pandoc
-    - revision
+      - academic
+      - writing
+      - paper
+      - citations
+      - latex
+      - pandoc
+      - revision
     related_skills:
-    - deep-research
-    - academic-paper-reviewer
-    - academic-pipeline
+      - deep-research
+      - academic-paper-reviewer
+      - academic-pipeline
     requires_toolsets:
-    - file
-    - search
-    - web
-    - browser
-    - todo
-    - delegation
-    homepage: https://github.com/Imbad0202/academic-research-skills
-  source_repository: https://github.com/Imbad0202/academic-research-skills
-  source_commit: 96e4f98b6e7a8b59be3f062bf854b0499e02b092
-  source_suite_version: 3.13.0
+      - file
+      - search
+      - web
+      - browser
+      - todo
+      - delegation
+    homepage: 'https://github.com/Imbad0202/academic-research-skills'
+  source_repository: 'https://github.com/Imbad0202/academic-research-skills'
+  source_commit: ad0a7759cee9e7d2db5ca7ea1666096dea8e5d3c
+  source_suite_version: 3.15.0
   source_skill: academic-paper
   upstream_version: 3.2.0
-  upstream_last_updated: '2026-06-01'
+  upstream_last_updated: 2026-06-01
   data_access_level: redacted
   task_type: open-ended
-  adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks,
-    and model routing are not installed.
+  adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
 ---
 
 # Academic Paper — Academic Paper Writing Agent Team
@@ -46,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-paper` from
-`Imbad0202/academic-research-skills` at commit `96e4f98` (2026-07-01).
+`Imbad0202/academic-research-skills` at commit `ad0a775` (2026-07-08).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -57,6 +55,8 @@ This is a Hermes Agent adaptation of upstream `academic-paper` from
 ## When to Use
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.
+
+# Academic Paper — Academic Paper Writing Agent Team
 
 A general-purpose academic paper writing tool — 12-agent pipeline covering all disciplines, with higher education domain as the default reference.
 
@@ -198,7 +198,7 @@ Multi-phase agents (Bucket B: `argument_builder` P3+Plan, `visualization` P4+P7)
 
 Routing into Mode B requires an explicit user signal, such as naming the desired mode or using a `[direct-mode]` prefix. Ambiguous cross-phase input defaults to clarification using `references/shared/references/intent_clarification_protocol.md`.
 
-**Enforcement (v3.9.2):** prompt-level via Phase Boundary blocks on upstream Bucket A agents. The Claude Code PreToolUse hook mentioned upstream is not installed in this Hermes adaptation; treat the phase boundary as a workflow rule and verify manually or with referenced scripts when available.
+**Enforcement (v3.9.2):** Phase Boundary blocks on Bucket A agents + advisory verifier (`scripts/check_pipeline_integrity.py`) + a deterministic PreToolUse write-scope guard in hook-enabled runtimes (#134 rescope, PR #294). Multi-phase envelope remains forward-scope (#134 Slices 3-5).
 
 ## v3.6.6 Generator-Evaluator Contract Protocol
 

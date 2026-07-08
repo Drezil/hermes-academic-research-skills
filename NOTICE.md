@@ -2,8 +2,7 @@
 
 ## Personal Project Statement
 
-This project (hermes-academic-research-skills) is a personal project by
-Nicole Dresselhaus (Drezil) based on the work of Cheng-I Wu (Imbad0202).
+This project (academic-research-skills) is a personal project by Cheng-I Wu (Imbad0202).
 
 **Development context:**
 - Developed in personal time using personal equipment

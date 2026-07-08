@@ -1,7 +1,5 @@
 # Shared Upstream Materials
 
-Vendored from upstream `shared/` for this self-contained Hermes skill.
-
 - `references/shared/agents/compliance_agent.md`
 - `references/shared/artifact_reproducibility_pattern.md`
 - `references/shared/benchmark_report.schema.json`
