@@ -29,11 +29,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: ad0a7759cee9e7d2db5ca7ea1666096dea8e5d3c
-  source_suite_version: 3.15.0
+  source_commit: d8c0f43304b00682961db33812ebd208096a28d8
+  source_suite_version: 3.16.0
   source_skill: academic-paper
   upstream_version: 3.2.0
-  upstream_last_updated: 2026-06-01
+  upstream_last_updated: 2026-07-11
   data_access_level: redacted
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-paper` from
-`Imbad0202/academic-research-skills` at commit `ad0a775` (2026-07-08).
+`Imbad0202/academic-research-skills` at commit `d8c0f43` (2026-07-16).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -95,6 +95,8 @@ Write a paper on the impact of declining birth rates on private university manag
 **English**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion, parse reviews, revision roadmap, help me with my revision, I got reviewer comments, convert citations
 
 **繁體中文**: 寫論文, 學術論文, 論文大綱, 寫摘要, 修改論文, 文獻回顧論文, 檢查引用, 轉 LaTeX, 轉換格式, 研討會論文, 期刊文章, 學位論文, 研究論文, 引導我寫論文, 幫我規劃論文, 逐步寫論文, 寫方法論, 寫討論, 審查意見, 修訂路線圖, 幫我修改, 我收到審查意見, 轉換引用格式
+
+**한국어**: 논문 작성, 논문 초안, 논문 개요, 초록 작성, 논문 수정, 인용 확인, 인용 형식 검사, LaTeX 변환, 서식 변환, 학위논문 작성, 학술지 논문 작성, 학회 논문 작성, 논문 계획을 도와줘, 단계별로 논문 쓰기, 심사 의견을 받았어, 심사 의견 반영, 답변서 점검, AI 사용 고지
 
 ### Plan Mode Activation
 
@@ -423,14 +425,17 @@ See `references/agents/intake_agent.md` for the complete field definitions of th
 
 **Agent definitions**: `references/agents/{agent_name}.md` — one file per agent (12 total, matching Agent Team table above).
 
-**References** (20 files in `references/`):
+**References** (28 files in `references/`):
 - Citation: `apa7_extended_guide`, `apa7_chinese_citation_guide`, `citation_format_switcher`
 - Writing: `academic_writing_style`, `writing_quality_check`, `writing_judgment_framework`
-- Structure: `paper_structure_patterns` (6 types), `abstract_writing_guide`
-- Domain: `hei_domain_glossary` (bilingual), `journal_submission_guide`, `latex_template_reference`
+- Structure: `paper_structure_patterns` (6 types), `abstract_writing_guide`, `intro_title_rhetoric_guide` (CARS moves + title checklist)
+- Domain: `hei_domain_glossary` (bilingual), `journal_submission_guide`, `latex_template_reference`, `domain_evidence_profiles` (advisory screening profiles)
 - Process: `failure_paths` (12 scenarios), `mode_selection_guide` (11 modes), `plan_mode_protocol`, `workflow_phase_details`, `revision_patch_protocol` (#390 Mode B commands + marker lifecycle)
 - Ethics: `credit_authorship_guide` (CRediT 14 roles), `funding_statement_guide`, `statistical_visualization_standards`
 - Disclosure (v3.2): `disclosure_mode_protocol` (venue-specific AI-usage statement generation), `venue_disclosure_policies` (v1 database: ICLR, NeurIPS, Nature, Science, ACL, EMNLP)
+- Integrity (v3.3): `anti_leakage_protocol` (knowledge isolation), `vlm_figure_verification` (optional VLM figure check)
+- Policy anchors (#108): `policy_anchor_table`, `policy_anchor_disclosure_protocol`
+- Meta: `changelog` (version history)
 - Also: `deep-research/references/apa7_style_guide.md` (base reference, extended here)
 
 **Templates** (11 files in `templates/`): `imrad`, `literature_review`, `case_study`, `theoretical_paper`, `policy_brief`, `conference_paper`, `latex_article_template.tex`, `bilingual_abstract`, `credit_statement`, `funding_statement`, `revision_tracking` (4 status types).
@@ -508,12 +513,23 @@ academic-paper + academic-paper-reviewer -> Peer review -> revision loop
 
 ---
 
+## Model Tiering (#517, optional)
+
+When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's agents per `references/shared/model_tiering.md` (canonical: the full 39-agent judgment/execution table + rules). Compact rule:
+
+- **Unset (default):** every agent inherits the session model — byte-equivalent pre-#517 behavior.
+- **`economy`** (frontier-tier session): execution-type agents dispatch ONE tier below the session model — floor Opus-class, never lower; judgment-type agents stay on the session model. No-op at or below the floor (announce once).
+- **`quality-boost`** (below-frontier session): judgment-type agents at the checkpoint surfaces (Stage 2.5/4.5 gates; the opt-in Stage 4→5 claim–ref audit; final review) jump UP to the frontier tier (however many tiers away — not a single increment); nothing is ever downgraded. No-op at the frontier (announce once).
+- Unknown values → warn once, behave as unset. Tiers are relative positions, never hard-pinned model ids. When a direction is active, route repeated same-stage calls to the SAME worker so its prompt cache accumulates; unset means dispatch shapes stay byte-equivalent too.
+
+---
+
 ## Version Info
 
 | Item | Content |
 |------|---------|
 | Skill Version | 3.2.0 |
-| Last Updated | 2026-06-01 |
+| Last Updated | 2026-07-11 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | deep-research v1.0+ (upstream), academic-paper-reviewer v1.0+ (downstream) |
 

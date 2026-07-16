@@ -30,11 +30,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: ad0a7759cee9e7d2db5ca7ea1666096dea8e5d3c
-  source_suite_version: 3.15.0
+  source_commit: d8c0f43304b00682961db33812ebd208096a28d8
+  source_suite_version: 3.16.0
   source_skill: deep-research
   upstream_version: 2.11.0
-  upstream_last_updated: 2026-06-18
+  upstream_last_updated: 2026-07-11
   data_access_level: raw
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -45,7 +45,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `deep-research` from
-`Imbad0202/academic-research-skills` at commit `ad0a775` (2026-07-08).
+`Imbad0202/academic-research-skills` at commit `d8c0f43` (2026-07-16).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -97,6 +97,8 @@ Guide my research on the impact of declining birth rates on private universities
 **English**: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, methodology, APA report, academic analysis, policy analysis, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, monitor this topic, set up alerts
 
 **繁體中文**: 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 證據綜整, 事實查核, 三段式文獻掃描, WHY HOW WHAT 論文比較, 研究方法, 學術分析, 政策分析, 引導我的研究, 幫我釐清, 監測這個主題, 設定追蹤
+
+**한국어**: 심층 연구, 문헌 조사, 문헌 고찰, 체계적 문헌고찰, 메타분석, 근거 종합, 사실 확인, 팩트체크, 연구 방법 설계, 학술 분석, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, 무엇을 연구할지 모르겠어, 이 주제 계속 모니터링해줘
 
 ### Socratic Mode Activation
 
@@ -576,12 +578,23 @@ deep-research (systematic-review) + academic-paper -> PRISMA systematic review p
 
 ---
 
+## Model Tiering (#517, optional)
+
+When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's agents per `references/shared/model_tiering.md` (canonical: the full 39-agent judgment/execution table + rules). Compact rule:
+
+- **Unset (default):** every agent inherits the session model — byte-equivalent pre-#517 behavior.
+- **`economy`** (frontier-tier session): execution-type agents dispatch ONE tier below the session model — floor Opus-class, never lower; judgment-type agents stay on the session model. No-op at or below the floor (announce once).
+- **`quality-boost`** (below-frontier session): judgment-type agents at the checkpoint surfaces (Stage 2.5/4.5 gates; the opt-in Stage 4→5 claim–ref audit; final review) jump UP to the frontier tier (however many tiers away — not a single increment); nothing is ever downgraded. No-op at the frontier (announce once).
+- Unknown values → warn once, behave as unset. Tiers are relative positions, never hard-pinned model ids. When a direction is active, route repeated same-stage calls to the SAME worker so its prompt cache accumulates; unset means dispatch shapes stay byte-equivalent too.
+
+---
+
 ## Version Info
 
 | Item | Content |
 |------|---------|
 | Skill Version | 2.11.0 |
-| Last Updated | 2026-06-18 |
+| Last Updated | 2026-07-11 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | academic-paper v1.0+ (downstream) |
 

@@ -11,6 +11,7 @@
 - `references/shared/contracts/audit/audit_jsonl.schema.json`
 - `references/shared/contracts/audit/audit_sidecar.schema.json`
 - `references/shared/contracts/audit/audit_verdict.schema.json`
+- `references/shared/contracts/degradation_registry.json`
 - `references/shared/contracts/evaluator/full.json`
 - `references/shared/contracts/passport/audit_artifact_entry.schema.json`
 - `references/shared/contracts/passport/citation_provenance.schema.json`
@@ -44,6 +45,7 @@
 - `references/shared/ground_truth_isolation_pattern.md`
 - `references/shared/handoff_schemas.md`
 - `references/shared/mode_spectrum.md`
+- `references/shared/model_tiering.md`
 - `references/shared/policy_data/nature_policy.md`
 - `references/shared/prisma_trAIce_protocol.md`
 - `references/shared/raise_framework.md`

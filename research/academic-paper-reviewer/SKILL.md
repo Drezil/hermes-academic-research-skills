@@ -28,11 +28,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: ad0a7759cee9e7d2db5ca7ea1666096dea8e5d3c
-  source_suite_version: 3.15.0
+  source_commit: d8c0f43304b00682961db33812ebd208096a28d8
+  source_suite_version: 3.16.0
   source_skill: academic-paper-reviewer
   upstream_version: 1.10.0
-  upstream_last_updated: 2026-06-01
+  upstream_last_updated: 2026-07-11
   data_access_level: verified_only
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -43,7 +43,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-paper-reviewer` from
-`Imbad0202/academic-research-skills` at commit `ad0a775` (2026-07-08).
+`Imbad0202/academic-research-skills` at commit `d8c0f43` (2026-07-16).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -87,6 +87,8 @@ Review this paper: [paste paper or provide file]
 ### Trigger Keywords
 
 **English**: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy
+
+**한국어**: 논문 심사, 동료 심사, 모의 심사, 원고 심사, 심사 보고서, 심사자 관점에서 평가, 심사자 보정, 심사 정확도 측정
 
 ### Non-Trigger Scenarios
 
@@ -449,9 +451,21 @@ Follows the paper's language. Academic terms remain in English. User can overrid
 
 - **Reviewer hard gate.** All reviewer modes that ship with contracts (`reviewer_full`, `reviewer_methodology_focus`) now run two-call Phase 1 (paper-content-blind) + Phase 2 (paper-visible) orchestration. See `references/sprint_contract_protocol.md`.
 - **Schema 13 sprint contract.** Template-driven acceptance criteria with `panel_size`, `acceptance_dimensions`, `failure_conditions` (with `severity` precedence + `cross_reviewer_quantifier` panel-relative thresholds), `measurement_procedure`, optional `override_ladder`, bounded `agent_amendments`. Validator: `scripts/check_sprint_contract.py`. Schema: `references/shared/sprint_contract.schema.json`.
+- **Panel self-consistency checker (#510).** After synthesis, the orchestrator runs `scripts/check_panel_synthesis.py` to recompute each reviewer's decision and the panel decision from the emitted scores (protocol §8.1). A synthesis mismatch voids the synthesis (one retry); an inconsistent reviewer report is unusable (`[PANEL-SHRUNK]`).
 - **Synthesizer three-step mechanical protocol.** Build cross-reviewer matrix → evaluate each failure_condition with panel-relative quantifier + expression vocabulary → resolve precedence by severity. Forbidden operations explicit in `references/agents/editorial_synthesizer_agent.md`.
 - **methodology_focus reduced panel.** `reviewer_methodology_focus` mode runs a 2-reviewer panel (EIC + methodology only) instead of the default 5.
 - **Templates:** `references/shared/contracts/reviewer/full.json` (panel 5) and `references/shared/contracts/reviewer/methodology_focus.json` (panel 2). Reserved modes (`reviewer_re_review`, `reviewer_calibration`, `reviewer_guided`) keep pre-v3.6.2 behaviour until follow-up patch templates land.
+
+---
+
+## Model Tiering (#517, optional)
+
+When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's agents per `references/shared/model_tiering.md` (canonical: the full 39-agent judgment/execution table + rules). Compact rule:
+
+- **Unset (default):** every agent inherits the session model — byte-equivalent pre-#517 behavior.
+- **`economy`** (frontier-tier session): execution-type agents dispatch ONE tier below the session model — floor Opus-class, never lower; judgment-type agents stay on the session model. No-op at or below the floor (announce once).
+- **`quality-boost`** (below-frontier session): judgment-type agents at the checkpoint surfaces (Stage 2.5/4.5 gates; the opt-in Stage 4→5 claim–ref audit; final review) jump UP to the frontier tier (however many tiers away — not a single increment); nothing is ever downgraded. No-op at the frontier (announce once).
+- Unknown values → warn once, behave as unset. Tiers are relative positions, never hard-pinned model ids. When a direction is active, route repeated same-stage calls to the SAME worker so its prompt cache accumulates; unset means dispatch shapes stay byte-equivalent too.
 
 ---
 
@@ -460,7 +474,7 @@ Follows the paper's language. Academic terms remain in English. User can overrid
 | Item | Content |
 |------|---------|
 | Skill Version | 1.10.0 |
-| Last Updated | 2026-06-01 |
+| Last Updated | 2026-07-11 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | academic-paper v1.0+ (upstream/downstream integration) |
 | Role | Multi-perspective academic paper review simulator |
