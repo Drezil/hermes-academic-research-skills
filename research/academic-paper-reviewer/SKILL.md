@@ -28,8 +28,8 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: d8c0f43304b00682961db33812ebd208096a28d8
-  source_suite_version: 3.16.0
+  source_commit: 203eec1c32e429ffda8cd6722b7bb16dfb730a80
+  source_suite_version: 3.18.0
   source_skill: academic-paper-reviewer
   upstream_version: 1.10.0
   upstream_last_updated: 2026-07-11
@@ -43,7 +43,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-paper-reviewer` from
-`Imbad0202/academic-research-skills` at commit `d8c0f43` (2026-07-16).
+`Imbad0202/academic-research-skills` at commit `203eec1` (2026-07-18).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -89,6 +89,8 @@ Review this paper: [paste paper or provide file]
 **English**: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy
 
 **한국어**: 논문 심사, 동료 심사, 모의 심사, 원고 심사, 심사 보고서, 심사자 관점에서 평가, 심사자 보정, 심사 정확도 측정
+
+**繁體中文**: 審查論文, 論文審查, 模擬審查, 同儕審查, 幫我審這篇, 以審查人角度評估, 審查者校準
 
 ### Non-Trigger Scenarios
 
@@ -279,7 +281,7 @@ Routing into Mode B requires an explicit user signal, such as naming the desired
 
 Dedicated mode for Pipeline Stage 3' — verifies whether revisions address first-round review comments. Uses R&R Traceability Matrix (Schema 11) with Author's Claim + Verified? columns.
 
-**Input**: Original Revision Roadmap + Revised manuscript + Response to Reviewers (optional)
+**Input**: Original Revision Roadmap + Revised manuscript + Response to Reviewers (optional) + Editorial Decision Letter (optional, #539 — its Review Panel Provenance block feeds the Judge Record)
 **Output**: Verification Review Report with traceability matrix + new issues + Decision
 
 > See `references/re_review_mode_protocol.md` for full verification logic, output format template, and Socratic guidance details.
@@ -320,6 +322,10 @@ The Devil's Advocate uses a dedicated format, not the standard reviewer template
 ## Editorial Decision Format
 
 The Editorial Decision Letter structure is detailed in `templates/editorial_decision_template.md`.
+
+## Cross-Model Reviewer Track (#540)
+
+In `full` mode only (the five-seat panel — `methodology-focus` has a two-seat contract, and `re-review`/`quick` have no Reviewer 2 seat, so the track and its provenance mandate do not apply there), when cross-model verification is active for the session — `ARS_CROSS_MODEL` configured AND the user has given the explicit cross-model consent (the env var is configuration, not consent; the manuscript is uploaded to the external provider) — Reviewer 2 runs on the cross-model family (a substrate swap inside the fixed five-seat panel — NOT the retired 6th-reviewer design; authority: `references/shared/cross_model_verification.md` § Cross-Model Reviewer Track, incl. the #523 dispatching-layer transport and the two-call sprint-contract split). Otherwise all five personas share one model family — on the normal primary-family routing, including any active `ARS_MODEL_TIERING` policy — and the Editorial Decision Letter's Review Panel Provenance block discloses the correlated-error caveat (Ren et al. 2026, arXiv:2607.13104 §5.2). Dispatch failure falls back to that same primary-family routing with the fallback disclosed — never silent.
 
 ---
 

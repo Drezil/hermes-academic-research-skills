@@ -29,8 +29,8 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: d8c0f43304b00682961db33812ebd208096a28d8
-  source_suite_version: 3.16.0
+  source_commit: 203eec1c32e429ffda8cd6722b7bb16dfb730a80
+  source_suite_version: 3.18.0
   source_skill: academic-paper
   upstream_version: 3.2.0
   upstream_last_updated: 2026-07-11
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-paper` from
-`Imbad0202/academic-research-skills` at commit `d8c0f43` (2026-07-16).
+`Imbad0202/academic-research-skills` at commit `203eec1` (2026-07-18).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -225,7 +225,7 @@ For each `academic-paper full` invocation, Phase 4 + Phase 6 expand from two sin
    - Lint: 3 structural checks (see § "Phase 4a / 6a output lint" below).
 2. **Phase 4b — writer paper-visible drafting + self-scoring.**
    - System prompt: `### Phase 4b — Writer paper-visible drafting + self-scoring` sub-section in the same agent file.
-   - User content: `writer_full` contract JSON (re-injected) + Phase 4a output wrapped in `<phase4a_output>...</phase4a_output>` data delimiter + upstream drafting artefacts (Paper Configuration Record, Paper Outline, Argument Blueprint, Annotated Bibliography, optional Style Profile, optional Knowledge Isolation Directive).
+   - User content: `writer_full` contract JSON (re-injected) + Phase 4a output wrapped in `<phase4a_output>...</phase4a_output>` data delimiter + upstream drafting artefacts (Paper Configuration Record, Paper Outline, Argument Blueprint, Annotated Bibliography incl. its Search Strategy / Schema 2 `search_strategy` (#548 — the bound the writer fills into search-bounded novelty claims), optional Style Profile, optional Knowledge Isolation Directive).
    - Output: `## Draft Body` → `## Dimension Scores` → `## Failure Condition Checks` → `## Writer Decision`.
    - Lint: 4 structural checks (see § "Phase 4b / 6b output lint" below).
 3. **Phase 6a — evaluator paper-blind pre-commitment.**
@@ -464,7 +464,7 @@ Explicit prohibitions to prevent common failure modes:
 ## Quality Standards
 
 ### Writing Quality
-1. **Every claim must have a citation** or be supported by the paper's own data
+1. **Every claim must have a citation** or be supported by the paper's own data — or, for #548 absence/novelty claims, carry documented-search provenance plus the named nearest prior work where one exists (the explicit absence-of-adjacent-work statement suffices otherwise; no source can cite an absence)
 2. **Zero citation orphans** — in-text citations <-> reference list must perfectly match
 3. **Consistent register** — academic tone appropriate for the discipline
 4. **Logical flow** — clear transitions between paragraphs and sections
