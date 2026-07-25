@@ -22,6 +22,7 @@
 - `references/shared/contracts/passport/constraint_violation.schema.json`
 - `references/shared/contracts/passport/experiment_alignment_result.schema.json`
 - `references/shared/contracts/passport/experiment_provenance_entry.schema.json`
+- `references/shared/contracts/passport/human_read_log.schema.json`
 - `references/shared/contracts/passport/literature_corpus_entry.schema.json`
 - `references/shared/contracts/passport/rejection_log.schema.json`
 - `references/shared/contracts/passport/reset_ledger_entry.schema.json`
@@ -49,6 +50,7 @@
 - `references/shared/policy_data/nature_policy.md`
 - `references/shared/prisma_trAIce_protocol.md`
 - `references/shared/raise_framework.md`
+- `references/shared/references/claim_strength_ladder.md`
 - `references/shared/references/firm_rules.md`
 - `references/shared/references/intent_clarification_protocol.md`
 - `references/shared/references/irb_terminology_glossary.md`

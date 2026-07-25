@@ -2,7 +2,7 @@
 name: academic-pipeline
 title: Academic Pipeline — Research-to-Publication Orchestrator
 description: Use when coordinating the full research-to-publication workflow from research through drafting, integrity checks, review, revision, and finalization.
-version: 3.18.0
+version: 3.19.0
 author: "Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills"
 license: CC-BY-NC-4.0
 metadata:
@@ -29,11 +29,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 203eec1c32e429ffda8cd6722b7bb16dfb730a80
-  source_suite_version: 3.18.0
+  source_commit: a5c7b1ea1f5e35f446e673e80e64dd4460af967f
+  source_suite_version: 3.19.0
   source_skill: academic-pipeline
-  upstream_version: 3.18.0
-  upstream_last_updated: 2026-07-18
+  upstream_version: 3.19.0
+  upstream_last_updated: 2026-07-22
   data_access_level: verified_only
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `academic-pipeline` from
-`Imbad0202/academic-research-skills` at commit `203eec1` (2026-07-18).
+`Imbad0202/academic-research-skills` at commit `a5c7b1e` (2026-07-25).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -322,7 +322,7 @@ After user confirmation:
    - Stage 2  --> 2.5: Pass complete paper to integrity_verification_agent
    - Stage 2.5 --> 3: Pass verified paper to reviewer
    - Stage 3  --> 4: Pass Revision Roadmap to academic-paper revision mode
-   - Stage 4  --> 3': Pass revised draft, Response to Reviewers, and the Editorial Decision Letter (its Review Panel Provenance block feeds the #539 Judge Record) to reviewer
+   - Stage 4  --> 3': Pass revised draft, Response to Reviewers, the Editorial Decision Letter (its Review Panel Provenance block feeds the #539 Judge Record), the Round-1 Revision Roadmap being verified, the round's apply report(s) (#390), and the Round-1 Reviewer Configuration Cards (yardstick continuity — field_analyst is NOT re-run at Stage 3'; `re_review_mode_protocol.md` § Yardstick Continuity) to reviewer. This is the re-review-mode transfer, the default Stage 3'; a user-requested fresh full review at 3' instead (mid-entry quick→full path: no Roadmap or Round-1 cards exist) transfers the revised draft + available context only and runs full mode, field_analyst included
    - Stage 3' --> 4': Pass new Revision Roadmap + R&R Traceability Matrix (Schema 11) to academic-paper revision mode
    - Stage 4/4' --> 4.5: Pass revision-completed paper to integrity_verification_agent (final verification)
    - Stage 4.5 --> 5: Pass verified final draft to format-convert mode
@@ -667,8 +667,8 @@ When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's age
 
 | Item | Content |
 |------|---------|
-| Skill Version | 3.18.0 |
-| Last Updated | 2026-07-18 |
+| Skill Version | 3.19.0 |
+| Last Updated | 2026-07-22 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | deep-research v2.0+, academic-paper v2.0+, academic-paper-reviewer v1.1+ |
 | Role | Full academic research workflow orchestrator |
