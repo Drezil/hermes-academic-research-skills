@@ -4,7 +4,7 @@ A Hermes Agent-compatible adaptation of [Academic Research Skills](https://githu
 
 - Upstream suite version: `3.19.0`
 - Upstream commit: `2cf3a51e159458b7a8c8784bb874248e79601f7b` (2026-07-30)
-- Skills: `deep-research`, `academic-paper`, `academic-paper-reviewer`, `academic-pipeline`
+- Skills: `hermes-deep-research`, `hermes-academic-paper`, `hermes-academic-paper-reviewer`, `hermes-academic-pipeline`
 
 ## Installation
 
@@ -20,10 +20,10 @@ cp -R research/* ~/.hermes/skills/research/
 ```bash
 hermes skills tap add Drezil/hermes-academic-research-skills
 # Then install each skill from the tap (once scanner allows it):
-hermes skills install academic-paper
-hermes skills install academic-paper-reviewer
-hermes skills install academic-pipeline
-hermes skills install deep-research
+hermes skills install hermes-academic-paper
+hermes skills install hermes-academic-paper-reviewer
+hermes skills install hermes-academic-pipeline
+hermes skills install hermes-deep-research
 # Updates: hermes skills update
 ```
 

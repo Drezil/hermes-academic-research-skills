@@ -17,25 +17,25 @@ import shutil
 import subprocess
 
 SKILLS = {
-    "deep-research": {
+    "hermes-deep-research": {
         "title": "Deep Research — Universal Academic Research Agent Team",
         "description": "Use when exploring research questions, building literature reviews, fact-checking claims, or running systematic/PRISMA-style academic research workflows.",
         "tags": ["research", "academic", "literature-review", "systematic-review", "prisma", "fact-checking", "socratic"],
         "related": ["academic-paper", "academic-paper-reviewer", "academic-pipeline", "arxiv"],
     },
-    "academic-paper": {
+    "hermes-academic-paper": {
         "title": "Academic Paper — Academic Paper Writing Agent Team",
         "description": "Use when planning, outlining, drafting, revising, formatting, citation-checking, or preparing disclosure/rebuttal material for academic papers.",
         "tags": ["academic", "writing", "paper", "citations", "latex", "pandoc", "revision"],
         "related": ["deep-research", "academic-paper-reviewer", "academic-pipeline"],
     },
-    "academic-paper-reviewer": {
+    "hermes-academic-paper-reviewer": {
         "title": "Academic Paper Reviewer — Multi-Perspective Review Team",
         "description": "Use when reviewing manuscripts, simulating peer review, checking revisions, focusing on methodology, or calibrating reviewer-style critique.",
         "tags": ["academic", "peer-review", "manuscript", "methodology", "reviewer", "critique"],
         "related": ["academic-paper", "academic-pipeline", "deep-research"],
     },
-    "academic-pipeline": {
+    "hermes-academic-pipeline": {
         "title": "Academic Pipeline — Research-to-Publication Orchestrator",
         "description": "Use when coordinating the full research-to-publication workflow from research through drafting, integrity checks, review, revision, and finalization.",
         "tags": ["academic", "pipeline", "orchestration", "research", "writing", "review", "integrity"],
@@ -152,8 +152,8 @@ This is a Hermes Agent adaptation of upstream `{skill_name}` from
 
 This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in equivalents:
 
-- **Write protection** (replaces `ars_write_scope_guard.py`): Before modifying any file outside the current working directory, ask the user via `clarify()`. Respect `AGENTS.md` rules in the project root.
-- **Human acknowledgement** (replaces `ars_mark_read.py`): When you produce findings or decisions that need user sign-off, present them via `clarify()` and WAIT for the user response. Do not auto-advance past integrity checkpoints.
+- **Write protection** (replaces upstream file protection hooks): Before modifying any file outside the current working directory, ask the user via `clarify()`. Respect `AGENTS.md` rules in the project root.
+- **Human acknowledgement** (replaces upstream mark-read hooks): When you produce findings or decisions that need user sign-off, present them via `clarify()` and WAIT for the user response. Do not auto-advance past integrity checkpoints.
 - **Integrity verification**: Run relevant `scripts/check_*.py` validators before presenting findings as confirmed. On failure, report to the user and ask whether to proceed.
 
 ## When to Use
