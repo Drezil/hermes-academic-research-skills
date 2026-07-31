@@ -242,8 +242,8 @@ This repository is a Hermes Agent adaptation of Academic Research Skills by Chen
 See `LICENSE` and `NOTICE.md`.
 """, encoding="utf-8")
 
-    skills_out = out / "skills"
-    skills_out.mkdir()
+    skills_out = out / "skills" / "research"
+    skills_out.mkdir(parents=True)
     for name, spec in SKILLS.items():
         src_skill = upstream / name
         dst = skills_out / name
@@ -313,7 +313,7 @@ Install manually with:
 
 ```bash
 mkdir -p ~/.hermes/skills/research
-cp -R skills/* ~/.hermes/skills/research/
+cp -R skills/research/* ~/.hermes/skills/research/
 ```
 
 See `CONVERT_UPSTREAM.md` in the maintained repository for the full reproducible conversion runbook.

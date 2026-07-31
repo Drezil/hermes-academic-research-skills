@@ -1,0 +1,16 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Academic Research",
+      "description": "Hermes-adapted academic research skills — research, write, review, and publish papers.",
+      "skills": [
+        "hermes-academic-paper",
+        "hermes-academic-paper-reviewer",
+        "hermes-academic-pipeline",
+        "hermes-deep-research"
+      ]
+    }
+  ]
+}
