@@ -6,39 +6,24 @@ A Hermes Agent-compatible adaptation of [Academic Research Skills](https://githu
 - Upstream commit: `2cf3a51e159458b7a8c8784bb874248e79601f7b` (2026-07-30)
 - Skills: `hermes-deep-research`, `hermes-academic-paper`, `hermes-academic-paper-reviewer`, `hermes-academic-pipeline`
 
+Skills are prefixed `hermes-` to avoid collision with the upstream Claude Code version on skills.sh.
+
 ## Installation
 
-**Primary method — local copy:**
-
 ```bash
-mkdir -p ~/.hermes/skills/research
-cp -R skills/research/* ~/.hermes/skills/research/
-```
+# Clone and install
+git clone https://github.com/Drezil/hermes-academic-research-skills.git /tmp/hermes-academic-skills
+cp -r /tmp/hermes-academic-skills/skills/research/* ~/.hermes/skills/research/
 
-**Future: Tap-based auto-updates** (requires Hermes scanner support for trusted taps):
-
-```bash
+# Register tap for future updates
 hermes skills tap add Drezil/hermes-academic-research-skills
-# Then install each skill from the tap (once scanner allows it):
-hermes skills install hermes-academic-paper
-hermes skills install hermes-academic-paper-reviewer
-hermes skills install hermes-academic-pipeline
-hermes skills install hermes-deep-research
-# Updates: hermes skills update
 ```
-
-> **Why not `hermes skills install` today?** The skills.sh registry resolves these skill names
-> to the upstream `Imbad0202/academic-research-skills` repo (Claude Code plugin), which is
-> blocked by Hermes' security scanner. Our tap (`Drezil/hermes-academic-research-skills`)
-> provides the scanner-clean Hermes adaptation but `hermes skills install` always prefers
-> skills.sh. Once Hermes supports tap-priority or trusted sources, the tap flow above replaces
-> manual copies.
 
 ## Cross-Model Verification → Hermes MoA
 
 The upstream cross-model verification feature (sending paper content to external LLM APIs
-with separate API keys) is **not included** in this adaptation. In Hermes, use the built-in
-**Mixture of Agents (MoA)** model instead:
+with separate API keys) is **not included**. In Hermes, use the built-in
+**Mixture of Agents (MoA)** model:
 
 ```bash
 hermes config set moa.enabled true
