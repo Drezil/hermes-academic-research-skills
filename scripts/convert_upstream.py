@@ -192,6 +192,14 @@ def strip_cross_model(skilldir: Path) -> None:
             shutil.rmtree(script)
 
 
+def strip_claude_only(skilldir: Path) -> None:
+    """Remove Claude Code-specific scripts with no Hermes equivalent."""
+    for name in ["ars_write_scope_guard.py", "ars_mark_read.py"]:
+        p = skilldir / "scripts" / name
+        if p.exists():
+            p.unlink()
+
+
 def convert(upstream: Path, out: Path):
     if out.exists():
         raise SystemExit(f"Output already exists: {out}")
@@ -274,6 +282,7 @@ See `LICENSE` and `NOTICE.md`.
         (dst / "SKILL.md").write_text(dump_frontmatter(out_fm) + rewrite_body(body, name, spec["title"], short, date), encoding="utf-8")
         copy_referenced_scripts(upstream, dst)
         strip_cross_model(dst)
+        strip_claude_only(dst)
 
     (out / "README.md").write_text(f"""# Hermes Academic Research Skills
 
