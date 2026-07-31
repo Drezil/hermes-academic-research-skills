@@ -12,7 +12,7 @@ A Hermes Agent-compatible adaptation of [Academic Research Skills](https://githu
 
 ```bash
 mkdir -p ~/.hermes/skills/research
-cp -R research/* ~/.hermes/skills/research/
+cp -R skills/* ~/.hermes/skills/research/
 ```
 
 **Future: Tap-based auto-updates** (requires Hermes scanner support for trusted taps):
