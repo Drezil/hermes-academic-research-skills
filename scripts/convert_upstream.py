@@ -148,6 +148,14 @@ This is a Hermes Agent adaptation of upstream `{skill_name}` from
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
 - **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys — a Claude Code workaround replaced in Hermes by the built-in **Mixture of Agents (MoA)** model (`hermes config set moa.enabled true`). References to cross-model features in the body describe upstream-only functionality.
 
+## Safety in Hermes
+
+This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in equivalents:
+
+- **Write protection** (replaces `ars_write_scope_guard.py`): Before modifying any file outside the current working directory, ask the user via `clarify()`. Respect `AGENTS.md` rules in the project root.
+- **Human acknowledgement** (replaces `ars_mark_read.py`): When you produce findings or decisions that need user sign-off, present them via `clarify()` and WAIT for the user response. Do not auto-advance past integrity checkpoints.
+- **Integrity verification**: Run relevant `scripts/check_*.py` validators before presenting findings as confirmed. On failure, report to the user and ask whether to proceed.
+
 ## When to Use
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.
@@ -193,11 +201,20 @@ def strip_cross_model(skilldir: Path) -> None:
 
 
 def strip_claude_only(skilldir: Path) -> None:
-    """Remove Claude Code-specific scripts with no Hermes equivalent."""
+    """Remove Claude Code-specific content with no Hermes equivalent."""
     for name in ["ars_write_scope_guard.py", "ars_mark_read.py"]:
         p = skilldir / "scripts" / name
         if p.exists():
             p.unlink()
+    # Rewrite CLAUDE.md references in vendored shared files
+    ca = skilldir / "references" / "shared" / "agents" / "compliance_agent.md"
+    if ca.exists():
+        text = ca.read_text(encoding="utf-8")
+        text = text.replace(
+            "(per user CLAUDE.md: never haiku)",
+            "(per model tiering policy)"
+        )
+        ca.write_text(text, encoding="utf-8")
 
 
 def convert(upstream: Path, out: Path):

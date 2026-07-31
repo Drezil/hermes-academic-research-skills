@@ -53,6 +53,14 @@ This is a Hermes Agent adaptation of upstream `academic-paper` from
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
 - **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys. This is replaced in Hermes by the built-in **Mixture of Agents (MoA)** model, which runs multiple models and aggregates their outputs — configure via `hermes config set moa.enabled true`. References to cross-model features in agent prompts and reference files describe upstream-only functionality.
 
+## Safety in Hermes
+
+This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in equivalents:
+
+- **Write protection** (replaces `ars_write_scope_guard.py`): Before modifying any file outside the current working directory, ask the user via `clarify()`. Respect `AGENTS.md` rules in the project root. If the user has `approvals.mode: smart`, Hermes will auto-block dangerous writes.
+- **Human acknowledgement** (replaces `ars_mark_read.py`): When you produce findings, annotations, or decisions that need user sign-off, present them via `clarify()` and WAIT for the user response before proceeding. Do not auto-advance past integrity checkpoints.
+- **Integrity verification**: Run `scripts/check_pipeline_integrity.py` before finalizing any pipeline output. On failure, report to the user and ask whether to proceed.
+
 ## When to Use
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.

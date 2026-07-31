@@ -54,6 +54,14 @@ This is a Hermes Agent adaptation of upstream `deep-research` from
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
 - **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys. This is replaced in Hermes by the built-in **Mixture of Agents (MoA)** model, which runs multiple models and aggregates their outputs — configure via `hermes config set moa.enabled true`. References to cross-model features in agent prompts and reference files describe upstream-only functionality.
 
+## Safety in Hermes
+
+This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in equivalents:
+
+- **Write protection** (replaces `ars_write_scope_guard.py`): Before modifying any file outside the current working directory, ask the user via `clarify()`. Respect `AGENTS.md` rules in the project root.
+- **Human acknowledgement** (replaces `ars_mark_read.py`): When you produce findings or decisions that need user sign-off, present them via `clarify()` and WAIT for the user response.
+- **Source verification**: Run relevant `scripts/check_*.py` validators before presenting findings as confirmed. On failure, report and ask whether to proceed.
+
 ## When to Use
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.
