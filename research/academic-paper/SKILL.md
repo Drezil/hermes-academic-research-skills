@@ -51,6 +51,7 @@ This is a Hermes Agent adaptation of upstream `academic-paper` from
 - Upstream agent prompts are preserved as `references/agents/*.md`; use them as role specifications when delegating or structuring work.
 - Shared upstream protocols are vendored under `references/shared/`.
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
+- **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys. This is replaced in Hermes by the built-in **Mixture of Agents (MoA)** model, which runs multiple models and aggregates their outputs — configure via `hermes config set moa.enabled true`. References to cross-model features in agent prompts and reference files describe upstream-only functionality.
 
 ## When to Use
 

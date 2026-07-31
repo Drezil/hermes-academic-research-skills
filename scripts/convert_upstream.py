@@ -146,6 +146,7 @@ This is a Hermes Agent adaptation of upstream `{skill_name}` from
 - Upstream agent prompts are preserved as `references/agents/*.md`; use them as role specifications when delegating or structuring work.
 - Shared upstream protocols are vendored under `references/shared/`.
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
+- **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys — a Claude Code workaround replaced in Hermes by the built-in **Mixture of Agents (MoA)** model (`hermes config set moa.enabled true`). References to cross-model features in the body describe upstream-only functionality.
 
 ## When to Use
 
@@ -171,6 +172,26 @@ def copy_referenced_scripts(upstream: Path, skilldir: Path) -> list[str]:
             shutil.copy2(source, target)
             copied.append(rel)
     return copied
+
+
+def strip_cross_model(skilldir: Path) -> None:
+    """Remove cross-model verification content incompatible with Hermes."""
+    cm_doc = skilldir / "references" / "shared" / "cross_model_verification.md"
+    if cm_doc.exists():
+        cm_doc.unlink()
+    for script in ["cross_model_handoff.py", "check_benchmark_report.py",
+                   "test_cross_model_handoff.py", "test_normalize_compat_verdict.py"]:
+        p = skilldir / "scripts" / script
+        if p.exists():
+            p.unlink()
+    cm_dir = skilldir / "scripts" / "cross_model_verification"
+    if cm_dir.exists() and cm_dir.is_dir():
+        shutil.rmtree(cm_dir)
+    si = skilldir / "references" / "shared-index.md"
+    if si.exists():
+        text = si.read_text(encoding="utf-8")
+        text = text.replace("- `references/shared/cross_model_verification.md`\n", "")
+        si.write_text(text, encoding="utf-8")
 
 
 def convert(upstream: Path, out: Path):
@@ -242,6 +263,7 @@ See `LICENSE` and `NOTICE.md`.
         })
         (dst / "SKILL.md").write_text(dump_frontmatter(out_fm) + rewrite_body(body, name, spec["title"], short, date), encoding="utf-8")
         copy_referenced_scripts(upstream, dst)
+        strip_cross_model(dst)
 
     (out / "README.md").write_text(f"""# Hermes Academic Research Skills
 

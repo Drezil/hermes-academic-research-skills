@@ -45,7 +45,6 @@
 - `references/shared/contracts/submission/submission_verification_report.schema.json`
 - `references/shared/contracts/submission/venue_profile.schema.json`
 - `references/shared/contracts/writer/full.json`
-- `references/shared/cross_model_verification.md`
 - `references/shared/evals_lift_report.schema.json`
 - `references/shared/ground_truth_isolation_pattern.md`
 - `references/shared/handoff_schemas.md`

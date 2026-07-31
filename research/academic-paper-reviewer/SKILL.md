@@ -50,6 +50,7 @@ This is a Hermes Agent adaptation of upstream `academic-paper-reviewer` from
 - Upstream agent prompts are preserved as `references/agents/*.md`; use them as role specifications when delegating or structuring work.
 - Shared upstream protocols are vendored under `references/shared/`.
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
+- **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys. This is replaced in Hermes by the built-in **Mixture of Agents (MoA)** model, which runs multiple models and aggregates their outputs — configure via `hermes config set moa.enabled true`. References to cross-model features in agent prompts and reference files describe upstream-only functionality.
 
 ## When to Use
 
@@ -326,7 +327,7 @@ The canonical per-mode decision authority table is `references/editorial_decisio
 
 ## Cross-Model Reviewer Track (#540)
 
-In `full` mode only (the five-seat panel — `methodology-focus` has a two-seat contract, and `re-review`/`quick` have no Reviewer 2 seat, so the track and its provenance mandate do not apply there), when cross-model verification is active for the session — `ARS_CROSS_MODEL` configured AND the user has given the explicit cross-model consent (the env var is configuration, not consent; the manuscript is uploaded to the external provider) — Reviewer 2 runs on the cross-model family (a substrate swap inside the fixed five-seat panel — NOT the retired 6th-reviewer design; authority: `references/shared/cross_model_verification.md` § Cross-Model Reviewer Track, incl. the #523 dispatching-layer transport and the two-call sprint-contract split). Otherwise all five personas share one model family — on the normal primary-family routing, including any active `ARS_MODEL_TIERING` policy — and the Editorial Decision Letter's Review Panel Provenance block discloses the correlated-error caveat (Ren et al. 2026, arXiv:2607.13104 §5.2). Dispatch failure falls back to that same primary-family routing with the fallback disclosed — never silent.
+In `full` mode only (the five-seat panel — `methodology-focus` has a two-seat contract, and `re-review`/`quick` have no Reviewer 2 seat, so the track and its provenance mandate do not apply there), Reviewer 2 can optionally run on a different model. In the upstream Claude Code plugin this uses `ARS_CROSS_MODEL` with external API keys; in Hermes, enable **Mixture of Agents** (`hermes config set moa.enabled true`) to achieve the same cross-model diversity without external API setup. Otherwise all five personas share one model family — on the normal primary-family routing, including any active `ARS_MODEL_TIERING` policy — and the Editorial Decision Letter's Review Panel Provenance block discloses the correlated-error caveat (Ren et al. 2026, arXiv:2607.13104 §5.2). Dispatch failure falls back to that same primary-family routing with the fallback disclosed — never silent.
 
 ---
 
