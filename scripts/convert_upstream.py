@@ -143,7 +143,7 @@ This is a Hermes Agent adaptation of upstream `{skill_name}` from
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
-- Shared upstream protocols are vendored under references/shared/.
+- Shared upstream protocols are vendored in the references/shared directory
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
 - **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys — a Claude Code workaround replaced in Hermes by the built-in **Mixture of Agents (MoA)** model (`hermes config set moa.enabled true`). References to cross-model features in the body describe upstream-only functionality.
 
