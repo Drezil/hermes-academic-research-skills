@@ -175,23 +175,21 @@ def copy_referenced_scripts(upstream: Path, skilldir: Path) -> list[str]:
 
 
 def strip_cross_model(skilldir: Path) -> None:
-    """Remove cross-model verification content incompatible with Hermes."""
-    cm_doc = skilldir / "references" / "shared" / "cross_model_verification.md"
-    if cm_doc.exists():
-        cm_doc.unlink()
-    for script in ["cross_model_handoff.py", "check_benchmark_report.py",
+    """Remove cross-model verification scripts incompatible with Hermes."""
+    for pattern in ["cross_model_handoff.py", "check_benchmark_report.py",
                    "test_cross_model_handoff.py", "test_normalize_compat_verdict.py"]:
-        p = skilldir / "scripts" / script
+        p = skilldir / "scripts" / pattern
         if p.exists():
             p.unlink()
     cm_dir = skilldir / "scripts" / "cross_model_verification"
     if cm_dir.exists() and cm_dir.is_dir():
         shutil.rmtree(cm_dir)
-    si = skilldir / "references" / "shared-index.md"
-    if si.exists():
-        text = si.read_text(encoding="utf-8")
-        text = text.replace("- `references/shared/cross_model_verification.md`\n", "")
-        si.write_text(text, encoding="utf-8")
+    # Catch any future cross-model scripts added by upstream
+    for script in list((skilldir / "scripts").glob("cross_model*")):
+        if script.is_file():
+            script.unlink()
+        elif script.is_dir():
+            shutil.rmtree(script)
 
 
 def convert(upstream: Path, out: Path):
@@ -236,8 +234,20 @@ See `LICENSE` and `NOTICE.md`.
                 shutil.copy2(item, dst / item.name)
         if (upstream / "shared").exists():
             shutil.copytree(upstream / "shared", dst / "references" / "shared", dirs_exist_ok=True)
-            shared_files = sorted(str(p.relative_to(dst / "references" / "shared")) for p in (dst / "references" / "shared").rglob("*") if p.is_file())
-            (dst / "references" / "shared-index.md").write_text("# Shared Upstream Materials\n\n" + "\n".join(f"- `references/shared/{p}`" for p in shared_files) + "\n", encoding="utf-8")
+            # Filter out cross-model content incompatible with Hermes
+            cross_model_doc = dst / "references" / "shared" / "cross_model_verification.md"
+            if cross_model_doc.exists():
+                cross_model_doc.unlink()
+            shared_files = sorted(
+                str(p.relative_to(dst / "references" / "shared"))
+                for p in (dst / "references" / "shared").rglob("*")
+                if p.is_file() and "cross_model" not in p.name
+            )
+            (dst / "references" / "shared-index.md").write_text(
+                "# Shared Upstream Materials\n\n"
+                + "\n".join(f"- `references/shared/{p}`" for p in shared_files)
+                + "\n", encoding="utf-8"
+            )
         fm, body = split_frontmatter((src_skill / "SKILL.md").read_text(encoding="utf-8"))
         meta = fm.get("metadata") or {}
         version = str(meta.get("version") or fm.get("version") or "unknown")
