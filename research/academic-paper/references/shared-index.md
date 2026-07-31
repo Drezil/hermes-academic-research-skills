@@ -34,6 +34,10 @@
 - `references/shared/contracts/passport/version_records.schema.json`
 - `references/shared/contracts/patch/block_manifest.schema.json`
 - `references/shared/contracts/patch/revision_patch.schema.json`
+- `references/shared/contracts/re_review/input_manifest.schema.json`
+- `references/shared/contracts/re_review/precommitment.schema.json`
+- `references/shared/contracts/re_review/traceability.schema.json`
+- `references/shared/contracts/re_review/verdict_record.schema.json`
 - `references/shared/contracts/reviewer/full.json`
 - `references/shared/contracts/reviewer/methodology_focus.json`
 - `references/shared/contracts/submission/format_profile.example.yaml`
