@@ -423,7 +423,7 @@ See `references/agents/intake_agent.md` for the complete field definitions of th
 
 ## File Structure
 
-**Agent definitions**: its references/agents/ subdirectory — one file per agent (12 total, matching Agent Team table above).
+**Agent definitions**: individual agent files under references/agents — one file per agent (12 total, matching Agent Team table above).
 
 **References** (28 files in `references/`):
 - Citation: `apa7_extended_guide`, `apa7_chinese_citation_guide`, `citation_format_switcher`
