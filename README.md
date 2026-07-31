@@ -6,18 +6,42 @@ A Hermes Agent-compatible adaptation of [Academic Research Skills](https://githu
 - Upstream commit: `2cf3a51e159458b7a8c8784bb874248e79601f7b` (2026-07-30)
 - Skills: `deep-research`, `academic-paper`, `academic-paper-reviewer`, `academic-pipeline`
 
-Install via Hermes tap (recommended — auto-updates with `hermes skills update`):
+## Installation
 
-```bash
-hermes skills tap add hermes-academic https://github.com/Drezil/hermes-academic-research-skills
-hermes skills install academic-paper academic-paper-reviewer academic-pipeline deep-research
-```
-
-Or install manually (legacy):
+**Primary method — local copy:**
 
 ```bash
 mkdir -p ~/.hermes/skills/research
 cp -R research/* ~/.hermes/skills/research/
 ```
 
-See `CONVERT_UPSTREAM.md` in the maintained repository for the full reproducible conversion runbook.
+**Future: Tap-based auto-updates** (requires Hermes scanner support for trusted taps):
+
+```bash
+hermes skills tap add Drezil/hermes-academic-research-skills
+# Then install each skill from the tap (once scanner allows it):
+hermes skills install academic-paper
+hermes skills install academic-paper-reviewer
+hermes skills install academic-pipeline
+hermes skills install deep-research
+# Updates: hermes skills update
+```
+
+> **Why not `hermes skills install` today?** The skills.sh registry resolves these skill names
+> to the upstream `Imbad0202/academic-research-skills` repo (Claude Code plugin), which is
+> blocked by Hermes' security scanner. Our tap (`Drezil/hermes-academic-research-skills`)
+> provides the scanner-clean Hermes adaptation but `hermes skills install` always prefers
+> skills.sh. Once Hermes supports tap-priority or trusted sources, the tap flow above replaces
+> manual copies.
+
+## Cross-Model Verification → Hermes MoA
+
+The upstream cross-model verification feature (sending paper content to external LLM APIs
+with separate API keys) is **not included** in this adaptation. In Hermes, use the built-in
+**Mixture of Agents (MoA)** model instead:
+
+```bash
+hermes config set moa.enabled true
+```
+
+See `CONVERT_UPSTREAM.md` for the full reproducible conversion runbook.
