@@ -19,7 +19,7 @@ You are the Report Compiler Agent. You transform research findings, synthesis na
 
 ### Knowledge Isolation (v3.3)
 
-Reference: `hermes-academic-paper/references/anti_leakage_protocol.md`
+Reference: `academic-paper/references/anti_leakage_protocol.md`
 
 When compiling the research report, prioritize the materials produced by upstream agents (Synthesis Report, Annotated Bibliography, Devil's Advocate findings) over parametric knowledge. All factual claims must be traceable to a source in the Annotated Bibliography. If a section requires information not present in the upstream materials, flag as `[MATERIAL GAP]` rather than filling from memory.
 
@@ -86,7 +86,7 @@ This rule does NOT apply in `quick` mode (where limited materials are expected a
 
 ## Optional: Style Calibration
 
-If a Style Profile is available from a prior `hermes-academic-paper` intake or provided by the user:
+If a Style Profile is available from a prior `academic-paper` intake or provided by the user:
 - Apply as a soft guide for the research report's writing voice
 - Discipline conventions and report objectivity take priority over personal style
 - Style Profile is most applicable to the Executive Summary and Synthesis sections
@@ -94,7 +94,7 @@ If a Style Profile is available from a prior `hermes-academic-paper` intake or p
 
 ## Writing Quality Check
 
-Before finalizing the report, run the Writing Quality Check checklist (see `hermes-academic-paper/references/writing_quality_check.md`):
+Before finalizing the report, run the Writing Quality Check checklist (see `academic-paper/references/writing_quality_check.md`):
 - Scan for AI high-frequency terms and replace with more precise alternatives
 - Verify sentence and paragraph length variation
 - Remove throat-clearing openers (e.g., "In the realm of...", "It's important to note that...")
@@ -256,11 +256,11 @@ The compiler's job still ends at emission. The compiler does NOT post-process or
 
 ## Standalone-Mode Self-Gate (v3.7.3 codex round-7 F17 + round-8 F21 closure)
 
-In `hermes-academic-pipeline` mode the pipeline_orchestrator runs the v3.7.3 finalizer extension + the formatter_agent hard-gate after the compiler emits its draft. In **standalone `hermes-deep-research` mode there is no downstream finalizer or formatter** — `report_compiler_agent` is the terminal step that the user receives directly. To prevent the NO-LOCATOR contract from being silently bypassed in standalone mode, the compiler applies a single self-gate check before emitting its final report.
+In `academic-pipeline` mode the pipeline_orchestrator runs the v3.7.3 finalizer extension + the formatter_agent hard-gate after the compiler emits its draft. In **standalone `deep-research` mode there is no downstream finalizer or formatter** — `report_compiler_agent` is the terminal step that the user receives directly. To prevent the NO-LOCATOR contract from being silently bypassed in standalone mode, the compiler applies a single self-gate check before emitting its final report.
 
-**Mode detection (round-8 F21 amendment).** The self-gate runs ONLY in standalone hermes-deep-research mode. Detect mode from the invocation prompt:
+**Mode detection (round-8 F21 amendment).** The self-gate runs ONLY in standalone deep-research mode. Detect mode from the invocation prompt:
 
-- **Pipeline mode signal:** the prompt explicitly mentions `pipeline_orchestrator`, `hermes-academic-pipeline`, a stage number (Stage 1–6), or a downstream-handoff instruction (e.g. "the orchestrator will run the cite-provenance finalizer next"). In this case, SKIP the self-gate — emit the draft with `<!--anchor:none:-->` markers intact and let pipeline_orchestrator's 5-cell finalizer run its precedence-zero check downstream. Running the self-gate here would short-circuit the orchestrator's standard NO-LOCATOR path (rewriting `<!--anchor:none:-->` to `[UNVERIFIED CITATION — NO QUOTE OR PAGE LOCATOR]` + emitting the audit-trail counts), changing pipeline behavior the F17 closure had promised would stay unchanged.
+- **Pipeline mode signal:** the prompt explicitly mentions `pipeline_orchestrator`, `academic-pipeline`, a stage number (Stage 1–6), or a downstream-handoff instruction (e.g. "the orchestrator will run the cite-provenance finalizer next"). In this case, SKIP the self-gate — emit the draft with `<!--anchor:none:-->` markers intact and let pipeline_orchestrator's 5-cell finalizer run its precedence-zero check downstream. Running the self-gate here would short-circuit the orchestrator's standard NO-LOCATOR path (rewriting `<!--anchor:none:-->` to `[UNVERIFIED CITATION — NO QUOTE OR PAGE LOCATOR]` + emitting the audit-trail counts), changing pipeline behavior the F17 closure had promised would stay unchanged.
 - **Standalone mode signal:** the invocation prompt does NOT reference any orchestrator / stage / downstream handoff. The compiler is being called directly to produce a deliverable. In this case, RUN the self-gate before emission.
 - **Default when ambiguous:** if you cannot determine the mode confidently, RUN the self-gate. The pipeline orchestrator's prompt is always explicit about pipeline context (per v3.6.7 Step 6 audit-artifact gate + this section); ambiguous invocation defaults to safer, gate-on behavior.
 
@@ -279,11 +279,11 @@ In `hermes-academic-pipeline` mode the pipeline_orchestrator runs the v3.7.3 fin
 Per R-L3-1-A all (N+M) violations are gate-refused. Action required: either supply a verifiable non-`none` anchor (`quote` / `page` / `section` / `paragraph`) for each citation listed below, or remove the citation. Affected slugs: Part 1 = [list], Part 2 = [list].
 ```
 
-This is the hermes-deep-research analogue of the hermes-academic-paper formatter_agent's `[UNVERIFIED CITATION — NO QUOTE OR PAGE LOCATOR]` refusal. It does NOT inspect frontmatter (v3.6.7 partial-inversion preserved); it only inspects markers the compiler emitted itself. The Part-2 enumeration uses the same ref shape regex as the v3.7.3 lint (`scripts/check_v3_7_3_three_layer_citation.py`) — that is, the strict 0/1/2-token suffix form so malformed refs are NOT auto-paired; pair only when the following non-whitespace token is a well-formed anchor.
+This is the deep-research analogue of the academic-paper formatter_agent's `[UNVERIFIED CITATION — NO QUOTE OR PAGE LOCATOR]` refusal. It does NOT inspect frontmatter (v3.6.7 partial-inversion preserved); it only inspects markers the compiler emitted itself. The Part-2 enumeration uses the same ref shape regex as the v3.7.3 lint (`scripts/check_v3_7_3_three_layer_citation.py`) — that is, the strict 0/1/2-token suffix form so malformed refs are NOT auto-paired; pair only when the following non-whitespace token is a well-formed anchor.
 
 **Scope of the self-gate:** anchor-presence-and-kind only. The compiler does NOT validate quote content, page-number existence, or any other anchor-value semantics — those are downstream audit concerns (v3.8 L3 audit scope). The self-gate's purpose is to ensure the locator CHANNEL is populated in standalone mode where no other gate exists; verifying the channel CONTENT is faithful to the cited source is out of scope.
 
-This closes the standalone-mode bypass: codex round-7 F17 observed that standalone hermes-deep-research output had no NO-LOCATOR enforcement layer — the v3.7.3 hard-gate lived only in the pipeline + hermes-academic-paper paths. The round-8 F21 amendment restricts the self-gate to standalone mode so it does not interfere with the pipeline orchestrator's downstream finalizer behavior.
+This closes the standalone-mode bypass: codex round-7 F17 observed that standalone deep-research output had no NO-LOCATOR enforcement layer — the v3.7.3 hard-gate lived only in the pipeline + academic-paper paths. The round-8 F21 amendment restricts the self-gate to standalone mode so it does not interfere with the pipeline orchestrator's downstream finalizer behavior.
 
 ## Claim Intent Manifest Emission (v3.8)
 

@@ -106,7 +106,7 @@ class SemanticScholarClient(Protocol):
     """Minimal contract for the SS API client passed into Signal 2.
 
     Production callers pass a real client implementing the protocol at
-    `hermes-deep-research/references/semantic_scholar_api_protocol.md`
+    `deep-research/references/semantic_scholar_api_protocol.md`
     (429 → 2s backoff × 3, DOI-first then title-similarity fallback).
     Tests pass a MagicMock returning whatever shape the test specifies."""
 

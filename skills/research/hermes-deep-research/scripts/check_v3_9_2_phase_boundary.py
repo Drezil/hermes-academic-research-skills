@@ -56,56 +56,56 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # Bucket A — 23 single-phase agents that MUST have Phase Boundary block.
 # Source: docs/design/2026-05-18-ars-v3.9.2-agent-phase-classification.md
 BUCKET_A_AGENTS = [
-    # hermes-deep-research/agents/ (10)
-    "hermes-deep-research/agents/research_question_agent.md",
-    "hermes-deep-research/agents/research_architect_agent.md",
-    "hermes-deep-research/agents/bibliography_agent.md",
-    "hermes-deep-research/agents/source_verification_agent.md",
-    "hermes-deep-research/agents/synthesis_agent.md",
-    "hermes-deep-research/agents/timeline_extraction_agent.md",  # v3.9.4 Phase 2 sibling
-    "hermes-deep-research/agents/editor_in_chief_agent.md",
-    "hermes-deep-research/agents/ethics_review_agent.md",
-    "hermes-deep-research/agents/risk_of_bias_agent.md",
-    "hermes-deep-research/agents/meta_analysis_agent.md",
-    # hermes-academic-paper/agents/ (7)
-    "hermes-academic-paper/agents/literature_strategist_agent.md",
-    "hermes-academic-paper/agents/structure_architect_agent.md",
-    "hermes-academic-paper/agents/draft_writer_agent.md",
-    "hermes-academic-paper/agents/citation_compliance_agent.md",
-    "hermes-academic-paper/agents/abstract_bilingual_agent.md",
-    "hermes-academic-paper/agents/peer_reviewer_agent.md",
-    "hermes-academic-paper/agents/formatter_agent.md",
-    # hermes-academic-paper-reviewer/agents/ (6)
-    "hermes-academic-paper-reviewer/agents/eic_agent.md",
-    "hermes-academic-paper-reviewer/agents/methodology_reviewer_agent.md",
-    "hermes-academic-paper-reviewer/agents/domain_reviewer_agent.md",
-    "hermes-academic-paper-reviewer/agents/perspective_reviewer_agent.md",
-    "hermes-academic-paper-reviewer/agents/devils_advocate_reviewer_agent.md",
-    "hermes-academic-paper-reviewer/agents/editorial_synthesizer_agent.md",
+    # deep-research/agents/ (10)
+    "deep-research/agents/research_question_agent.md",
+    "deep-research/agents/research_architect_agent.md",
+    "deep-research/agents/bibliography_agent.md",
+    "deep-research/agents/source_verification_agent.md",
+    "deep-research/agents/synthesis_agent.md",
+    "deep-research/agents/timeline_extraction_agent.md",  # v3.9.4 Phase 2 sibling
+    "deep-research/agents/editor_in_chief_agent.md",
+    "deep-research/agents/ethics_review_agent.md",
+    "deep-research/agents/risk_of_bias_agent.md",
+    "deep-research/agents/meta_analysis_agent.md",
+    # academic-paper/agents/ (7)
+    "academic-paper/agents/literature_strategist_agent.md",
+    "academic-paper/agents/structure_architect_agent.md",
+    "academic-paper/agents/draft_writer_agent.md",
+    "academic-paper/agents/citation_compliance_agent.md",
+    "academic-paper/agents/abstract_bilingual_agent.md",
+    "academic-paper/agents/peer_reviewer_agent.md",
+    "academic-paper/agents/formatter_agent.md",
+    # academic-paper-reviewer/agents/ (6)
+    "academic-paper-reviewer/agents/eic_agent.md",
+    "academic-paper-reviewer/agents/methodology_reviewer_agent.md",
+    "academic-paper-reviewer/agents/domain_reviewer_agent.md",
+    "academic-paper-reviewer/agents/perspective_reviewer_agent.md",
+    "academic-paper-reviewer/agents/devils_advocate_reviewer_agent.md",
+    "academic-paper-reviewer/agents/editorial_synthesizer_agent.md",
 ]
 
 # Buckets B/C/D — 16 agents that MUST NOT have the block.
 # B (4): multi-phase; C (8): phase-orthogonal; D (4): cross-phase-meta.
 BUCKET_BCD_AGENTS = [
     # Bucket B — multi-phase (4)
-    "hermes-deep-research/agents/devils_advocate_agent.md",          # P1, 3, 5 + Socratic L2, 4
-    "hermes-deep-research/agents/report_compiler_agent.md",          # P4, 6
-    "hermes-academic-paper/agents/argument_builder_agent.md",        # P3 + Plan Step 3
-    "hermes-academic-paper/agents/visualization_agent.md",           # P4 + P7
+    "deep-research/agents/devils_advocate_agent.md",          # P1, 3, 5 + Socratic L2, 4
+    "deep-research/agents/report_compiler_agent.md",          # P4, 6
+    "academic-paper/agents/argument_builder_agent.md",        # P3 + Plan Step 3
+    "academic-paper/agents/visualization_agent.md",           # P4 + P7
     # Bucket C — phase-orthogonal (8)
-    "hermes-deep-research/agents/socratic_mentor_agent.md",          # Socratic Layer 1-5
-    "hermes-academic-paper/agents/socratic_mentor_agent.md",         # Plan Step 0-3
-    "hermes-deep-research/agents/monitoring_agent.md",               # post-pipeline
-    "hermes-academic-paper/agents/revision_coach_agent.md",          # Revision-Coach standalone
-    "hermes-academic-pipeline/agents/integrity_verification_agent.md",  # Stage 2.5 / 4.5 gates
-    "hermes-academic-pipeline/agents/collaboration_depth_agent.md",  # FULL/SLIM advisory
-    "hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md",  # opt-in audit
+    "deep-research/agents/socratic_mentor_agent.md",          # Socratic Layer 1-5
+    "academic-paper/agents/socratic_mentor_agent.md",         # Plan Step 0-3
+    "deep-research/agents/monitoring_agent.md",               # post-pipeline
+    "academic-paper/agents/revision_coach_agent.md",          # Revision-Coach standalone
+    "academic-pipeline/agents/integrity_verification_agent.md",  # Stage 2.5 / 4.5 gates
+    "academic-pipeline/agents/collaboration_depth_agent.md",  # FULL/SLIM advisory
+    "academic-pipeline/agents/claim_ref_alignment_audit_agent.md",  # opt-in audit
     "shared/agents/compliance_agent.md",                      # cross-skill stage gates
     # Bucket D — cross-phase / meta (4)
-    "hermes-academic-paper/agents/intake_agent.md",                  # Phase 0 cross-phase config
-    "hermes-academic-pipeline/agents/pipeline_orchestrator_agent.md",  # orchestrator
-    "hermes-academic-pipeline/agents/state_tracker_agent.md",        # meta state
-    "hermes-academic-paper-reviewer/agents/field_analyst_agent.md",  # Phase 0 configures panel
+    "academic-paper/agents/intake_agent.md",                  # Phase 0 cross-phase config
+    "academic-pipeline/agents/pipeline_orchestrator_agent.md",  # orchestrator
+    "academic-pipeline/agents/state_tracker_agent.md",        # meta state
+    "academic-paper-reviewer/agents/field_analyst_agent.md",  # Phase 0 configures panel
 ]
 
 # v3.9.4: widened to accept either v3.9.2 or v3.9.4 phase boundary markers.

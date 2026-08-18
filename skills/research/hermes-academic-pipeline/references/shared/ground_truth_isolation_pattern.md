@@ -70,7 +70,7 @@ verification. Material at this layer is untrusted by default. It may be
 hallucinated, adversarially crafted, outdated, or contain PII. A skill
 operating at layer 1 must treat every factual claim as potentially wrong, flag
 gaps rather than silently filling them from parametric memory, and pass nothing
-downstream as verified fact without explicit gate passage. The `hermes-deep-research`
+downstream as verified fact without explicit gate passage. The `deep-research`
 skill operates here.
 
 **Layer 2 — verified artifacts** are outputs that have cleared an integrity
@@ -165,8 +165,13 @@ can reason about data-flow safety without reading every agent definition file.
 repo-tracked rubric files that describe output format or structural
 requirements — not answer keys, not expected content. For calibration gold
 sets, require the human researcher to supply a session file at runtime. Never
-bundle gold labels into the repository or reference them from `SKILL.md` in a
-way that loads them unconditionally.
+wire gold labels into operational agent context: no reference from `SKILL.md`
+or any always-loaded file may load them unconditionally. Repo-tracked gold
+sets under `evals/` are consistent with this boundary only when their content
+is synthetic or public-safe — evaluation harnesses (`scripts/run_evals.py`)
+read them on explicit invocation only. Calibration gold sets for live
+reviewer scoring remain runtime-supplied and are never committed (they may
+contain human or private data).
 
 **DO: Pass scores back through a reviewer agent that holds the rubric
 privately.** The review workflow is: reviewer reads paper + rubric → reviewer
@@ -204,10 +209,10 @@ not a duplication of their contents.
 
 | Mechanism | Where it lives |
 |---|---|
-| Source verification (S2 API) | `hermes-deep-research/references/semantic_scholar_api_protocol.md` |
-| Anti-leakage protocol | `hermes-academic-paper/references/anti_leakage_protocol.md` |
-| Integrity gates (Stage 2.5/4.5) + 7-mode failure checklist | `hermes-academic-pipeline/references/ai_research_failure_modes.md` |
-| Reviewer calibration mode (FNR/FPR with private gold set) | `hermes-academic-paper-reviewer/references/calibration_mode_protocol.md` |
+| Source verification (S2 API) | `deep-research/references/semantic_scholar_api_protocol.md` |
+| Anti-leakage protocol | `academic-paper/references/anti_leakage_protocol.md` |
+| Integrity gates (Stage 2.5/4.5) + 7-mode failure checklist | `academic-pipeline/references/ai_research_failure_modes.md` |
+| Reviewer calibration mode (FNR/FPR with private gold set) | `academic-paper-reviewer/references/calibration_mode_protocol.md` |
 | Cross-model verification | `shared/cross_model_verification.md` |
 | Declarative posture | `shared/handoff_schemas.md` (`data_access_level` and `task_type` sections) |
 

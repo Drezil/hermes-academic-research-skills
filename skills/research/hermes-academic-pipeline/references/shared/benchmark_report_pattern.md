@@ -81,8 +81,8 @@ lives or dies. A weak human baseline inflates an agent's apparent advantage.
   on `raw` data while the human baseline used redacted data, the benchmark is testing
   data privilege, not skill. Cross-references ground-truth isolation from v3.3.2.
 
-- **`skills_used`** (array, minItems 1): A benchmark running `hermes-academic-pipeline`
-  full-mode is not comparable to one running only `hermes-deep-research`. Both are ARS;
+- **`skills_used`** (array, minItems 1): A benchmark running `academic-pipeline`
+  full-mode is not comparable to one running only `deep-research`. Both are ARS;
   they're different scope claims.
 
 ### `metrics.scoring_independence`
@@ -171,8 +171,8 @@ or be apparent to any reader of the JSON.
 
 ## Future evolution
 
-Per-skill benchmark templates (a `hermes-deep-research`-specific template, an
-`hermes-academic-paper-reviewer`-specific template) are likely as v3.4 adds domain-specific
+Per-skill benchmark templates (a `deep-research`-specific template, an
+`academic-paper-reviewer`-specific template) are likely as v3.4 adds domain-specific
 evaluation protocols. The `cost_usd` field may split into `cost_usd_api` and
 `cost_usd_compute` once cloud execution costs become a factor. The
 `data_access_level_declared` enum may expand to match the v3.4 ground-truth tier

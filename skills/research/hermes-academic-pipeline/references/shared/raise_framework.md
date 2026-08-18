@@ -11,7 +11,7 @@ related: "Position Statement on AI Use in Evidence Synthesis (Cochrane, Campbell
 
 ## Scope disclaimer (required, do not remove)
 
-RAISE's official scope is **evidence synthesis** (systematic review, meta-analysis, scoping review, rapid review, evidence mapping). When ARS applies RAISE **principles** to non-evidence-synthesis work — e.g., `hermes-academic-paper full` on primary research — this is a **principle extension**, not official RAISE compliance. ARS's `compliance_agent` will only claim RAISE compliance for outputs produced in `systematic_review` or `other_evidence_synthesis` modes.
+RAISE's official scope is **evidence synthesis** (systematic review, meta-analysis, scoping review, rapid review, evidence mapping). When ARS applies RAISE **principles** to non-evidence-synthesis work — e.g., `academic-paper full` on primary research — this is a **principle extension**, not official RAISE compliance. ARS's `compliance_agent` will only claim RAISE compliance for outputs produced in `systematic_review` or `other_evidence_synthesis` modes.
 
 **Used by**: `compliance_agent` (Task 8).
 
@@ -80,7 +80,7 @@ Used when `raise.mode == "full"` (SR and other_evidence_synthesis). Each role ca
 1. Adhere to open science practice when researching and evaluating AI systems.
 2. Commit to independent evaluations and validation of AI systems.
 
-**ARS self-declaration:** ARS cross-model verification per `cross_model_verification.md` provides one form of independent validation — integrity sample checks, independent DA critique, and blind disagreement checkpoints at the two irreversible decisions. The once-planned sixth-reviewer design was retired in #518 (its failure modes matched ARS's documented anti-patterns).
+**ARS self-declaration:** ARS cross-model verification per `cross_model_verification.md` provides blind, typed-provenance cross-model checks — integrity samples, DA critique, and disagreement checkpoints at two irreversible decisions. Different model families may reduce one source of correlated error, but these checks are not a claim of independent validation or improved accuracy. The once-planned sixth-reviewer design was retired in #518 (its failure modes matched ARS's documented anti-patterns).
 
 ### Role 4 — Publishers of evidence synthesis
 

@@ -2,7 +2,7 @@
 """Minimal OpenAlex API client wrapper.
 
 Implements the lookup contract documented at
-`hermes-deep-research/references/openalex_api_protocol.md`. DOI-first with
+`deep-research/references/openalex_api_protocol.md`. DOI-first with
 title cross-check (DOI_MISMATCH pattern), title-similarity fallback,
 429 → budget-exhausted fail-fast or exponential backoff × 3 retries,
 5xx → skip. Mirrors `semantic_scholar_client.py` structure for code
@@ -47,7 +47,9 @@ _API_BASE = "https://api.openalex.org"
 _API_HOST = "api.openalex.org"
 _API_KEY_ENV = "OPENALEX_API_KEY"
 _POLITE_EMAIL_ENV = "OPENALEX_POLITE_EMAIL"
-_FIELDS = "id,title,authorships,publication_year,doi,primary_location"
+# #651: is_retracted is part of the normal Works response and is retained in
+# the same lookup. No additional request is required.
+_FIELDS = "id,title,authorships,publication_year,doi,primary_location,is_retracted"
 
 _AUTHENTICATED_MIN_INTERVAL = 0.1
 _ANONYMOUS_MIN_INTERVAL = 1.0

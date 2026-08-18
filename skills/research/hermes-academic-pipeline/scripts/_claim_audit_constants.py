@@ -122,7 +122,7 @@ DRIFT_RULE_VERSION = "D4-a-v1"
 UAF_RULE_VERSION = "D4-c-v1-uaf-v1"
 
 # #361 — judge-prompt version, a HUMAN-READABLE LABEL ONLY. The judge prompt
-# text lives in hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md
+# text lives in academic-pipeline/agents/claim_ref_alignment_audit_agent.md
 # (### Step 5 — Judge invocation) and is supplied to the pipeline via an injected
 # judge_fn, so the pipeline cannot hash the prompt text itself. This literal is a
 # friendly name for the current prompt revision (e.g. the #213 Step-0
@@ -135,7 +135,7 @@ JUDGE_PROMPT_VERSION = "step0-decomp-v1"
 
 # #361 backstop: SHA-256 of the canonical judge-prompt section (the text between
 # the JUDGE-PROMPT-CANONICAL-START/END markers in
-# hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md, stripped).
+# academic-pipeline/agents/claim_ref_alignment_audit_agent.md, stripped).
 # scripts/check_judge_prompt_version.py recomputes this hash and fails CI if it
 # drifts — forcing a human to update this hash whenever the prompt text changes.
 # This hash DOUBLES AS the judge-cache-key prompt component (the single source of

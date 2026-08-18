@@ -1,7 +1,7 @@
 # AI Research Failure Mode Checklist
 
 **Status**: v3.2
-**Parent skill**: `hermes-academic-pipeline`
+**Parent skill**: `academic-pipeline`
 **Used at**: Stage 2.5 INTEGRITY (blocking), Stage 4.5 FINAL INTEGRITY (blocking), Stage 6 PROCESS SUMMARY (reporting only)
 **Source**: Lu et al. (2026). Towards end-to-end automation of AI research. *Nature* 651, 914-919. doi:10.1038/s41586-026-10265-5 — Limitations section, Figure 2 (examples of failures in The AI Scientist's own accepted paper), Supplementary Information A.2.9 (debugging traces).
 
@@ -15,7 +15,7 @@ These failures are dangerous because **they look like competent work**. A paper 
 
 The checklist exists to make these failures legible: **at Stage 2.5 and Stage 4.5, the integrity reviewer must explicitly rule out each of the 7 modes, or flag which are suspected and block the pipeline until the user acknowledges.**
 
-This also extends the existing 5-type citation hallucination taxonomy (in `hermes-academic-paper-reviewer` references) into a broader 7-type AI research hallucination taxonomy. Citation hallucinations become mode 2 below.
+This also extends the existing 5-type citation hallucination taxonomy (in `academic-paper-reviewer` references) into a broader 7-type AI research hallucination taxonomy. Citation hallucinations become mode 2 below.
 
 ---
 
@@ -38,11 +38,11 @@ This also extends the existing 5-type citation hallucination taxonomy (in `herme
 
 ### Mode 2: Hallucinated citation
 
-**What it is**: A reference that does not exist, is miscited (wrong year, wrong journal, wrong authors), or is attributed a finding it does not contain. This is the mode ARS already covers most thoroughly via the 5-type citation hallucination taxonomy in `hermes-academic-paper-reviewer/references/`. It is included here for completeness of the 7-mode taxonomy.
+**What it is**: A reference that does not exist, is miscited (wrong year, wrong journal, wrong authors), or is attributed a finding it does not contain. This is the mode ARS already covers most thoroughly via the 5-type citation hallucination taxonomy in `academic-paper-reviewer/references/`. It is included here for completeness of the 7-mode taxonomy.
 
 **Lu 2026 example**: The AI Scientist pipeline includes a Semantic Scholar citation check to suppress this mode, acknowledging it as a primary failure class. PaperOrchestra (Song et al., 2026) extended this with a two-phase pipeline: web search discovery + sequential Semantic Scholar API verification (Levenshtein >= 0.70 title matching).
 
-**Detection (v3.3 update)**: Covered by the existing integrity verification, now strengthened with Semantic Scholar API batch verification (Phase A0 in `integrity_verification_agent`). See `hermes-deep-research/references/semantic_scholar_api_protocol.md` for the API protocol. The S2 API provides structured, machine-readable verification that catches fabricated DOIs (DOI_MISMATCH pattern) missed by manual WebSearch.
+**Detection (v3.3 update)**: Covered by the existing integrity verification, now strengthened with Semantic Scholar API batch verification (Phase A0 in `integrity_verification_agent`). See `deep-research/references/semantic_scholar_api_protocol.md` for the API protocol. The S2 API provides structured, machine-readable verification that catches fabricated DOIs (DOI_MISMATCH pattern) missed by manual WebSearch.
 
 **Who catches it**: `source_verification_agent` (Tier 0 S2 API + Tier 1 DOI + Tier 2 WebSearch) + `integrity_verification_agent` (Phase A0 + A1).
 
@@ -179,7 +179,7 @@ Gap coverage provided by this checklist: **Modes 1, 3, 5, 6, and the pipeline-le
 ## References
 
 - Lu, C. et al. (2026). Towards end-to-end automation of AI research. *Nature* 651, 914-919. [doi:10.1038/s41586-026-10265-5](https://doi.org/10.1038/s41586-026-10265-5) — Limitations section, Figure 2, Supplementary Information A.2.9.
-- ARS `hermes-academic-paper-reviewer/references/` — existing 5-type citation hallucination taxonomy (Mode 2).
-- ARS `hermes-academic-pipeline/references/claim_verification_protocol.md` — existing integrity verification that this checklist extends.
-- ARS `hermes-academic-pipeline/references/integrity_review_protocol.md` — existing integrity review protocol that Stage 2.5 follows.
+- ARS `academic-paper-reviewer/references/` — existing 5-type citation hallucination taxonomy (Mode 2).
+- ARS `academic-pipeline/references/claim_verification_protocol.md` — existing integrity verification that this checklist extends.
+- ARS `academic-pipeline/references/integrity_review_protocol.md` — existing integrity review protocol that Stage 2.5 follows.
 - ARS `ROADMAP_v3.2.md` — v3.2 integration plan, item 2.

@@ -2,7 +2,7 @@
 name: hermes-deep-research
 title: Deep Research — Universal Academic Research Agent Team
 description: Use when exploring research questions, building literature reviews, fact-checking claims, or running systematic/PRISMA-style academic research workflows.
-version: 2.11.0
+version: 2.12.1
 author: "Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills"
 license: CC-BY-NC-4.0
 metadata:
@@ -30,11 +30,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 2cf3a51e159458b7a8c8784bb874248e79601f7b
-  source_suite_version: 3.19.0
+  source_commit: 2b639c12ee4e7c694a32336cc59dc2616e0d89fe
+  source_suite_version: 3.21.0
   source_skill: hermes-deep-research
-  upstream_version: 2.11.0
-  upstream_last_updated: 2026-07-11
+  upstream_version: 2.12.1
+  upstream_last_updated: 2026-08-15
   data_access_level: raw
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -45,12 +45,20 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-deep-research` from
-`Imbad0202/academic-research-skills` at commit `2cf3a51` (2026-07-30).
+`Imbad0202/academic-research-skills` at commit `2b639c1` (2026-08-18).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
 - Keep human-in-the-loop academic integrity gates: verify sources, cite evidence, and ask for confirmation at workflow boundaries.
-- **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys. This is replaced in Hermes by the built-in **Mixture of Agents (MoA)** model, which runs multiple models and aggregates their outputs — configure via `hermes config set moa.enabled true`. References to cross-model features in agent prompts and reference files describe upstream-only functionality.
+- **Cross-model verification is NOT supported.** The upstream cross-model feature (`ARS_CROSS_MODEL`, `cross_model_verification.md`) sends paper content to external LLM APIs with separate API keys — a Claude Code workaround replaced in Hermes by the built-in **Mixture of Agents (MoA)** model (`hermes config set moa.enabled true`). References to cross-model features in the body describe upstream-only functionality.
+
+## Safety in Hermes
+
+This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in equivalents:
+
+- **Write protection** (replaces upstream file protection hooks): Before modifying any file outside the current working directory, ask the user via `clarify()`. Respect `AGENTS.md` rules in the project root.
+- **Human acknowledgement** (replaces upstream mark-read hooks): When you produce findings or decisions that need user sign-off, present them via `clarify()` and WAIT for the user response. Do not auto-advance past integrity checkpoints.
+- **Integrity verification**: Run relevant `scripts/check_*.py` validators before presenting findings as confirmed. On failure, report to the user and ask whether to proceed.
 
 ## When to Use
 
@@ -61,8 +69,8 @@ See the trigger and mode-selection sections below. Prefer this skill when the us
 Universal deep research tool — a domain-agnostic 13-agent team for rigorous academic research on any topic.
 
 **v2.4** adds writing quality improvements to the report compiler:
-- **Style Profile consumption** (optional) — If a Style Profile is available from hermes-academic-paper intake, the report compiler applies it as a soft guide for the Executive Summary and Synthesis sections. Discipline conventions and report objectivity take priority.
-- **Writing Quality Check** — The report compiler runs a writing quality checklist before finalizing: flags AI-typical overused terms, checks sentence/paragraph length variation, removes throat-clearing openers. See `hermes-academic-paper/references/writing_quality_check.md`.
+- **Style Profile consumption** (optional) — If a Style Profile is available from academic-paper intake, the report compiler applies it as a soft guide for the Executive Summary and Synthesis sections. Discipline conventions and report objectivity take priority.
+- **Writing Quality Check** — The report compiler runs a writing quality checklist before finalizing: flags AI-typical overused terms, checks sentence/paragraph length variation, removes throat-clearing openers. See `academic-paper/references/writing_quality_check.md`.
 
 
 ## Quick Start
@@ -119,9 +127,9 @@ Activate `socratic` mode when the user's **intent** matches any of the following
 
 | Scenario | Use Instead |
 |----------|-------------|
-| Writing a paper (not researching) | `hermes-academic-paper` |
-| Reviewing a paper (structured review) | `hermes-academic-paper-reviewer` |
-| Full research-to-paper pipeline | `hermes-academic-pipeline` |
+| Writing a paper (not researching) | `academic-paper` |
+| Reviewing a paper (structured review) | `academic-paper-reviewer` |
+| Full research-to-paper pipeline | `academic-pipeline` |
 
 ### Quick Mode Selection Guide
 
@@ -272,12 +280,17 @@ User: "Research [topic]"
      |   - Writing quality (clarity, conciseness, flow)
      |   - Verdict: ACCEPT / MINOR REVISION / MAJOR REVISION / REJECT
      |
-     |-> [ethics_review_agent] -> Ethics Clearance
+     |-> [ethics_review_agent] -> Research-Integrity Review + Human-Subjects Administrative Status
      |   - AI disclosure compliance
      |   - Attribution integrity
      |   - Dual-use screening
      |   - Fair representation check
-     |   - Verdict: CLEARED / CONDITIONAL / BLOCKED
+     |   - Integrity verdict only: CLEARED / CONDITIONAL / BLOCKED
+     |   - Human subjects: readiness and authorization reported separately; institutional determination required
+     |   - Authority-bound planning: exact requirement IDs + actor/consumer scope only after the #666 replay-validated resolved-context gate
+     |   - Candidate rule trace: display only a replay-validated and surface-linted #669 artifact; never use it as a pathway result or workflow input
+     |   - Packet structure: consume only a replay-validated #667 manifest; deterministic status never becomes authorization or content adequacy
+     |   - Content coverage: consume only a replay-validated #681 `LLM-ADVISORY`; preserve deterministic status and report efficacy as `UNMEASURED`
      |
      +-> [devils_advocate_agent] -- CHECKPOINT 3
          - Final vulnerability scan
@@ -308,9 +321,9 @@ User: "Research [topic]"
 
 ARS pipeline runs in 6 phases. Two invocation modes:
 
-**Mode A — orchestrator-driven (default):** `pipeline_orchestrator_agent` (in `hermes-academic-pipeline` skill) runs all phases end-to-end with state tracking via Material Passport.
+**Mode A — orchestrator-driven (default):** `pipeline_orchestrator_agent` (in `academic-pipeline` skill) runs all phases end-to-end with state tracking via Material Passport.
 
-**Mode B — phase-by-phase (cross-session resume):** User invokes one agent per phase across sessions for long-running projects. Common pattern via `ARS_PASSPORT_RESET=1` + `resume_from_passport=<hash>` (see `hermes-academic-pipeline/references/passport_as_reset_boundary.md`).
+**Mode B — phase-by-phase (cross-session resume):** User invokes one agent per phase across sessions for long-running projects. Common pattern via `ARS_PASSPORT_RESET=1` + `resume_from_passport=<hash>` (see `academic-pipeline/references/passport_as_reset_boundary.md`).
 
 In Mode B, **single-phase agents (Bucket A per `docs/design/2026-05-18-ars-v3.9.2-agent-phase-classification.md`) stay strictly within their assigned phase for writes**. Reads from upstream phases are allowed. Multi-phase agents (Bucket B: `devils_advocate_agent`, `report_compiler_agent`) do exactly the work specified by the caller's invocation for that phase — no extension to other phases in the same call.
 
@@ -322,9 +335,17 @@ Routing into Mode B requires an explicit user signal, such as naming the desired
 
 ## Socratic Mode: Guided Research Dialogue
 
-5-layer dialogue guiding users from vague ideas to concrete research questions. Core principle: ⚠️ **IRON RULE**: Never give direct answers.
+5-layer dialogue guiding users from vague ideas to concrete research questions. Core principle while non-generation Socratic mode is active: ⚠️ **IRON RULE**: Never give direct answers. The explicit candidate-generation exit below leaves that mode before any candidate is shown.
 
 **Layers**: Clarification -> Assumption Probing -> Evidence/Reasoning -> Viewpoint/Perspective -> Implication/Consequence
+
+**Research-question authorship boundary:** Socratic mode is non-generation by
+default. Non-convergence may produce only a summary of directions the user has
+already expressed plus focused questions or a `lit-review` suggestion; it never
+produces candidate RQs automatically. If the user explicitly asks the system to
+propose candidates, announce the exit from non-generation Socratic mode and
+emit `[SOCRATIC-NON-GENERATION-EXIT: explicit_user_request]` on a standalone
+line before any clearly labeled AI-generated candidate. Never switch silently.
 
 > See `references/socratic_mode_protocol.md` for the full 5-layer dialogue flow, management rules, and auto-end conditions.
 
@@ -404,7 +425,7 @@ Key failure path summary:
 
 | Failure Scenario | Trigger Condition | Recovery Strategy |
 |---------|---------|---------|
-| RQ cannot converge | Phase 1 / Layer 1 exceeds multiple rounds while still vague | Provide 3 candidate RQs or suggest lit-review |
+| RQ cannot converge | Phase 1 / Layer 1 exceeds multiple rounds while still vague | Full mode may use its candidate workflow; Socratic mode summarizes user-expressed directions or suggests `lit-review`, with no candidate generation unless the user explicitly exits non-generation mode |
 | Insufficient literature | bibliography_agent finds < 5 sources | Expand search strategy, alternative keywords |
 | Methodology mismatch | RQ type misaligned with method capability | Return to Phase 1, suggest 3 alternative methods |
 | Devil's Advocate CRITICAL | Fatal logical flaw discovered | STOP, explain the issue, require correction |
@@ -423,22 +444,35 @@ Optional post-research monitoring for new publications in the research area.
 
 ---
 
-## Handoff Protocol: hermes-deep-research → hermes-academic-paper
+## Handoff Protocol: deep-research → academic-paper
 
-After research is complete, the following materials can be handed off to `hermes-academic-paper`:
+After research is complete, the following materials can be handed off to `academic-paper`:
 
 1. **Research Question Brief** (from research_question_agent)
 2. **Methodology Blueprint** (from research_architect_agent)
 3. **Annotated Bibliography** (from bibliography_agent)
 4. **Synthesis Report** (from synthesis_agent)
 5. **[If socratic mode] INSIGHT Collection and Research Plan Summary**
+6. **Preregistration handoff** — exactly one builder-produced
+   `preregistration-artifact/1.0` sidecar (including an unavailable receipt) and,
+   when `status=provided`, its explicitly named companion bytes
 
 **Trigger**: User says "now help me write a paper" or "write a paper based on this"
 
-`hermes-academic-paper`'s `intake_agent` will automatically detect available materials and skip redundant steps:
+`academic-paper`'s `intake_agent` will automatically detect available materials and skip redundant steps:
 - Has RQ Brief -> skip topic scoping
 - Has Bibliography -> skip literature search
 - Has Synthesis -> accelerate findings / discussion writing
+- Has preregistration sidecar -> strict-validate it and its named companion,
+  then carry both byte-for-byte; never rebuild it from prose or a template
+
+The non-shell `research_architect_agent` supplies only the explicit caller
+declaration and companion handle. Before handoff, a shell-capable dispatcher
+must run the named deterministic `build-preregistration-artifact` subcommand in
+`scripts/build_cross_document_consistency_advisory.py`, with caller-held RFC3339
+`declared_at`. Only that builder may create or update the sidecar. A later
+explicit user supply creates a new builder-produced sidecar; omission or silent
+substitution is invalid.
 
 See `examples/handoff_to_paper.md` for a detailed handoff example.
 
@@ -446,7 +480,7 @@ See `examples/handoff_to_paper.md` for a detailed handoff example.
 
 ## Full Academic Pipeline
 
-See `hermes-academic-pipeline/SKILL.md` for the complete workflow.
+See `academic-pipeline/SKILL.md` for the complete workflow.
 
 ---
 
@@ -483,9 +517,22 @@ See `hermes-academic-pipeline/SKILL.md` for the complete workflow.
 | `references/socratic_questioning_framework.md` | 6 types of Socratic questions + 30+ prompt patterns | socratic_mentor |
 | `references/failure_paths.md` | 12 failure scenarios with triggers and recovery paths | all agents |
 | `references/mode_selection_guide.md` | Mode selection flowchart and comparison table | orchestrator |
-| `references/irb_decision_tree.md` | IRB decision tree + Taiwan process + HE quick reference | ethics_review, research_architect |
+| `references/irb_decision_tree.md` | Portable human-subjects navigation aid; not an authority, universal taxonomy, or pathway determination | ethics_review, research_architect |
+| `references/shared/references/human_subjects_authority_protocol.md` | Exact authority selection, replay validation, actor/consumer filtering, and fail-closed resolved-context gate | ethics_review, research_architect |
+| `references/shared/human_subjects_authority_registry.json` | Bounded jurisdiction profiles with exact requirement IDs, authority anchors, obligated actors, and consumer scopes | ethics_review, research_architect |
+| `references/shared/contracts/human_subjects/resolved_authority_context.schema.json` | Pointer-only resolved-context shape; consumers still require deterministic replay validation | ethics_review, research_architect |
+| `references/shared/references/review_pathway_rule_trace_protocol.md` | Candidate-name ownership, exact selected-profile predicate partition, replay, render, surface lint, and non-consumer boundary (#669) | ethics_review, research_architect |
+| `references/shared/contracts/human_subjects/review_pathway_trace_request.schema.json` | Closed caller-owned candidate mapping; every selected-profile `pathway_trace` requirement is accounted for exactly once | dispatching layer |
+| `references/shared/contracts/human_subjects/review_pathway_rule_trace.schema.json` | Closed candidate-only predicate trace; replay and surface lint remain mandatory | ethics_review, research_architect |
+| `references/shared/references/submission_packet_manifest_protocol.md` | Deterministic packet inventory, authority replay, status, and non-authorization boundary (#667) | ethics_review, research_architect |
+| `references/shared/contracts/human_subjects/submission_packet_manifest.schema.json` | Pointer-only deterministic packet-manifest shape; consumers still require exact replay validation | ethics_review, research_architect |
+| `references/shared/references/authority_content_coverage_advisory_protocol.md` | Replay-bound authority-profile content observations, evidence-row/1.1 provenance, and noninterference boundary (#681) | ethics_review, research_architect |
+| `references/shared/contracts/human_subjects/content_coverage_advisory.schema.json` | Closed `LLM-ADVISORY` carrier; consumers still require finalizer replay validation | ethics_review, research_architect |
+| `references/shared/contracts/evidence/evidence_row_v1_1.schema.json` | Requirement/expectation/artifact-bound bounded excerpt rows for the #681 advisory surface | ethics_review |
 | `references/equator_reporting_guidelines.md` | EQUATOR reporting guideline mapping | research_architect, report_compiler |
 | `references/preregistration_guide.md` | Preregistration decision tree + platforms + checklist | research_architect |
+| `references/shared/references/cross_document_consistency_advisory_protocol.md` | Exact preregistration sidecar ownership/replay plus #672 advisory and #660 coexistence boundaries | research_architect, academic-paper intake, pipeline orchestrator |
+| `references/shared/contracts/passport/preregistration_artifact.schema.json` | Closed persistent preregistration handoff receipt; companion bytes remain separately named | dispatching layer, intake, pipeline orchestrator |
 | `references/systematic_review_toolkit.md` | Cochrane v6.4, PRISMA 2020, RoB 2, ROBINS-I, I² guide, GRADE, protocol registration | risk_of_bias, meta_analysis, bibliography, report_compiler |
 | `references/literature_monitoring_strategies.md` | Google Scholar alerts, PubMed alerts, RSS feeds, Retraction Watch, citation tracking, monitoring cadence | monitoring_agent |
 | `references/argumentation_reasoning_framework.md` | Cognitive framework for evaluating argument strength: Toulmin model, causal reasoning (Bradford Hill), inference to best explanation, epistemic status classification | synthesis, devils_advocate, source_verification, socratic_mentor, research_architect |
@@ -517,7 +564,7 @@ See `hermes-academic-pipeline/SKILL.md` for the complete workflow.
 | `examples/systematic_review.md` | PRISMA-style literature review |
 | `examples/policy_analysis.md` | Applied comparative policy research |
 | `examples/socratic_guided_research.md` | Complete Socratic mode multi-turn dialogue (12 rounds) |
-| `examples/handoff_to_paper.md` | hermes-deep-research full mode handoff to hermes-academic-paper |
+| `examples/handoff_to_paper.md` | deep-research full mode handoff to academic-paper |
 | `examples/review_mode.md` | Review mode: 3-agent review pipeline for policy recommendation text |
 | `examples/fact_check_mode.md` | Fact-check mode: source verification of HEI claims with per-claim verdicts |
 | `examples/idea_diversity_coverage_gap_advisory.md` | #257 Socratic wording-pattern + lit-review distributional-skew advisories |
@@ -552,7 +599,7 @@ Explicit prohibitions to prevent common failure modes:
 4. **Limitation transparency** — every report must have an explicit limitations section
 5. **AI disclosure** — all reports include a statement that AI-assisted research tools were used
 6. **Reproducibility** — search strategies, inclusion criteria, and analytical methods must be documented for replication
-7. **Socratic integrity** — in socratic mode, never give direct answers; always guide through questions
+7. **Socratic integrity** — while non-generation Socratic mode is active, never give direct answers; always guide through questions. A candidate response is lawful only after the explicit exit marker and is outside that mode.
 
 ## Cross-Agent Quality Alignment
 
@@ -567,12 +614,12 @@ Unified definitions across all agents. ⚠️ IRON RULE: **CRITICAL severity** =
 This skill is domain-agnostic but can be combined with domain-specific skills:
 
 ```
-hermes-deep-research + tw-hei-intelligence     -> Evidence-based HEI policy research
-hermes-deep-research + report-to-website       -> Interactive research report
-hermes-deep-research + podcast-script-generator -> Research podcast
-hermes-deep-research + hermes-academic-paper          -> Full research-to-publication pipeline
-hermes-deep-research (socratic) + hermes-academic-paper (plan) -> Guided research + paper planning
-hermes-deep-research (systematic-review) + hermes-academic-paper -> PRISMA systematic review paper
+deep-research + tw-hei-intelligence     -> Evidence-based HEI policy research
+deep-research + report-to-website       -> Interactive research report
+deep-research + podcast-script-generator -> Research podcast
+deep-research + academic-paper          -> Full research-to-publication pipeline
+deep-research (socratic) + academic-paper (plan) -> Guided research + paper planning
+deep-research (systematic-review) + academic-paper -> PRISMA systematic review paper
 ```
 
 ---
@@ -592,10 +639,10 @@ When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's age
 
 | Item | Content |
 |------|---------|
-| Skill Version | 2.11.0 |
-| Last Updated | 2026-07-11 |
+| Skill Version | 2.12.1 |
+| Last Updated | 2026-08-15 |
 | Maintainer | Cheng-I Wu |
-| Dependent Skills | hermes-academic-paper v1.0+ (downstream) |
+| Dependent Skills | academic-paper v1.0+ (downstream) |
 
 ---
 

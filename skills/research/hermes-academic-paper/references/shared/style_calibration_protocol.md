@@ -10,9 +10,9 @@ Learns the author's natural writing voice from past writing samples and applies 
 
 ## When to Use
 
-- **Primary entry point**: `hermes-academic-paper/agents/intake_agent` Step 10 (optional)
-- **Pipeline carry**: `hermes-academic-pipeline` Material Passport carries the Style Profile across all stages
-- **Consumers**: `hermes-academic-paper/agents/draft_writer_agent`, `hermes-deep-research/agents/report_compiler_agent`
+- **Primary entry point**: `academic-paper/agents/intake_agent` Step 10 (optional)
+- **Pipeline carry**: `academic-pipeline` Material Passport carries the Style Profile across all stages
+- **Consumers**: `academic-paper/agents/draft_writer_agent`, `deep-research/agents/report_compiler_agent`
 
 ---
 

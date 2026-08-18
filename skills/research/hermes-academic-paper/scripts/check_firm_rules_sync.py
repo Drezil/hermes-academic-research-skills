@@ -61,9 +61,9 @@ FIRM_RULES_REL = "shared/references/firm_rules.md"
 # agent" in R-CIM-B). So the lint compares the canonical operative clause with
 # `<AGENT>` allowed to be any short noun phrase.
 CLAIM_MANIFEST_PROMPTS = [
-    "hermes-deep-research/agents/synthesis_agent.md",
-    "hermes-deep-research/agents/report_compiler_agent.md",
-    "hermes-academic-paper/agents/draft_writer_agent.md",
+    "deep-research/agents/synthesis_agent.md",
+    "deep-research/agents/report_compiler_agent.md",
+    "academic-paper/agents/draft_writer_agent.md",
 ]
 
 CLAIM_MANIFEST_SCHEMA = "shared/contracts/passport/claim_intent_manifest.schema.json"
@@ -81,11 +81,11 @@ CIM_SECTION_HEADER = "## Claim Intent Manifest Emission"
 # passes silently. (The CLAIM_MANIFEST_PROMPTS side fails loudly instead: a listed
 # prompt that is missing is reported.) Registering the file here is the guard.
 CONTAMINATION_CONTEXT_FILES = [
-    "hermes-academic-paper/agents/formatter_agent.md",
-    "hermes-deep-research/references/crossref_api_protocol.md",
-    "hermes-deep-research/references/openalex_api_protocol.md",
-    "hermes-academic-pipeline/agents/pipeline_orchestrator_agent.md",
-    "hermes-deep-research/agents/bibliography_agent.md",
+    "academic-paper/agents/formatter_agent.md",
+    "deep-research/references/crossref_api_protocol.md",
+    "deep-research/references/openalex_api_protocol.md",
+    "academic-pipeline/agents/pipeline_orchestrator_agent.md",
+    "deep-research/agents/bibliography_agent.md",
 ]
 
 # The full contamination namespace (A-E). The historical collision was only on

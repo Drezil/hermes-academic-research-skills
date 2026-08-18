@@ -72,5 +72,5 @@ See `scripts/arxiv_client.py`. Class `ArxivClient` exposes `arxiv_id_lookup(arxi
 ## Cross-references
 
 - Spec: `docs/design/2026-05-21-v3.10-182-promote-citation-gate-spec.md` §2 Delta 1
-- Mirror template: `hermes-deep-research/references/crossref_api_protocol.md`
-- Sibling protocols: `hermes-deep-research/references/openalex_api_protocol.md`, `hermes-deep-research/references/semantic_scholar_api_protocol.md`
+- Mirror template: `deep-research/references/crossref_api_protocol.md`
+- Sibling protocols: `deep-research/references/openalex_api_protocol.md`, `deep-research/references/semantic_scholar_api_protocol.md`

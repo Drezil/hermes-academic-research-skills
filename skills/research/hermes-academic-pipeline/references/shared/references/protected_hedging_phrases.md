@@ -2,7 +2,7 @@
 
 **Spec:** v3.6.7 §7.1 — pattern protection reference for `report_compiler_agent` (abstract-only mode), Pattern C1.
 
-**Audience:** Upstream calibration agents (hermes-academic-paper Stage 4, hermes-deep-research Phase 3 abstract handoff). The downstream `report_compiler_agent` reads this reference indirectly through the dispatch context that upstream calibration produces.
+**Audience:** Upstream calibration agents (academic-paper Stage 4, deep-research Phase 3 abstract handoff). The downstream `report_compiler_agent` reads this reference indirectly through the dispatch context that upstream calibration produces.
 
 **Why this exists:** Live ARS pipeline runs surfaced a recurring failure where the abstract compiler, under hard word-count pressure (i.e., a fixed word budget set by the publisher), dropped epistemic hedges that the body of the paper depended on. The fix routes through a roster of protected hedging phrases that ride in the dispatch context to the compiler. A claim qualified by "may," "tentative," "preliminary," or "in this institutional context" in the body became unconditional in the abstract. The compression-driven drift created compression overclaim — the abstract no longer accurately represented the paper's epistemic stance, which is a publication-integrity failure.
 
@@ -82,7 +82,7 @@ protected_hedges:
 1. **Conservative inclusion.** When in doubt, include the phrase. Calibration cannot recover a hedge it did not list — the compiler treats every entry on the list as non-negotiable, so omitting a phrase removes that protection regardless of intent.
 2. **Anchor every entry.** Each protected phrase must cite where in the paper it operates and one-line why. Without the anchor, the abstract compiler cannot judge replacement-vs-preservation when budget is tight.
 3. **No duplicates.** One entry per phrase. The compiler counts protected phrases against the budget once.
-4. **Calibration is mode-specific.** Deep-research INSIGHT abstracts and hermes-academic-paper journal abstracts have different convention (see `word_count_conventions.md`). Calibration runs once per target mode, not once per paper.
+4. **Calibration is mode-specific.** Deep-research INSIGHT abstracts and academic-paper journal abstracts have different convention (see `word_count_conventions.md`). Calibration runs once per target mode, not once per paper.
 
 ---
 
@@ -107,7 +107,7 @@ The `report_compiler_agent` abstract-only mode treats protected hedges as **non-
 
 ## Where this protocol is enforced
 
-The `report_compiler_agent` abstract-only mode prompt enforces the dispatch-context protocol and the budget allocation order. The authoritative protection clause lives in `hermes-deep-research/agents/report_compiler_agent.md` under `PATTERN PROTECTION (v3.6.7)`. This file defines what counts as a protected hedge, the upstream calibration shape, and the compiler's budget allocation order; the agent prompt cites this file by path. Cross-model audit covers protected-hedge preservation under the report_compiler bundle's Section 4(f) check in `shared/templates/codex_audit_multifile_template.md`.
+The `report_compiler_agent` abstract-only mode prompt enforces the dispatch-context protocol and the budget allocation order. The authoritative protection clause lives in `deep-research/agents/report_compiler_agent.md` under `PATTERN PROTECTION (v3.6.7)`. This file defines what counts as a protected hedge, the upstream calibration shape, and the compiler's budget allocation order; the agent prompt cites this file by path. Cross-model audit covers protected-hedge preservation under the report_compiler bundle's Section 4(f) check in `shared/templates/codex_audit_multifile_template.md`.
 
 ---
 

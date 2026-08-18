@@ -86,7 +86,7 @@ PHASE5_REVIEWER_PATTERNS = {
 }
 
 # Required minimum reviewer attributions for a valid Phase 5 output per
-# hermes-academic-pipeline Stage 3 review protocol. At least one from each category
+# academic-pipeline Stage 3 review protocol. At least one from each category
 # must appear in phase5_*/ filenames.
 PHASE5_REQUIRED_CATEGORIES = [
     ("devil's advocate", ["devils_advocate"]),

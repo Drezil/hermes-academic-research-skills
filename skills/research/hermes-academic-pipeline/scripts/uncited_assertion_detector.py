@@ -1,7 +1,7 @@
 """D4-c uncited-assertion token-rule detector.
 
 Implements the three-condition rule pinned in
-`hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md`
+`academic-pipeline/agents/claim_ref_alignment_audit_agent.md`
 §"Uncited-assertion detector (D4-c)" and exercised by
 `scripts/test_uncited_assertion.py` (T-U1..T-U5).
 

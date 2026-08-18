@@ -25,6 +25,8 @@ User Input →
 │       └── No ──────────────────────────→ full mode (Phase 0 will conduct an interview)
 │
 ├── Have an existing paper to revise? ──────────────────────→ revision mode
+├── Have comments explicitly identified as coming from a real committee or institutional review office?
+│   └── Need tracking / response preparation ───────────────→ revision-coach committee-correspondence variant
 ├── Have reviewer comments to handle?
 │   ├── Comments only, no response written yet ──────────→ revision-coach mode
 │   └── Comments + an existing rebuttal/response draft ──→ rebuttal-audit mode
@@ -45,7 +47,7 @@ User Input →
 - Includes all phases: Interview → Literature → Structure → Argumentation → Writing → Citation → Review → Formatting
 
 **Not Applicable When**:
-- User has no idea about research direction (→ use `hermes-deep-research` first)
+- User has no idea about research direction (→ use `deep-research` first)
 - Only need a specific section (→ use another specialized mode)
 
 **Expected Output**: Complete paper draft + references + bilingual abstract + review report
@@ -78,7 +80,7 @@ User Input →
 - Wants guided thinking for each chapter's content
 - First-time academic paper writer
 - Wants to think through every section before writing
-- Just received materials from hermes-deep-research and needs to transform them into a paper plan
+- Just received materials from deep-research and needs to transform them into a paper plan
 
 **Not Applicable When**:
 - Already knows exactly what to write (→ full mode is faster)
@@ -91,7 +93,7 @@ User Input →
 
 **Subsequent Connections**:
 - Chapter Plan → full mode (produce complete paper)
-- Chapter Plan → hermes-academic-paper-reviewer (review the plan)
+- Chapter Plan → academic-paper-reviewer (review the plan)
 
 ---
 
@@ -139,7 +141,7 @@ User Input →
 
 **Not Applicable When**:
 - Need a complete paper (→ full mode)
-- Need an in-depth research investigation (→ hermes-deep-research)
+- Need an in-depth research investigation (→ deep-research)
 
 **Expected Output**: Annotated bibliography + literature matrix + synthesis analysis
 **Expected Duration**: Medium
@@ -198,22 +200,29 @@ User Input →
 **Expected Duration**: Short-Medium
 **Agents Used**: revision_coach_agent used standalone (no prior pipeline execution required)
 
+**Committee-correspondence variant**: when the user explicitly identifies comments
+from a real committee or institutional review office, this same entrypoint loads
+`committee_correspondence_protocol.md` and emits the separate #668 byte-accounted
+concern tracker plus placeholder response skeleton. It does not emit the reviewer
+Roadmap, Schema 11, priority/severity, a determination, or a resolution claim. Formal
+tone alone never activates the variant.
+
 ---
 
-### disclosure mode — AI-Usage Disclosure Statement
+### disclosure mode — AI-Usage Disclosure Outcome
 
 **Applicable Scenarios**:
-- Paper is drafted and you need a venue-specific AI-usage disclosure paragraph
-- Submitting to a venue with a defined AI-disclosure policy (ICLR, NeurIPS, Nature, Science, ACL, EMNLP)
-- Need placement guidance for where the statement goes in the manuscript
+- Paper is drafted and you need venue-specific disclosure text or a policy action checklist
+- Submitting under a covered policy target (ICLR, NeurIPS, Nature, Science, ACL, EMNLP, or a covered medical-publishing target: ICMJE, NEJM, The Lancet, JAMA, BMJ, PLOS, Frontiers, publisher-wide 中华护理杂志社, journal-level 国际眼科杂志)
+- Need placement/action guidance for every required manuscript or submission channel
 
 **Not Applicable When**:
 - No paper drafted yet — disclosure is a finishing step (→ full mode first)
 - The venue is not in the policy database (confirm the venue's current policy manually)
 
-**Expected Output**: Venue-specific AI-usage disclosure paragraph(s) + placement instructions
+**Expected Output**: Default venue path — `REQUIRED` / `ACTION_ONLY` / `NOT_REQUIRED` / `UNKNOWN` applicability plus typed halt status; policy-anchor path — anchor-specific render
 **Expected Duration**: Short
-**Agents Used**: disclosure protocol used standalone (venue policy database lookup)
+**Agents Used**: formatter agent's standalone disclosure branch, which loads the disclosure protocol before the venue policy database or policy-anchor lookup; it does not run normal Phase 7 formatting
 
 ---
 
@@ -238,41 +247,41 @@ User Input →
 
 ---
 
-## Paths from hermes-deep-research
+## Paths from deep-research
 
 ```
-hermes-deep-research completed
+deep-research completed
   │
-  ├── hermes-deep-research (full mode) outputs:
+  ├── deep-research (full mode) outputs:
   │   RQ Brief + Methodology Blueprint + Annotated Bibliography + Synthesis Report
   │   │
-  │   ├── Want to write the paper directly ──→ hermes-academic-paper (full mode)
+  │   ├── Want to write the paper directly ──→ academic-paper (full mode)
   │   │   intake_agent auto-detects materials, skips redundant questions
   │   │
-  │   └── Want to plan before writing ──→ hermes-academic-paper (plan mode)
+  │   └── Want to plan before writing ──→ academic-paper (plan mode)
   │       socratic_mentor leverages existing materials to accelerate guidance
   │
-  └── hermes-deep-research (socratic mode) outputs:
+  └── deep-research (socratic mode) outputs:
       INSIGHT Collection + Synthesis Report
       │
-      ├── INSIGHTs are sufficiently clear ──→ hermes-academic-paper (full mode)
+      ├── INSIGHTs are sufficiently clear ──→ academic-paper (full mode)
       │
-      └── Need more guidance ──→ hermes-academic-paper (plan mode)
+      └── Need more guidance ──→ academic-paper (plan mode)
           socratic_mentor continues deepening from INSIGHTs
 ```
 
-## Connecting to hermes-academic-paper-reviewer
+## Connecting to academic-paper-reviewer
 
 ```
-hermes-academic-paper completed
+academic-paper completed
   │
-  ├── full mode produces complete paper ──→ hermes-academic-paper-reviewer (full / guided)
+  ├── full mode produces complete paper ──→ academic-paper-reviewer (full / guided)
   │   Complete peer review + revision suggestions
   │
-  ├── plan mode produces Chapter Plan ──→ hermes-academic-paper-reviewer (guided)
+  ├── plan mode produces Chapter Plan ──→ academic-paper-reviewer (guided)
   │   Review the plan's feasibility and completeness
   │
-  └── reviewer feedback ──→ hermes-academic-paper (revision mode)
+  └── reviewer feedback ──→ academic-paper (revision mode)
       Revise paper based on review comments
 ```
 
@@ -285,8 +294,8 @@ hermes-academic-paper completed
 | "Help me write an outline" / 「幫我寫大綱」 | outline-only | First confirm: Do they want a simple outline or deep planning? | May need plan mode |
 | "I want to write a paper but don't know how to start" / 「想寫論文但不知道怎麼開始」 | full | plan mode | Needs guided thinking |
 | "Help me revise my paper" / 「幫我修改論文」 | revision | First confirm: Are there reviewer comments? | May need full mode rewrite |
-| "Help me search for literature" / 「幫我找文獻」 | lit-review | First confirm: Is it a literature review for a paper or a research investigation? | May need hermes-deep-research |
-| "I have hermes-deep-research results, help me write a paper" / 「我有研究結果，幫我寫成論文」 | full (skip Phase 0 directly) | full (but intake needs to detect handoff) | Materials need to be properly imported |
+| "Help me search for literature" / 「幫我找文獻」 | lit-review | First confirm: Is it a literature review for a paper or a research investigation? | May need deep-research |
+| "I have deep-research results, help me write a paper" / 「我有研究結果，幫我寫成論文」 | full (skip Phase 0 directly) | full (but intake needs to detect handoff) | Materials need to be properly imported |
 | "I want to plan my paper step by step" / 「我想逐步規劃論文」 | outline-only | plan mode | Needs interactive guidance |
 | "The paper format is wrong" / 「論文格式不對」 | revision | citation-check or format-convert | May only need format correction |
 | 「帶我寫論文」/「引導我寫論文」 | full | plan mode | 使用者需要互動式引導，不是直接產出 |
@@ -302,15 +311,16 @@ hermes-academic-paper completed
 | Research question + literature | Complete paper | full mode |
 | Research question + literature | Outline | outline-only mode |
 | Vague idea | Paper plan | plan mode |
-| hermes-deep-research results | Complete paper | full mode (auto-handoff) |
-| hermes-deep-research results | Guided planning | plan mode |
+| deep-research results | Complete paper | full mode (auto-handoff) |
+| deep-research results | Guided planning | plan mode |
 | Completed paper | Revision | revision mode |
 | Completed paper | Abstract | abstract-only mode |
 | Completed paper | Format conversion | format-convert mode |
 | Completed paper | Citation check | citation-check mode |
 | Reviewer comments (no response yet) | Parse + roadmap + reply skeleton | revision-coach mode |
+| Real-committee comments (explicitly identified; no response yet) | Preserve source + concern tracker + placeholder response skeleton | revision-coach committee-correspondence variant |
 | Reviewer comments + a written rebuttal draft | QA the draft before sending | rebuttal-audit mode |
-| Drafted paper + target venue | AI-usage disclosure statement | disclosure mode |
+| Drafted paper + target venue | AI-usage disclosure bundle or policy action checklist | disclosure mode |
 
 ---
 
@@ -360,6 +370,7 @@ Before conversion, ALL of the following must be true:
 "help me with my revision"              -> revision-coach
 "should we push back on reviewer 2"     -> revision-coach
 "conference rebuttal" / "grant response" -> revision-coach
+"track these committee comments"          -> revision-coach committee-correspondence variant (only with explicit real-source identity)
 "audit my rebuttal draft"               -> rebuttal-audit (needs comments + an existing draft)
 "did I miss any reviewer comment"       -> rebuttal-audit
 "AI disclosure for Nature"              -> disclosure

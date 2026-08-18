@@ -3,19 +3,19 @@ name: compliance_agent
 description: "Runs PRISMA-trAIce + RAISE compliance checks at Stage 2.5 / 4.5 integrity gates and emits Schema 12 compliance_report"
 version: 1.0.0
 owner_skill: shared
-invoked_by: [hermes-academic-pipeline, hermes-deep-research, hermes-academic-paper]
+invoked_by: [academic-pipeline, deep-research, academic-paper]
 data_access_level: verified_only
 task_type: open-ended
 status: active
-related_skills: [hermes-academic-pipeline, hermes-deep-research, hermes-academic-paper]
+related_skills: [academic-pipeline, deep-research, academic-paper]
 last_updated: "2026-04-20"
 related_protocols:
   - shared/prisma_trAIce_protocol.md
   - shared/raise_framework.md
   - shared/compliance_checkpoint_protocol.md
   - shared/compliance_report.schema.json
-  - hermes-academic-paper/references/anti_leakage_protocol.md
-  - hermes-academic-pipeline/references/ai_research_failure_modes.md
+  - academic-paper/references/anti_leakage_protocol.md
+  - academic-pipeline/references/ai_research_failure_modes.md
 ---
 
 # compliance_agent
@@ -91,7 +91,7 @@ When a Mandatory-tier PRISMA-trAIce item triggers `block_decision = block`, the 
 
 > *Note: PRISMA-trAIce is currently a foundational proposal (Holst et al. 2025, *JMIR AI*, doi:[10.2196/80247](https://doi.org/10.2196/80247)), developed via systematic adaptation rather than a formal Delphi consensus study. Items have not yet been empirically validated across diverse research contexts. See `shared/prisma_trAIce_protocol.md` § Status disclaimer.*
 
-This note is informational only — it does not lower the block severity. The Mandatory-as-block design choice follows the authors' own argument (Holst et al. 2025) that non-transparent AI use is the higher-cost failure mode. Surfacing the maturity note mirrors the disclosure pattern in [`hermes-academic-pipeline/references/plagiarism_detection_protocol.md`](../../hermes-academic-pipeline/references/plagiarism_detection_protocol.md), which discloses heuristic-screening scope to the user.
+This note is informational only — it does not lower the block severity. The Mandatory-as-block design choice follows the authors' own argument (Holst et al. 2025) that non-transparent AI use is the higher-cost failure mode. Surfacing the maturity note mirrors the disclosure pattern in [`academic-pipeline/references/plagiarism_detection_protocol.md`](../../academic-pipeline/references/plagiarism_detection_protocol.md), which discloses heuristic-screening scope to the user.
 
 ## Self-check protocol
 
@@ -111,7 +111,7 @@ Self-check failures are not errors — they are the agent's guardrail. Document 
 | Error | Handling |
 |---|---|
 | Missing input material | Apply Anti-Leakage: mark `[MATERIAL GAP]`, item auto-FAILs, tier dictates block/warn. Never hallucinate. |
-| Mode/context mismatch (e.g. `hermes-academic-paper full` passes SR mode) | Refuse with `{decision: "abort", reason: "mode/context mismatch"}`. Orchestrator must re-evaluate and re-invoke. |
+| Mode/context mismatch (e.g. `academic-paper full` passes SR mode) | Refuse with `{decision: "abort", reason: "mode/context mismatch"}`. Orchestrator must re-evaluate and re-invoke. |
 | Schema validation failure on own output | Halt, surface internal error to orchestrator. Do NOT append invalid report to compliance_history. |
 | Upstream drift (snapshot_date vs GitHub) | Set `upstream_sync_status: "stale"` in report. Non-blocking. |
 
@@ -132,5 +132,5 @@ The orchestrator (or standalone skill) passes the input contract via the Agent t
 - `shared/prisma_trAIce_protocol.md` — item-level checks
 - `shared/raise_framework.md` — principle definitions and role matrix
 - `shared/compliance_checkpoint_protocol.md` — checkpoint behaviour and override ladder
-- `hermes-academic-paper/references/anti_leakage_protocol.md` — gap-marking discipline
-- `hermes-academic-pipeline/references/pipeline_state_machine.md` — FAIL-loop integration
+- `academic-paper/references/anti_leakage_protocol.md` — gap-marking discipline
+- `academic-pipeline/references/pipeline_state_machine.md` — FAIL-loop integration

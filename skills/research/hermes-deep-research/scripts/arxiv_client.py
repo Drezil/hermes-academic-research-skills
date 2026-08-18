@@ -2,7 +2,7 @@
 """Minimal arXiv API client wrapper.
 
 Implements the lookup contract documented at
-`hermes-deep-research/references/arxiv_api_protocol.md`. arXiv-ID-first with
+`deep-research/references/arxiv_api_protocol.md`. arXiv-ID-first with
 title cross-check (ID_MISMATCH pattern), title-similarity fallback,
 429 -> 3s backoff x 3 retries (the ToU pacing floor), network/5xx ->
 ArxivUnavailable. Mirrors `crossref_client.py` / `openalex_client.py`

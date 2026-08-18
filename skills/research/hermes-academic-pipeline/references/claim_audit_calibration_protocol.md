@@ -5,7 +5,7 @@
 **Mode name**: `calibration`
 **Purpose**: Measure the audit agent's own false-negative rate (FNR) and false-positive rate (FPR) on alignment judgments (SUPPORTED / UNSUPPORTED / AMBIGUOUS / RETRIEVAL_FAILED) AND negative-constraint judgments (VIOLATED / NOT_VIOLATED) against a synthetic gold set, then gate CI on FNR < 0.15 AND FPR < 0.10.
 
-This protocol is modeled on `hermes-academic-paper-reviewer/references/calibration_mode_protocol.md`. The reviewer mode measures editorial decision accuracy on whole papers; this mode measures claim-to-source alignment accuracy on per-citation tuples. Both share the same FNR / FPR / threshold-gate vocabulary; the difference is unit of analysis.
+This protocol is modeled on `academic-paper-reviewer/references/calibration_mode_protocol.md`. The reviewer mode measures editorial decision accuracy on whole papers; this mode measures claim-to-source alignment accuracy on per-citation tuples. Both share the same FNR / FPR / threshold-gate vocabulary; the difference is unit of analysis.
 
 ---
 
@@ -128,7 +128,7 @@ Calibration reports the judge's error profile on a **specific** gold set in a **
 
 - Predict performance on tuples outside the gold-set distribution (the canonical fixture is mid-domain synthetic; ML / clinical / qualitative judges should run domain-specific gold sets).
 - Detect rubric-discrimination-power problems on the LLM-as-judge side — that's the `#89 / gold fixtures` work tracked separately (per spec §2 out-of-scope).
-- Replace the post-calibration ramp-on plan recorded in `hermes-academic-pipeline/SKILL.md` mode flags. v3.8.0 ships the audit agent dispatch as opt-in default-OFF; T-C1 passing on the canonical gold set is necessary but not sufficient evidence for default-ON.
+- Replace the post-calibration ramp-on plan recorded in `academic-pipeline/SKILL.md` mode flags. v3.8.0 ships the audit agent dispatch as opt-in default-OFF; T-C1 passing on the canonical gold set is necessary but not sufficient evidence for default-ON.
 
 If a deploying operator brings a gold set that is itself biased (all tuples from one venue, all post-2024, all heavily-redacted), calibration reports a biased profile. Emit a warning during intake if the gold set looks clustered — this protocol does not currently auto-detect clustering, but the operator's pre-deployment review should.
 
@@ -170,6 +170,6 @@ The CI-equivalent invocation lives in `.github/workflows/spec-consistency.yml` (
 
 - Spec: `docs/design/2026-05-15-issue-103-claim-alignment-audit-spec.md` §7.7 (test contract) + §1 deliverable 7 (this doc) + §9 (acceptance criteria) + §13 step 10 (implementation order).
 - Issue: [academic-research-skills #103](https://github.com/Imbad0202/academic-research-skills/issues/103) acceptance criterion (FNR < 0.15 + FPR < 0.10 gates).
-- Parent agent: `hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md` — dispatches calibration mode and consumes the report's thresholds block. The agent prompt and this doc form a two-way pair following the v3.6.5 protocol-doc convention (`literature_corpus_consumers.md` ↔ `bibliography_agent.md`).
-- Reviewer calibration baseline: `hermes-academic-paper-reviewer/references/calibration_mode_protocol.md` (same vocabulary, different unit of analysis).
+- Parent agent: `academic-pipeline/agents/claim_ref_alignment_audit_agent.md` — dispatches calibration mode and consumes the report's thresholds block. The agent prompt and this doc form a two-way pair following the v3.6.5 protocol-doc convention (`literature_corpus_consumers.md` ↔ `bibliography_agent.md`).
+- Reviewer calibration baseline: `academic-paper-reviewer/references/calibration_mode_protocol.md` (same vocabulary, different unit of analysis).
 - Lu, C. et al. (2026). *Nature* 651, 914-919 — Table 1 reference rates for LLM-vs-human agreement on whole-paper decisions; this protocol uses tighter thresholds for the simpler per-claim unit.

@@ -2,7 +2,7 @@
 """#111 slr_lineage emission conformance tests.
 
 Tests the pipeline plumbing that lets `disclosure --policy-anchor=prisma-trAIce`
-dispatch automatically after `hermes-deep-research systematic-review → hermes-academic-paper
+dispatch automatically after `deep-research systematic-review → academic-paper
 full` runs, per the documented handoff path in
 `policy_anchor_disclosure_protocol.md` §3.1.
 
@@ -10,7 +10,7 @@ Two layers under test:
 
 1. Resolution helper (`scripts/slr_lineage.py`) — pure function over a
    `state_tracker.stages` snapshot. Returns `True` iff any stage was
-   produced by hermes-deep-research in systematic-review mode.
+   produced by deep-research in systematic-review mode.
 
 2. Renderer integration — a passport carrying `slr_lineage=True` passes
    the §4.3 G2 invariant gate without a manual `mode_param='systematic-
@@ -39,21 +39,21 @@ class ResolveFromStagesTest(unittest.TestCase):
     """Helper computes `slr_lineage` from a `state_tracker.stages` dict.
 
     Contract (per design §4.2): `slr_lineage` is True iff any stage in
-    the run history has `skill == 'hermes-deep-research'` AND
+    the run history has `skill == 'deep-research'` AND
     `mode == 'systematic-review'`. Run-level provenance, not per-artifact.
     """
 
     def test_systematic_review_stage_present_returns_true(self) -> None:
         stages = {
-            "1": {"skill": "hermes-deep-research", "mode": "systematic-review"},
-            "2": {"skill": "hermes-academic-paper", "mode": "full"},
+            "1": {"skill": "deep-research", "mode": "systematic-review"},
+            "2": {"skill": "academic-paper", "mode": "full"},
         }
         self.assertTrue(slr_lineage.resolve_from_stages(stages))
 
     def test_no_systematic_review_returns_false(self) -> None:
         stages = {
-            "1": {"skill": "hermes-deep-research", "mode": "full"},
-            "2": {"skill": "hermes-academic-paper", "mode": "full"},
+            "1": {"skill": "deep-research", "mode": "full"},
+            "2": {"skill": "academic-paper", "mode": "full"},
         }
         self.assertFalse(slr_lineage.resolve_from_stages(stages))
 
@@ -61,7 +61,7 @@ class ResolveFromStagesTest(unittest.TestCase):
         """Mid-entry from Stage 2 (user brings their own paper) has no
         Stage 1 evidence — SLR cannot be inferred."""
         stages = {
-            "2": {"skill": "hermes-academic-paper", "mode": "full"},
+            "2": {"skill": "academic-paper", "mode": "full"},
             "2.5": {"agent": "integrity_verification_agent", "mode": "pre-review"},
         }
         self.assertFalse(slr_lineage.resolve_from_stages(stages))
@@ -73,15 +73,15 @@ class ResolveFromStagesTest(unittest.TestCase):
         """The `SLR_MODES` enum at the renderer side accepts both
         'systematic-review' and 'slr'. The resolver must match the same
         set so symmetric values don't silently fall through."""
-        stages = {"1": {"skill": "hermes-deep-research", "mode": "slr"}}
+        stages = {"1": {"skill": "deep-research", "mode": "slr"}}
         self.assertTrue(slr_lineage.resolve_from_stages(stages))
 
     def test_non_deep_research_systematic_review_ignored(self) -> None:
-        """A non-hermes-deep-research stage carrying mode='systematic-review'
+        """A non-deep-research stage carrying mode='systematic-review'
         (hypothetically a future skill) must not trigger SLR lineage —
-        the contract is bound to hermes-deep-research lineage specifically."""
+        the contract is bound to deep-research lineage specifically."""
         stages = {
-            "1": {"skill": "hermes-academic-paper", "mode": "systematic-review"},
+            "1": {"skill": "academic-paper", "mode": "systematic-review"},
         }
         self.assertFalse(slr_lineage.resolve_from_stages(stages))
 
@@ -89,8 +89,8 @@ class ResolveFromStagesTest(unittest.TestCase):
         """A stage entry missing `mode` (e.g., skipped Stage 4') must
         not raise — the resolver treats missing/None as not-SLR."""
         stages = {
-            "1": {"skill": "hermes-deep-research"},
-            "4p": {"skill": "hermes-academic-paper", "mode": None, "status": "skipped"},
+            "1": {"skill": "deep-research"},
+            "4p": {"skill": "academic-paper", "mode": None, "status": "skipped"},
         }
         self.assertFalse(slr_lineage.resolve_from_stages(stages))
 
@@ -101,7 +101,7 @@ class ResolveFromStagesTest(unittest.TestCase):
 class RendererIntegrationTest(unittest.TestCase):
     """Passport carrying `slr_lineage=True` passes G2 track gate without
     cold-start `mode_param` supplied. Mirror of the documented
-    `hermes-deep-research systematic-review → hermes-academic-paper full → disclosure`
+    `deep-research systematic-review → academic-paper full → disclosure`
     auto-dispatch path."""
 
     def _inp(self, *, slr_lineage=False, mode_param=None):
@@ -126,7 +126,7 @@ class RendererIntegrationTest(unittest.TestCase):
         self.assertEqual(result.track, "prisma-trAIce")
 
     def test_non_slr_pipeline_passport_still_blocks_prisma_track(self) -> None:
-        """Negative: non-SLR pipeline (e.g., hermes-deep-research full mode)
+        """Negative: non-SLR pipeline (e.g., deep-research full mode)
         produces `slr_lineage=False`. The renderer still refuses
         --policy-anchor=prisma-trAIce per G2 invariant — no behavior
         change for non-SLR paths."""
@@ -157,8 +157,8 @@ class EndToEndPipelineHandoffTest(unittest.TestCase):
 
     def test_slr_pipeline_full_handoff_dispatches(self) -> None:
         stages = {
-            "1": {"skill": "hermes-deep-research", "mode": "systematic-review"},
-            "2": {"skill": "hermes-academic-paper", "mode": "full"},
+            "1": {"skill": "deep-research", "mode": "systematic-review"},
+            "2": {"skill": "academic-paper", "mode": "full"},
         }
         outgoing_passport_slr = slr_lineage.resolve_from_stages(stages)
         self.assertTrue(outgoing_passport_slr)
@@ -175,8 +175,8 @@ class EndToEndPipelineHandoffTest(unittest.TestCase):
 
     def test_non_slr_pipeline_handoff_blocks(self) -> None:
         stages = {
-            "1": {"skill": "hermes-deep-research", "mode": "full"},
-            "2": {"skill": "hermes-academic-paper", "mode": "full"},
+            "1": {"skill": "deep-research", "mode": "full"},
+            "2": {"skill": "academic-paper", "mode": "full"},
         }
         outgoing_passport_slr = slr_lineage.resolve_from_stages(stages)
         self.assertFalse(outgoing_passport_slr)
@@ -206,7 +206,7 @@ class EmitMonotonicOrTest(unittest.TestCase):
         self.assertTrue(slr_lineage.emit({}, incoming_slr_lineage=True))
 
     def test_in_session_new_slr_flips_false_to_true(self) -> None:
-        stages = {"1": {"skill": "hermes-deep-research", "mode": "systematic-review"}}
+        stages = {"1": {"skill": "deep-research", "mode": "systematic-review"}}
         self.assertTrue(slr_lineage.emit(stages, incoming_slr_lineage=False))
 
     def test_no_evidence_anywhere_returns_false(self) -> None:
@@ -216,13 +216,13 @@ class EmitMonotonicOrTest(unittest.TestCase):
     def test_none_incoming_treated_as_false(self) -> None:
         """Pre-#111 passport (incoming field absent / None) + non-SLR stages
         = false, identical to pre-#111 behavior."""
-        stages = {"1": {"skill": "hermes-deep-research", "mode": "full"}}
+        stages = {"1": {"skill": "deep-research", "mode": "full"}}
         self.assertFalse(slr_lineage.emit(stages, incoming_slr_lineage=None))
 
     def test_default_incoming_is_none_safe(self) -> None:
         """Default arg ergonomics: omitting incoming_slr_lineage should not
         crash and should treat it as no-prior-signal."""
-        stages = {"1": {"skill": "hermes-deep-research", "mode": "systematic-review"}}
+        stages = {"1": {"skill": "deep-research", "mode": "systematic-review"}}
         self.assertTrue(slr_lineage.emit(stages))
 
 

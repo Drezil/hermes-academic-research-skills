@@ -1,7 +1,7 @@
 # Policy Anchor Table
 
 **Status**: #108 implementation (parented to Decision Doc 20ed72d)
-**Parent skill**: `hermes-academic-paper`
+**Parent skill**: `academic-paper`
 **Consumer**: `policy_anchor_disclosure_protocol.md` (the LLM-prose renderer reads this table at runtime when in `disclosure` mode with `--policy-anchor=<a>` selector).
 **Provenance**: cells below carry verbatim policy quotes lifted from the discovery doc §4.3-4.6 source-of-truth (`docs/design/2026-05-13-ai-disclosure-schema-discovery.md`). Each anchor section records its snapshot id + truncated sha256 so the lint validator can confirm provenance integrity. Live URLs may drift after capture; the wayback snapshot is canonical.
 

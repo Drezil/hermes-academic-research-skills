@@ -1,16 +1,16 @@
-# Handoff Example: hermes-deep-research → hermes-academic-paper
+# Handoff Example: deep-research → academic-paper
 
-This example demonstrates how hermes-deep-research full mode, after completing research, hands off to hermes-academic-paper to begin paper writing.
+This example demonstrates how deep-research full mode, after completing research, hands off to academic-paper to begin paper writing.
 
 ---
 
 ## Scenario Setup
 
-The user has completed hermes-deep-research full mode on the topic "AI-Assisted Quality Assurance in Higher Education: A Comparative Analysis of Implementation Strategies in East Asian Universities." Below is a summary of the research outputs.
+The user has completed deep-research full mode on the topic "AI-Assisted Quality Assurance in Higher Education: A Comparative Analysis of Implementation Strategies in East Asian Universities." Below is a summary of the research outputs.
 
 ---
 
-## hermes-deep-research Output Summary
+## deep-research Output Summary
 
 ### 1. Research Question Brief (from research_question_agent)
 
@@ -102,11 +102,38 @@ Key themes identified:
 - Faculty perceptions and behavioral changes
 ```
 
+### 5. Preregistration artifact handoff
+
+This qualitative example has no completed preregistration artifact. The
+shell-capable dispatcher still runs the named deterministic builder and carries
+one explicit `preregistration-artifact/1.0` receipt:
+
+```yaml
+schema_version: preregistration-artifact/1.0
+status: not_provided
+artifact_id: preregistration-unavailable
+relative_path: null
+artifact_provenance: not_provided
+source_artifact_sha256: null
+source_artifact_size_bytes: null
+source_content_sha256: null
+source_content_utf8_bytes: null
+declared_at: <explicit caller-held RFC3339 value>
+record_digest: <builder-derived canonical digest>
+```
+
+The shell-capable dispatcher passes the schema-safe artifact ID and the canonical
+builder computes `record_digest`; the non-shell research architect never guesses
+a digest. There is no companion for this receipt.
+Academic-paper and every later pipeline handoff validate and carry the complete
+sidecar bytes unchanged. This explicit unavailable state means the
+manuscript/preregistration pair is not checked; it is not evidence of agreement.
+
 ---
 
 ## Handoff Instruction
 
-After completing hermes-deep-research, the user inputs:
+After completing deep-research, the user inputs:
 
 ```
 Now help me write a paper based on this research
@@ -114,7 +141,7 @@ Now help me write a paper based on this research
 
 ---
 
-## hermes-academic-paper intake_agent Auto-Detection
+## academic-paper intake_agent Auto-Detection
 
 **intake_agent Detection Process**:
 
@@ -122,39 +149,49 @@ Now help me write a paper based on this research
 Scanning available materials...
 
 [DETECTED] Research Question Brief
-  - Source: hermes-deep-research / research_question_agent
+  - Source: deep-research / research_question_agent
   - Status: Complete (FINER 4.6/5)
-  - Action: SKIP hermes-academic-paper Phase 1 (topic scoping)
+  - Action: SKIP academic-paper Phase 1 (topic scoping)
 
 [DETECTED] Methodology Blueprint
-  - Source: hermes-deep-research / research_architect_agent
+  - Source: deep-research / research_architect_agent
   - Status: Complete (pragmatist QCA + document analysis)
-  - Action: SKIP hermes-academic-paper Phase 2 (methodology design)
+  - Action: SKIP academic-paper Phase 2 (methodology design)
   - Note: Will integrate into Method section directly
 
 [DETECTED] Annotated Bibliography (18 sources, APA 7.0)
-  - Source: hermes-deep-research / bibliography_agent
+  - Source: deep-research / bibliography_agent
   - Status: Complete, quality-screened
-  - Action: SKIP hermes-academic-paper literature search
+  - Action: SKIP academic-paper literature search
   - Note: Will use as foundation for Literature Review section
 
 [DETECTED] Synthesis Report
-  - Source: hermes-deep-research / synthesis_agent
+  - Source: deep-research / synthesis_agent
   - Status: Complete (3 core findings + 1 contradiction + 2 gaps)
-  - Action: SKIP hermes-academic-paper analysis phase
+  - Action: SKIP academic-paper analysis phase
   - Note: Will structure Findings and Discussion sections around synthesis
 
+[DETECTED] Preregistration artifact sidecar
+  - Source: deep-research dispatching layer
+  - Status: not_provided (explicit unavailable receipt; no companion)
+  - Action: VALIDATE and CARRY sidecar byte-for-byte
+  - Advisory effect: manuscript/preregistration pair remains NOT CHECKED
+
 Materials Assessment: COMPREHENSIVE
-Recommended hermes-academic-paper mode: full (with accelerated pipeline)
+Recommended academic-paper mode: full (with accelerated pipeline)
 Estimated sections already covered: 60-70%
 Remaining work: Writing, formatting, argumentation, and polish
 ```
+
+`COMPREHENSIVE` above describes the four prose research materials only. It does
+not certify preregistration coverage, cross-document agreement, or a clean
+manuscript.
 
 ---
 
 ## Skipped Steps and Reasons
 
-| hermes-academic-paper Step | Normal Workflow | After Handoff | Reason |
+| academic-paper Step | Normal Workflow | After Handoff | Reason |
 |---------------------|---------|-----------|------|
 | Phase 1: Topic Scoping | intake_agent clarifies from scratch | SKIPPED | RQ Brief is complete |
 | Phase 2: Structure Planning | outline_agent designs structure | PARTIAL | Has Blueprint but needs conversion to paper structure |
@@ -169,15 +206,15 @@ Remaining work: Writing, formatting, argumentation, and polish
 
 ---
 
-## Post-Handoff hermes-academic-paper Actual Workflow
+## Post-Handoff academic-paper Actual Workflow
 
 ```
-=== hermes-academic-paper: Accelerated Pipeline ===
+=== academic-paper: Accelerated Pipeline ===
 
 Step 1: STRUCTURAL MAPPING
   [outline_agent]
   - Input: RQ Brief + Methodology Blueprint + Synthesis Report
-  - Output: Complete paper outline, each section tagged with corresponding hermes-deep-research materials
+  - Output: Complete paper outline, each section tagged with corresponding deep-research materials
   - Output example:
 
     I. Introduction
@@ -230,7 +267,7 @@ Step 3: DISCUSSION + BOOKENDS
   [discussion_writer_agent] → Discussion
     - Original discourse: dialogue between findings and theory
     - Does not repeat Findings; instead explains "why"
-    - Integrates hermes-deep-research Knowledge Gaps as Future Research
+    - Integrates deep-research Knowledge Gaps as Future Research
 
   [bookend_agent] → Introduction + Conclusion
     - Introduction: from macro context to specific RQ
@@ -254,9 +291,9 @@ Step 5: SELF-REVIEW
 
 ## User-Facing Handoff Experience
 
-**hermes-academic-paper's Opening Message**:
+**academic-paper's Opening Message**:
 
-> I've read your complete outputs from the hermes-deep-research stage, including:
+> I've read your complete outputs from the deep-research stage, including:
 > - Research Question Brief (FINER 4.6/5)
 > - Methodology Blueprint (QCA + document analysis)
 > - Annotated Bibliography (18 quality-screened sources)
@@ -275,7 +312,7 @@ Step 5: SELF-REVIEW
 
 ## Notes
 
-1. **Not copy-paste**: hermes-academic-paper does not directly copy hermes-deep-research outputs, but transforms them into the tone and format of an academic paper
-2. **May discover new issues**: During the writing process, hermes-academic-paper agents may discover points missed by hermes-deep-research and will proactively supplement them
+1. **Not copy-paste**: academic-paper does not directly copy deep-research outputs, but transforms them into the tone and format of an academic paper
+2. **May discover new issues**: During the writing process, academic-paper agents may discover points missed by deep-research and will proactively supplement them
 3. **Still requires user confirmation**: Target journal, language preference, specific formatting requirements still require user input
-4. **Review recommendation auto-connects**: After paper completion, the user can continue with `hermes-academic-paper-reviewer` for formal review
+4. **Review recommendation auto-connects**: After paper completion, the user can continue with `academic-paper-reviewer` for formal review

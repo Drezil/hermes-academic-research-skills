@@ -35,7 +35,7 @@ Exit codes
 
 Usage
 -----
-  python scripts/check_policy_anchor_protocol.py hermes-academic-paper/references/policy_anchor_disclosure_protocol.md
+  python scripts/check_policy_anchor_protocol.py academic-paper/references/policy_anchor_disclosure_protocol.md
 """
 from __future__ import annotations
 
@@ -138,7 +138,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "path",
         nargs="?",
-        default="hermes-academic-paper/references/policy_anchor_disclosure_protocol.md",
+        default="academic-paper/references/policy_anchor_disclosure_protocol.md",
         help="path to policy_anchor_disclosure_protocol.md (default: %(default)s)",
     )
     args = parser.parse_args(argv)

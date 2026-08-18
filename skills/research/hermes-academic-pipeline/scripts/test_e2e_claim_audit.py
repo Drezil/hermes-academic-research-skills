@@ -29,7 +29,7 @@ DEFERRED-CROSS-SENTENCE closure: this test also wires
 whose `adjacent_text` carries a `<!--ref:...-->` marker is filtered out
 before reaching the pipeline. The agent prompt's DEFERRED-CROSS-SENTENCE
 Step-9 acceptance note in
-`hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md` is cleared by
+`academic-pipeline/agents/claim_ref_alignment_audit_agent.md` is cleared by
 the regression test below.
 
 Spec: docs/design/2026-05-15-issue-103-claim-alignment-audit-spec.md §7.6 + §13 step 9.

@@ -98,7 +98,7 @@ If that justification cannot be written without slipping into a different constr
 
 ## Where this glossary is enforced
 
-The `research_architect_agent` survey designer mode prompt enforces construct-equivalence justification, acquiescence-bias counting, and event-anchored phrasing. The authoritative protection clause lives in `hermes-deep-research/agents/research_architect_agent.md` under `PATTERN PROTECTION (v3.6.7)`. This file defines the construct-equivalence test, the acquiescence-mitigation rule, and the event-anchoring decision rule; the agent prompt cites this file by path.
+The `research_architect_agent` survey designer mode prompt enforces construct-equivalence justification, acquiescence-bias counting, and event-anchored phrasing. The authoritative protection clause lives in `deep-research/agents/research_architect_agent.md` under `PATTERN PROTECTION (v3.6.7)`. This file defines the construct-equivalence test, the acquiescence-mitigation rule, and the event-anchoring decision rule; the agent prompt cites this file by path.
 
 ---
 

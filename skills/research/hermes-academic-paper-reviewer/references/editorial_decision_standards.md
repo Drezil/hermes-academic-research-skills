@@ -12,11 +12,11 @@ This document defines the explicit criteria for Accept / Minor Revision / Major 
 | `methodology-focus` (sprint contract) | Same mechanical engine, scoped to methods + presentation; no venue-fit dimension | same | four-value enum |
 | `full` / `methodology-focus` without a contract | Synthesis Protocol + the qualitative criteria and recommendation matrix in this file | reviewer recommendations | four-value enum |
 | `re-review` | #576 three-gate contract: `re_review_mode_protocol.md` § Decision Derivation, recomputed by `scripts/check_re_review_synthesis.py` | item verdicts (FULLY/PARTIALLY/NOT_ADDRESSED/MADE_WORSE/CANNOT_VERIFY) | Accept / Minor Revision / Major Revision / user_review_required (Reject is not a Stage 3' decision) |
-| `quick` | EIC assessment only; advisory, not an editorial decision | — | signal |
+| `quick` | Journal-Fit Reviewer assessment only; advisory, not an editorial decision | — | signal |
 | `guided` | Issue-list dialogue; no editorial decision letter | — | — |
-| `calibration` | `quality_rubrics.md` 0–100 Decision Mapping, measurement-only | 0–100 | four-value labels against the gold set |
+| `calibration` | Exact panel verdicts and criterion-bound judgements compared with a user-adjudicated target set; measurement-only | categorical judgements + four-value verdict enum | bounded error profile or directional readout |
 
-Under a sprint contract, the mechanical synthesizer governs. This file's recommendation matrix is the no-contract path and cannot soften, harden, or override a fired contract action. Numeric decision thresholds live only in `quality_rubrics.md` § Decision Mapping; this file uses qualitative criteria and reviewer-recommendation counts.
+Under a sprint contract, the mechanical synthesizer governs. This file's recommendation matrix is the no-contract path and cannot soften, harden, or override a fired contract action. There is no numerical total-score threshold for an editorial decision. In the no-contract path, the synthesizer must explain which anchored criteria and unresolved findings justify the recommendation; strengths in one dimension cannot arithmetically cancel a decision-bearing failure in another.
 
 ---
 
@@ -72,7 +72,7 @@ These principles govern every category below:
 
 **Response requirements**:
 - Authors must respond to reviewer comments item by item
-- After revision, reviewed by EIC (usually not sent for external review again)
+- After revision, reviewed by the journal's handling editor (usually not sent for external review again)
 - Revision deadline: 2-4 weeks
 
 ---
@@ -137,8 +137,8 @@ These principles govern every category below:
 
 ### Decision Matrix Based on Reviewer Recommendations
 
-| EIC | R1 | R2 | R3 | -> Recommended Decision |
-|-----|----|----|-----|----------------------|
+| Journal-Fit Reviewer | R1 | R2 | R3 | -> Recommended Decision |
+|----------------------|----|----|-----|----------------------|
 | Accept | Accept | Accept | Accept | **Accept** |
 | Accept | Accept | Accept | Minor | **Accept** (with suggestions) |
 | Accept | Accept | Minor | Minor | **Minor Revision** |
@@ -157,7 +157,7 @@ These principles govern every category below:
 
 **Split Decision (evenly divided)**:
 - Example: Accept + Accept + Reject + Reject
-- EIC (or synthesizer) needs to deeply analyze the cause of disagreement
+- The Journal-Fit Reviewer (or synthesizer) needs to deeply analyze the cause of disagreement
 - Resolve on the arbitration principles (evidence first, expertise first). A genuinely unresolvable split records the dissent and routes the author to respond to it — revision is the vehicle for that response, not a policy of rounding splits toward the stricter verdict (#574 B1)
 - May consider inviting a fifth reviewer
 
@@ -169,28 +169,20 @@ These principles govern every category below:
 
 ---
 
-## 3. Decision Confidence Calibration
+## 3. Reviewer uncertainty and competence scope
 
-### Impact of Reviewer Confidence Score
-
-| Confidence | Impact on Decision |
-|-----------|-------------------|
-| 5 (Very High) | This reviewer's opinion carries the highest weight |
-| 4 (High) | Standard weight |
-| 3 (Medium) | Standard weight, but reduced in case of disagreement |
-| 2 (Low) | For reference only, not used as a decisive opinion |
-| 1 (Very Low) | Ignore this reviewer's recommendation (but retain specific comments) |
+The 1–5 confidence field is retained only as a reviewer's self-reported scope and uncertainty disclosure. It is not a calibrated probability, expertise credential, vote, or mechanical weight. Never ignore, promote, or resolve a recommendation because of this number. Apply the named criterion to anchored manuscript evidence; preserve unresolved conflict and request additional expertise when the evidence or competence boundary requires it.
 
 ### Cross-Dimension Decision Impact
 
-Finding severity is transported from the reviewer cards (the Schema 6 enum, `shared/handoff_schemas.md` § Weakness Object) — this table assigns NO severities (#574 A3); it describes how dimension-score patterns bear on the DECISION only.
+Finding severity is transported from the reviewer cards (the Schema 6 enum, `shared/handoff_schemas.md` § Weakness Object) — this table assigns NO severities (#574 A3); it describes how criterion judgements bear on the DECISION only.
 
 | Situation | Decision impact |
 |-----------|-----------------|
 | Methodology owner identifies a fatal design flaw | Even if other dimensions are excellent, Reject is available |
 | Domain owner identifies a repairable major literature omission | Major Revision, require supplementation |
 | Perspective owner identifies a cross-disciplinary relevance failure | Minor or Major Revision, based on its decision impact |
-| EIC identifies a writing-and-structure weakness | Does not by itself invalidate the academic core; require language or structural revision |
+| Journal-Fit Reviewer identifies a writing-and-structure weakness | Does not by itself invalidate the academic core; require language or structural revision |
 
 ---
 
@@ -200,9 +192,9 @@ Finding severity is transported from the reviewer cards (the Schema 6 enum, `sha
 
 | Round | Expectation | Handling |
 |-------|-------------|---------|
-| R1 (First revision) | Respond to all reviewer comments | Send for re-review or EIC review |
-| R2 (Second revision) | Respond to residual issues | Usually EIC makes final decision |
-| R3 (Third revision) | Very rare, usually only handling formatting | EIC makes final decision |
+| R1 (First revision) | Respond to all reviewer comments | Send for re-review or handling-editor review |
+| R2 (Second revision) | Respond to residual issues | Usually the journal's handling editor makes the final decision |
+| R3 (Third revision) | Very rare, usually only handling formatting | The journal's handling editor makes the final decision |
 
 ### Upgrade/Downgrade Rules
 
@@ -240,5 +232,5 @@ Finding severity is transported from the reviewer cards (the Schema 6 enum, `sha
 | Author is your student/colleague | Must recuse or disclose the relationship |
 | Paper's viewpoint is opposite to yours | Evaluate argument quality, not correctness of position |
 | Paper uses your theory but misunderstands it | May point it out but cannot require citation of your own work |
-| Suspected data fabrication | Report to EIC; journal initiates investigation procedure |
+| Suspected data fabrication | Report to the real journal's Editor-in-Chief (EIC); the journal initiates its investigation procedure |
 | Paper is similar to your ongoing research | Disclose potential conflict of interest |

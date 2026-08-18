@@ -34,10 +34,10 @@ DOC = REPO / "shared" / "model_tiering.md"
 # The five skill agent dirs in scope. The top-level plugin mirror dir `agents/` is
 # deliberately NOT listed (byte-copies, guarded by check_agents_mirror_sync.py).
 AGENT_DIRS = [
-    "hermes-deep-research/agents",
-    "hermes-academic-paper/agents",
-    "hermes-academic-paper-reviewer/agents",
-    "hermes-academic-pipeline/agents",
+    "deep-research/agents",
+    "academic-paper/agents",
+    "academic-paper-reviewer/agents",
+    "academic-pipeline/agents",
     "shared/agents",
 ]
 
@@ -89,7 +89,7 @@ def short_name(path: str) -> str:
 
 
 def skill_of(path: str) -> str:
-    # 'shared/agents/x.md' -> 'shared'; 'hermes-deep-research/agents/x.md' -> 'hermes-deep-research'
+    # 'shared/agents/x.md' -> 'shared'; 'deep-research/agents/x.md' -> 'deep-research'
     return path.split("/", 1)[0]
 
 

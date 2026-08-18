@@ -32,7 +32,7 @@ This protocol defines:
 | 1 — Scoping | Research Question Brief, Methodology Blueprint | `phase1_*/` directory; `rq_brief.md`; `methodology.md` |
 | 2 — Investigation | Annotated Bibliography, source list, literature_corpus passport entries | `phase2_*/`; `annotated_bib.md`; `literature.{yaml,json}`; `references.bib`; folders of PDFs |
 | 3 — Analysis / Synthesis | Synthesis Report, claim-evidence mapping | `phase3_*/`; `synthesis.md` |
-| 4 — Composition | Full draft, abstract, report body | `phase4_*/`; `draft.md`; `abstract.md` (or 5b for hermes-academic-paper) |
+| 4 — Composition | Full draft, abstract, report body | `phase4_*/`; `draft.md`; `abstract.md` (or 5b for academic-paper) |
 | 5 — Review | Editorial decision letter, reviewer comments, ethics report | `phase5_*/`; `review_*.md`; `editorial_decision.md` |
 | 6 — Revision | Revision Roadmap, R&R response letter, revised draft | `phase6_*/`; `revision_roadmap.md`; `response_letter.md` |
 | 0 / 7 / Plan | Intake config, format conversion, Socratic plan | `phase0_*/`; `phase7_*/`; Plan mode mid-conversation |
@@ -51,7 +51,7 @@ When clarification fires, the main session emits a message in this shape (markdo
 ```markdown
 I see you've provided <summary of materials>. To route correctly, could you confirm which workflow you want?
 
-(a) **Full pipeline** — go from materials through to a complete deliverable (research + write + review + revise). Use `hermes-academic-pipeline` orchestrator (`/ars-full`).
+(a) **Full pipeline** — go from materials through to a complete deliverable (research + write + review + revise). Use `academic-pipeline` orchestrator (`/ars-full`).
 (b) **<phase-specific workflow 1>** — <one-line description>. Use `<skill>` (`/ars-<mode>`).
 (c) **<phase-specific workflow 2>** — <one-line description>. Use `<skill>` (`/ars-<mode>`).
 (d) **Something else** — let me know what you're trying to do.
@@ -79,7 +79,7 @@ Pick a-d, or describe the target deliverable. If you want me to dispatch a speci
 
 **Examples:**
 
-- `[direct-mode] /ars-lit-review on these papers` → dispatches hermes-academic-paper lit-review mode on the provided papers, no clarification
+- `[direct-mode] /ars-lit-review on these papers` → dispatches academic-paper lit-review mode on the provided papers, no clarification
 - `[direct-mode] run bibliography_agent` → dispatches bibliography_agent directly
 - `[DIRECT-MODE] write me an abstract` → case-insensitive accepted; routes to abstract workflow without clarification
 
@@ -101,9 +101,9 @@ Pick a-d, or describe the target deliverable. If you want me to dispatch a speci
 **Main session response:**
 > I see you've provided an abstract and a literature collection. To route correctly, could you confirm which workflow you want?
 >
-> (a) **Full paper from existing scaffolding** — use your abstract as paper seed, expand literature into bibliography, draft full paper, then review/revise. Use `hermes-academic-pipeline` (`/ars-full`).
-> (b) **Lit-review only** — produce an annotated bibliography matrix from the literature; don't touch your abstract. Use `hermes-academic-paper` (`/ars-lit-review`).
-> (c) **Quality-check the abstract against the literature** — verify abstract claims are supported by the cited sources. Use `hermes-academic-paper-reviewer` (`/ars-citation-check`).
+> (a) **Full paper from existing scaffolding** — use your abstract as paper seed, expand literature into bibliography, draft full paper, then review/revise. Use `academic-pipeline` (`/ars-full`).
+> (b) **Lit-review only** — produce an annotated bibliography matrix from the literature; don't touch your abstract. Use `academic-paper` (`/ars-lit-review`).
+> (c) **Quality-check the abstract against the literature** — verify abstract claims are supported by the cited sources. Use `academic-paper-reviewer` (`/ars-citation-check`).
 > (d) **Something else** — let me know what you're trying to do.
 >
 > Pick a-d, or describe the target deliverable. If you want me to dispatch a specific agent directly without this clarification, prefix your message with `[direct-mode]`.
@@ -115,7 +115,7 @@ Pick a-d, or describe the target deliverable. If you want me to dispatch a speci
 
 **Materials detected:** Literature only (Phase 2). Explicit intent: lit-review.
 
-**Main session response:** Routes directly to `hermes-academic-paper /ars-lit-review` on the provided PDFs. No clarification fires (explicit intent overrides materials check).
+**Main session response:** Routes directly to `academic-paper /ars-lit-review` on the provided PDFs. No clarification fires (explicit intent overrides materials check).
 
 ### Example 3: no materials + ambiguous → clarify
 
@@ -127,10 +127,10 @@ Pick a-d, or describe the target deliverable. If you want me to dispatch a speci
 **Main session response:**
 > Of course. To route correctly, could you tell me what stage you're at?
 >
-> (a) **I have an idea but no clear research question** — Socratic mode to clarify direction. Use `hermes-deep-research` (`/ars-plan`).
-> (b) **I have a question and need to do the research** — full research pipeline. Use `hermes-academic-pipeline` (`/ars-full`).
-> (c) **I have research notes and need to write the paper** — drafting pipeline. Use `hermes-academic-paper`.
-> (d) **I have a draft and want feedback** — peer-review simulation. Use `hermes-academic-paper-reviewer` (`/ars-review` equivalent).
+> (a) **I have an idea but no clear research question** — Socratic mode to clarify direction. Use `deep-research` (`/ars-plan`).
+> (b) **I have a question and need to do the research** — full research pipeline. Use `academic-pipeline` (`/ars-full`).
+> (c) **I have research notes and need to write the paper** — drafting pipeline. Use `academic-paper`.
+> (d) **I have a draft and want feedback** — peer-review simulation. Use `academic-paper-reviewer` (`/ars-review` equivalent).
 >
 > Pick a-d, or paste what you have so I can suggest a path.
 
@@ -154,7 +154,7 @@ Pick a-d, or describe the target deliverable. If you want me to dispatch a speci
 
 ## When this protocol does NOT apply
 
-- **Within a skill that has already been routed.** If `hermes-academic-pipeline` is already running and the orchestrator is dispatching Phase 3 → Phase 4 internally, this protocol does not fire on every internal dispatch. It governs the **entry point** of an ARS session, not in-pipeline transitions.
+- **Within a skill that has already been routed.** If `academic-pipeline` is already running and the orchestrator is dispatching Phase 3 → Phase 4 internally, this protocol does not fire on every internal dispatch. It governs the **entry point** of an ARS session, not in-pipeline transitions.
 - **In-conversation follow-up.** After clarification resolves and a workflow starts, subsequent user messages within that workflow are interpreted by the active skill, not re-classified at the routing level. To re-route, the user starts a new session or uses `[direct-mode]` at the start of a new message.
 
 ## v3.10 carry-over

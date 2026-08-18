@@ -113,7 +113,7 @@ For mixed-language abstracts (e.g., Mandarin abstract with English technical ter
 
 ## Where this convention is enforced
 
-The `report_compiler_agent` abstract-only mode prompt enforces the canonical algorithm, the 3–5% buffer, and the post-draft re-verification step. The authoritative protection clause lives in `hermes-deep-research/agents/report_compiler_agent.md` under `PATTERN PROTECTION (v3.6.7)`. This file defines the algorithm, the buffer rationale, and the publisher-convention escape hatches; the agent prompt cites this file by path.
+The `report_compiler_agent` abstract-only mode prompt enforces the canonical algorithm, the 3–5% buffer, and the post-draft re-verification step. The authoritative protection clause lives in `deep-research/agents/report_compiler_agent.md` under `PATTERN PROTECTION (v3.6.7)`. This file defines the algorithm, the buffer rationale, and the publisher-convention escape hatches; the agent prompt cites this file by path.
 
 ---
 

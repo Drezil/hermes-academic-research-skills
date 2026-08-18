@@ -19,7 +19,7 @@ Please tell me:
 3. Have you conducted a systematic literature search?
 
 **User**:
-I previously ran a round with hermes-deep-research. I obtained an Annotated Bibliography (about 30 articles), a Synthesis Report, and a set of INSIGHT Collections. My research question is roughly: "How does blended learning affect the academic performance of university students in Taiwan?" But I think it might be too broad.
+I previously ran a round with deep-research. I obtained an Annotated Bibliography (about 30 articles), a Synthesis Report, and a set of INSIGHT Collections. My research question is roughly: "How does blended learning affect the academic performance of university students in Taiwan?" But I think it might be too broad.
 
 **Socratic Mentor**:
 Good, you already have a solid research foundation. I see you have three important materials:
@@ -596,5 +596,5 @@ All arguments are at Moderate or above — we can proceed to Chapter Plan output
 
 ## Next Steps
 → User can proceed to use `full mode` to produce the complete paper (Chapter Plan auto-imports)
-→ Or send to `hermes-academic-paper-reviewer` to review the feasibility of the Chapter Plan
+→ Or send to `academic-paper-reviewer` to review the feasibility of the Chapter Plan
 ```

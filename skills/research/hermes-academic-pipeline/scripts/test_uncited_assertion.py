@@ -7,7 +7,7 @@ Spec §7 names the file `tests/test_uncited_assertion.py`; the repo
 convention puts pytest-discovered tests under `scripts/test_*.py`
 (matching the 30+ existing files), so this file mirrors the spec stem
 under the repo root. The three-condition rule + pseudocode lives in
-hermes-academic-pipeline/agents/claim_ref_alignment_audit_agent.md
+academic-pipeline/agents/claim_ref_alignment_audit_agent.md
 §"Uncited-assertion detector (D4-c)" and constants ride in
 scripts/_claim_audit_constants.py so lint + runtime cannot drift.
 

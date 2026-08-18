@@ -17,7 +17,7 @@ that:
 References:
 - Decision Doc §3 (G10 7-row precedence table), §4.3 (8 invariants),
   §4.4 (11 open concerns).
-- `hermes-academic-paper/references/policy_anchor_disclosure_protocol.md` §§2-7.
+- `academic-paper/references/policy_anchor_disclosure_protocol.md` §§2-7.
 - Implementation spec §3 (resolved-paths table).
 """
 from __future__ import annotations

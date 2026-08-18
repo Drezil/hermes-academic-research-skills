@@ -2,8 +2,8 @@
 
 **Status**: Source of truth for Nature substantive policy content cited by both:
 
-1. `hermes-academic-paper/references/policy_anchor_table.md` — Nature anchor (#108 policy-anchor track, verbatim quotes per 16 fields)
-2. `hermes-academic-paper/references/venue_disclosure_policies.md` — Nature venue entry (v3.2 venue track, summary form)
+1. `academic-paper/references/policy_anchor_table.md` — Nature anchor (#108 policy-anchor track, verbatim quotes per 16 fields)
+2. `academic-paper/references/venue_disclosure_policies.md` — Nature venue entry (v3.2 venue track, summary form)
 
 **Provenance**: extracted from the Nature Portfolio AI editorial policy page (`https://www.nature.com/nature-portfolio/editorial-policies/ai`), wayback snapshot `nature:wayback=20260513075542` (sha256 `cf691cba…`). Section structure: `§AI authorship`, `§Generative AI images`, `§AI use by peer reviewers`, `§Editorial use`. ARS author-side matrix covers `§AI authorship` + `§Generative AI images` only.
 

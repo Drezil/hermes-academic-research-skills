@@ -22,31 +22,31 @@ ARS modes fall on a spectrum between these poles. This table is the reference fo
 
 | Skill | Mode | Spectrum position | Template load | Rationale |
 |---|---|---|---|---|
-| hermes-deep-research | `systematic-review` | Fidelity | Heavy | PRISMA protocol, predefined search strategy, reproducible steps |
-| hermes-deep-research | `lit-review` | Fidelity | Heavy | Structured annotated bibliography, fixed output format |
-| hermes-deep-research | `three-way-scan` | Fidelity | Medium | Fixed WHY/HOW/WHAT per-paper frame + cross-paper synthesis, lighter than lit-review |
-| hermes-deep-research | `fact-check` | Fidelity | Heavy | Claim → evidence → verdict pipeline, no room for drift |
-| hermes-deep-research | `quick` | Fidelity | Heavy | Time-boxed brief, fixed 3-section format |
-| hermes-deep-research | `review` | Balanced | Medium | Review has structure but allows domain-specific adaptation |
-| hermes-deep-research | `full` | Balanced | Medium | Structured output but methodology selection is exploratory |
-| hermes-deep-research | `socratic` | Originality | Light | User-led dialogue, templates constrain exploration |
-| hermes-academic-paper | `full` | Balanced | Medium | Section templates loaded, but writing adapts to argument |
-| hermes-academic-paper | `outline-only` | Balanced | Medium | Structure templates needed, but outline is creative |
-| hermes-academic-paper | `revision` | Fidelity | Heavy | R&R tracking template, point-by-point responses |
-| hermes-academic-paper | `revision-coach` | Balanced | Medium | Coaching is semi-structured; roadmap template loaded |
-| hermes-academic-paper | `abstract-only` | Fidelity | Heavy | Fixed abstract structure (background/method/results/conclusion) |
-| hermes-academic-paper | `lit-review` | Fidelity | Heavy | Annotated bibliography format |
-| hermes-academic-paper | `format-convert` | Fidelity | Heavy | Format conversion is purely mechanical |
-| hermes-academic-paper | `citation-check` | Fidelity | Heavy | Citation audit is checklist-driven |
-| hermes-academic-paper | `plan` | Originality | Light | Socratic planning dialogue, no forced chapter sequence |
-| hermes-academic-paper | `disclosure` (v3.2) | Fidelity | Heavy | Venue policy database → templated output |
-| hermes-academic-paper | `rebuttal-audit` | Fidelity | Heavy | Per-comment coverage checklist against an existing rebuttal draft, advisory QA |
-| hermes-academic-paper-reviewer | `full` | Balanced | Medium | Review rubric loaded, but reviewer perspectives are dynamic |
-| hermes-academic-paper-reviewer | `re-review` | Fidelity | Heavy | R&R traceability matrix, checklist-driven |
-| hermes-academic-paper-reviewer | `quick` | Fidelity | Heavy | Fixed EIC quick-assessment format |
-| hermes-academic-paper-reviewer | `methodology-focus` | Fidelity | Heavy | Focused on statistical/methods rubric |
-| hermes-academic-paper-reviewer | `guided` | Originality | Light | Socratic dialogue, adaptive to what the user needs |
-| hermes-academic-paper-reviewer | `calibration` (v3.2) | Fidelity | Heavy | Fixed 5x ensembling protocol, no creative adaptation |
+| deep-research | `systematic-review` | Fidelity | Heavy | PRISMA protocol, predefined search strategy, reproducible steps |
+| deep-research | `lit-review` | Fidelity | Heavy | Structured annotated bibliography, fixed output format |
+| deep-research | `three-way-scan` | Fidelity | Medium | Fixed WHY/HOW/WHAT per-paper frame + cross-paper synthesis, lighter than lit-review |
+| deep-research | `fact-check` | Fidelity | Heavy | Claim → evidence → verdict pipeline, no room for drift |
+| deep-research | `quick` | Fidelity | Heavy | Time-boxed brief, fixed 3-section format |
+| deep-research | `review` | Balanced | Medium | Review has structure but allows domain-specific adaptation |
+| deep-research | `full` | Balanced | Medium | Structured output but methodology selection is exploratory |
+| deep-research | `socratic` | Originality | Light | User-led dialogue, templates constrain exploration |
+| academic-paper | `full` | Balanced | Medium | Section templates loaded, but writing adapts to argument |
+| academic-paper | `outline-only` | Balanced | Medium | Structure templates needed, but outline is creative |
+| academic-paper | `revision` | Fidelity | Heavy | R&R tracking template, point-by-point responses |
+| academic-paper | `revision-coach` | Balanced | Medium | Coaching is semi-structured; roadmap template loaded |
+| academic-paper | `abstract-only` | Fidelity | Heavy | Fixed abstract structure (background/method/results/conclusion) |
+| academic-paper | `lit-review` | Fidelity | Heavy | Annotated bibliography format |
+| academic-paper | `format-convert` | Fidelity | Heavy | Format conversion is purely mechanical |
+| academic-paper | `citation-check` | Fidelity | Heavy | Citation audit is checklist-driven |
+| academic-paper | `plan` | Originality | Light | Socratic planning dialogue, no forced chapter sequence |
+| academic-paper | `disclosure` (v3.2) | Fidelity | Heavy | Venue policy database → templated output |
+| academic-paper | `rebuttal-audit` | Fidelity | Heavy | Per-comment coverage checklist against an existing rebuttal draft, advisory QA |
+| academic-paper-reviewer | `full` | Balanced | Medium | Review rubric loaded, but reviewer perspectives are dynamic |
+| academic-paper-reviewer | `re-review` | Fidelity | Heavy | R&R traceability matrix, checklist-driven |
+| academic-paper-reviewer | `quick` | Fidelity | Heavy | Fixed Journal-Fit Reviewer quick-assessment format |
+| academic-paper-reviewer | `methodology-focus` | Fidelity | Heavy | Focused on statistical/methods rubric |
+| academic-paper-reviewer | `guided` | Originality | Light | Socratic dialogue, adaptive to what the user needs |
+| academic-paper-reviewer | `calibration` (v3.2 + #611) | Fidelity | Heavy | Explicit 3×1 directional tier or default 5× ensemble (3× override), fixed reporting boundaries |
 
 ---
 

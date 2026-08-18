@@ -5,10 +5,10 @@ This file is the maintainer runbook for reproducing this adaptation when upstrea
 ## Current adaptation baseline
 
 - Upstream repository: https://github.com/Imbad0202/academic-research-skills
-- Upstream commit: `2cf3a51e159458b7a8c8784bb874248e79601f7b`
-- Upstream date: 2026-07-30
-- Upstream suite version: `3.19.0` (23 commits ahead of v3.19.0 tag on main)
-- Adaptation output: four Hermes skills under `research/`
+- Upstream commit: `2b639c12ee4e7c694a32336cc59dc2616e0d89fe`
+- Upstream date: 2026-08-18
+- Upstream suite version: `3.21.0` (23 commits ahead of v3.19.0 tag on main)
+- Adaptation output: four Hermes skills under `skills/research/`
 
 ## Design intent
 
@@ -22,10 +22,10 @@ Always adapt these four upstream skill directories:
 
 | Upstream directory | Hermes skill | Current upstream version |
 | --- | --- | --- |
-| `deep-research/` | `research/deep-research/` | 2.11.0 |
-| `academic-paper/` | `research/academic-paper/` | 3.2.0 |
-| `academic-paper-reviewer/` | `research/academic-paper-reviewer/` | 1.10.0 |
-| `academic-pipeline/` | `research/academic-pipeline/` | 3.19.0 |
+| `deep-research/` | `skills/research/hermes-deep-research/` | 2.12.1 |
+| `academic-paper/` | `skills/research/hermes-academic-paper/` | 3.3.1 |
+| `academic-paper-reviewer/` | `skills/research/hermes-academic-paper-reviewer/` | 1.11.1 |
+| `academic-pipeline/` | `skills/research/hermes-academic-pipeline/` | 3.21.0 |
 
 Do not adapt upstream `.claude-plugin/`, `commands/`, `hooks/`, or `skills/` symlink directory as Hermes skills in the default distribution.
 
@@ -41,29 +41,30 @@ LICENSE
 NOTICE.md
 ATTRIBUTION.md
 CONVERT_UPSTREAM.md
-research/
-  deep-research/
-    SKILL.md
-    references/
-    templates/
-  academic-paper/
-    SKILL.md
-    references/
-    templates/
-  academic-paper-reviewer/
-    SKILL.md
-    references/
-    templates/
-  academic-pipeline/
-    SKILL.md
-    references/
-    templates/
-    scripts/        # only upstream scripts referenced by that skill tree
+skills/
+  research/
+    hermes-deep-research/
+      SKILL.md
+      references/
+      templates/
+    hermes-academic-paper/
+      SKILL.md
+      references/
+      templates/
+    hermes-academic-paper-reviewer/
+      SKILL.md
+      references/
+      templates/
+    hermes-academic-pipeline/
+      SKILL.md
+      references/
+      templates/
+      scripts/        # only upstream scripts referenced by that skill tree
 scripts/
   convert_upstream.py
 ```
 
-The old Hermes adaptation used the same `research/<skill>/` installation shape. Keep it unless Hermes standards change.
+Skill names are prefixed `hermes-` to avoid collision with the upstream Claude Code skill names on skills.sh.
 
 ### 2. Frontmatter normalization
 
@@ -71,7 +72,7 @@ Upstream frontmatter stores version-like fields under `metadata`. Hermes should 
 
 ```yaml
 ---
-name: deep-research
+name: hermes-deep-research
 title: Deep Research — Universal Academic Research Agent Team
 description: Use when ...
 version: 2.11.0
@@ -122,7 +123,7 @@ Convert:
 to:
 
 ```text
-research/<skill>/references/agents/*.md
+skills/research/hermes-<skill>/references/agents/*.md
 ```
 
 Then rewrite body links from `agents/...` to `references/agents/...` where needed.
@@ -132,15 +133,15 @@ Then rewrite body links from `agents/...` to `references/agents/...` where neede
 Vendor upstream `shared/` into every skill:
 
 ```text
-research/<skill>/references/shared/
+skills/research/hermes-<skill>/references/shared/
 ```
 
-This duplicates files, but it keeps each skill self-contained after installation into `~/.hermes/skills/research/<skill>/`.
+This duplicates files, but it keeps each skill self-contained after installation into `~/.hermes/skills/research/hermes-<skill>/`.
 
 Add:
 
 ```text
-research/<skill>/references/shared-index.md
+skills/research/hermes-<skill>/references/shared-index.md
 ```
 
 with a list of vendored shared files.
@@ -154,7 +155,7 @@ Copy upstream per-skill `references/` and `templates/` as-is unless a file is pu
 Do not blindly copy all upstream root `scripts/` files. For each skill, scan that skill's Markdown files for references to `scripts/<name>.py`. Copy only existing referenced upstream root scripts into:
 
 ```text
-research/<skill>/scripts/<name>.py
+skills/research/hermes-<skill>/scripts/<name>.py
 ```
 
 Preserve nested script paths such as `scripts/cross_model_verification/normalize_compat_verdict.py`.
@@ -252,7 +253,7 @@ Decision: use concise Hermes descriptions in frontmatter. Keep full trigger deta
 python - <<'PY'
 from pathlib import Path
 import yaml
-root = Path('research')
+root = Path('skills/research')
 for skill in sorted(root.glob('*/SKILL.md')):
     text = skill.read_text()
     assert text.startswith('---'), skill

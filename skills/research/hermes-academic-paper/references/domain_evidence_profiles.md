@@ -1,6 +1,6 @@
 # Domain Evidence Profiles
 
-> **Advisory only.** A domain evidence profile changes which evidence types the literature screening *admits*. It never changes the A-F Overall Grade and never blocks manuscript ship. It never changes which databases are queried (that stays `Discipline`-driven in `literature_strategist_agent` Step 2). Consumed only by `hermes-academic-paper`'s `literature_strategist_agent`; produced by `intake_agent` Step 12 as the PCR `Domain Evidence Profile` row.
+> **Advisory only.** A domain evidence profile changes which evidence types the literature screening *admits*. It never changes the A-F Overall Grade and never blocks manuscript ship. It never changes which databases are queried (that stays `Discipline`-driven in `literature_strategist_agent` Step 2). Consumed only by `academic-paper`'s `literature_strategist_agent`; produced by `intake_agent` Step 12 as the PCR `Domain Evidence Profile` row.
 
 ## Domain Evidence Profiles
 
@@ -17,9 +17,9 @@ The ship-ready enum is exactly four values. `unknown_user_defined` is the defaul
 
 `clinical` · `wet_lab` · `materials_physics` · `legal_case_based` · `education` — *not in enum yet; selecting this falls back to `unknown_user_defined`.*
 
-## Field-guidance carry-forward (seeded from the hermes-deep-research evidence hierarchy)
+## Field-guidance carry-forward (seeded from the deep-research evidence hierarchy)
 
-The substance of the field-centric `## Field-Specific Adjustments` table in `hermes-deep-research/references/source_quality_hierarchy.md` is carried forward here so no per-field guidance is silently dropped. The hermes-deep-research file is **read, not edited** — this is a one-time authoring copy, not a runtime dual-read.
+The substance of the field-centric `## Field-Specific Adjustments` table in `deep-research/references/source_quality_hierarchy.md` is carried forward here so no per-field guidance is silently dropped. The deep-research file is **read, not edited** — this is a one-time authoring copy, not a runtime dual-read.
 
 Normative (folded into a ship-ready profile row above):
 - **Social Science** → folded into `general_social_science` (Level III-V; mixed methods common).
@@ -35,4 +35,4 @@ These two rows are preserved verbatim for the eventual `clinical` / `education` 
 
 ## #246 forward reference
 
-Discipline-relative *grade aggregation* (how these evidence expectations roll up into an Overall Grade) is tracked separately in #246 and is **not yet implemented**. Until #246 ships, the A-F Overall Grade lookup in `hermes-deep-research/references/source_quality_hierarchy.md` applies unchanged. #259 ships no aggregation logic and no placeholder aggregation code.
+Discipline-relative *grade aggregation* (how these evidence expectations roll up into an Overall Grade) is tracked separately in #246 and is **not yet implemented**. Until #246 ships, the A-F Overall Grade lookup in `deep-research/references/source_quality_hierarchy.md` applies unchanged. #259 ships no aggregation logic and no placeholder aggregation code.

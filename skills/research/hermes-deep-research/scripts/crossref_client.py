@@ -2,7 +2,7 @@
 """Minimal Crossref API client wrapper.
 
 Implements the lookup contract documented at
-`hermes-deep-research/references/crossref_api_protocol.md`. DOI-first with
+`deep-research/references/crossref_api_protocol.md`. DOI-first with
 title cross-check (DOI_MISMATCH pattern), title-similarity fallback,
 429 -> 2s backoff x 3 retries, 404/5xx -> miss vs. skip. Mirrors
 `semantic_scholar_client.py` / `openalex_client.py` structure.
