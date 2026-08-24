@@ -2,7 +2,7 @@
 name: hermes-academic-pipeline
 title: Academic Pipeline — Research-to-Publication Orchestrator
 description: Use when coordinating the full research-to-publication workflow from research through drafting, integrity checks, review, revision, and finalization.
-version: 3.21.0
+version: 3.21.1
 author: "Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills"
 license: CC-BY-NC-4.0
 metadata:
@@ -29,11 +29,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 7ef93e0cb52b93f9909e163aad912255d4471850
-  source_suite_version: 3.21.0
+  source_commit: 127ff85e4bbfcdd10b95040537b6c6bd7ad17aeb
+  source_suite_version: 3.21.1
   source_skill: hermes-academic-pipeline
-  upstream_version: 3.21.0
-  upstream_last_updated: 2026-08-18
+  upstream_version: 3.21.1
+  upstream_last_updated: 2026-08-24
   data_access_level: raw
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-pipeline` from
-`Imbad0202/academic-research-skills` at commit `7ef93e0` (2026-08-20).
+`Imbad0202/academic-research-skills` at commit `127ff85` (2026-08-24).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -63,7 +63,7 @@ This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in 
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.
 
-# Academic Pipeline v3.21.0 — Full Academic Research Workflow Orchestrator
+# Academic Pipeline v3.21.1 — Full Academic Research Workflow Orchestrator
 
 A lightweight orchestrator that manages the complete academic pipeline from research exploration to final manuscript. It does not perform substantive work — it only detects stages, recommends modes, dispatches skills, manages transitions, and tracks state.
 
@@ -380,6 +380,34 @@ In Mode B, **single-phase agents (Bucket A per `docs/design/2026-05-18-ars-v3.9.
 Routing into Mode B requires an explicit user signal, such as naming the desired mode or using a `[direct-mode]` prefix. Ambiguous cross-phase input defaults to clarification using `references/shared/references/intent_clarification_protocol.md`. **Critically:** if `pipeline_orchestrator_agent` is dispatched on ambiguous cross-phase materials, the orchestrator itself currently cannot reconcile (this is the v3.10 conductor #134 work) — v3.9.2 routes such cases to clarification BEFORE the orchestrator runs.
 
 **Enforcement (v3.9.2):** Phase Boundary blocks on downstream Bucket A agents + advisory verifier (`scripts/check_pipeline_integrity.py`) + a deterministic PreToolUse write-scope guard in hook-enabled runtimes (#134 rescope, PR #294). Multi-phase envelope + orchestrator structured intake remain forward-scope (#134 Slices 3-5).
+
+---
+
+## Opt-in Inquiry Branch Ledger (#743 alpha)
+
+`ARS_INQUIRY_LEDGER=1` enables the bounded
+`inquiry-branch-ledger/1.0` memory surface. Unset or `0` emits no ledger
+artifact, pointer, prompt, or summary. Even when enabled, one linear branch
+does not materialize a ledger; the second recorded branch is the first lawful
+publication point.
+
+The orchestrator owns the interaction surface and the deterministic runtime
+`scripts/inquiry_branch_ledger.py` owns validation, replay, append,
+profile-budget checks, pointer binding, and crash recovery. Replay receives the
+exact profile file for every ledger binding; it never substitutes a current
+fallback for missing historical bytes. AI facets enter `parked` and can become
+author-owned only through an explicit origin-bound adoption receipt. Reopening
+marks only author-recorded first-degree artifacts stale and never rewrites
+them.
+
+Render the runtime's compact summary only at the Stage 1 design-freeze
+checkpoint, the Stage 2.5 and 4.5 MANDATORY checkpoints, or immediately after
+a recorded reopen-condition signal. With the flag off or at most one branch,
+omit the block completely. Every shown interaction offers `skip`, `off`, and
+reset-to-simple-path; these hide future surfaces without deleting the ledger.
+The summary is advisory state memory and never changes an integrity verdict or
+checkpoint requirement. Full protocol and crash semantics:
+`docs/design/2026-08-17-743-inquiry-branch-ledger-design.md`.
 
 ---
 
@@ -743,8 +771,8 @@ When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's age
 
 | Item | Content |
 |------|---------|
-| Skill Version | 3.21.0 |
-| Last Updated | 2026-08-18 |
+| Skill Version | 3.21.1 |
+| Last Updated | 2026-08-24 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | deep-research v2.0+, academic-paper v2.0+, academic-paper-reviewer v1.1+ |
 | Role | Full academic research workflow orchestrator |

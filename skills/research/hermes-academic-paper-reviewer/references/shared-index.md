@@ -29,6 +29,8 @@
 - `references/shared/contracts/claim_standing/transmission_ledger.schema.json`
 - `references/shared/contracts/cross_model/codex_citation_receipt.schema.json`
 - `references/shared/contracts/cross_model/codex_citation_request.schema.json`
+- `references/shared/contracts/cross_model/promotion_bakeoff_sealed_commitment.schema.json`
+- `references/shared/contracts/cross_model/promotion_bakeoff_sealed_reveal.schema.json`
 - `references/shared/contracts/degradation_registry.json`
 - `references/shared/contracts/evaluator/full.json`
 - `references/shared/contracts/evidence/claim_registry.schema.json`
@@ -57,6 +59,7 @@
 - `references/shared/contracts/passport/experiment_alignment_result.schema.json`
 - `references/shared/contracts/passport/experiment_provenance_entry.schema.json`
 - `references/shared/contracts/passport/human_read_log.schema.json`
+- `references/shared/contracts/passport/inquiry_ledger_ref.schema.json`
 - `references/shared/contracts/passport/literature_corpus_entry.schema.json`
 - `references/shared/contracts/passport/preregistration_artifact.schema.json`
 - `references/shared/contracts/passport/rejection_log.schema.json`
@@ -82,9 +85,13 @@
 - `references/shared/contracts/re_review/precommitment.schema.json`
 - `references/shared/contracts/re_review/traceability.schema.json`
 - `references/shared/contracts/re_review/verdict_record.schema.json`
+- `references/shared/contracts/research_workflow/inquiry_branch_ledger.schema.json`
+- `references/shared/contracts/research_workflow/research_workflow_profile.schema.json`
+- `references/shared/contracts/research_workflow/research_workflow_profile_selection_receipt.schema.json`
 - `references/shared/contracts/review_target/constructive_review_findings.schema.json`
 - `references/shared/contracts/review_target/criteria_registry.schema.json`
 - `references/shared/contracts/review_target/review_criteria_binding_manifest.schema.json`
+- `references/shared/contracts/review_target/review_criteria_source_receipt.schema.json`
 - `references/shared/contracts/review_target/review_target_context.schema.json`
 - `references/shared/contracts/review_target/review_target_declaration.schema.json`
 - `references/shared/contracts/reviewer/full.json`
@@ -133,7 +140,10 @@
 - `references/shared/references/review_pathway_rule_trace_protocol.md`
 - `references/shared/references/submission_packet_manifest_protocol.md`
 - `references/shared/references/word_count_conventions.md`
+- `references/shared/research_workflow_profiles/field_general.json`
 - `references/shared/review_criteria_registry.json`
+- `references/shared/review_criteria_sources/msr-2027-technical-papers.2026-08-24.json`
+- `references/shared/review_criteria_sources/sigsoft-empirical-standards.2026-08-24.json`
 - `references/shared/sprint_contract.schema.json`
 - `references/shared/style_calibration_protocol.md`
 - `references/shared/templates/codex_audit_multifile_template.md`
