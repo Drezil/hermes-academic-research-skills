@@ -30,7 +30,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 5debcd2efb686dce0205ba9094b6413dae5f89c0
+  source_commit: e8bf858be714d03cef6b138d81f3aab9b7f72c43
   source_suite_version: 3.21.1
   source_skill: hermes-deep-research
   upstream_version: 2.12.1
@@ -45,7 +45,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-deep-research` from
-`Imbad0202/academic-research-skills` at commit `5debcd2` (2026-08-27).
+`Imbad0202/academic-research-skills` at commit `e8bf858` (2026-08-31).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
