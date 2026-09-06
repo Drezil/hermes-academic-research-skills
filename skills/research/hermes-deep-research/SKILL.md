@@ -30,8 +30,8 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 94436237913091d4739870159d241660527e8338
-  source_suite_version: 3.21.1
+  source_commit: 6b7ee6dcae29c0fbb46e0017538f9cef84c3136b
+  source_suite_version: 3.21.2
   source_skill: hermes-deep-research
   upstream_version: 2.12.1
   upstream_last_updated: 2026-08-15
@@ -45,7 +45,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-deep-research` from
-`Imbad0202/academic-research-skills` at commit `9443623` (2026-09-02).
+`Imbad0202/academic-research-skills` at commit `6b7ee6d` (2026-09-06).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -70,7 +70,7 @@ Universal deep research tool — a domain-agnostic 13-agent team for rigorous ac
 
 **v2.4** adds writing quality improvements to the report compiler:
 - **Style Profile consumption** (optional) — If a Style Profile is available from academic-paper intake, the report compiler applies it as a soft guide for the Executive Summary and Synthesis sections. Discipline conventions and report objectivity take priority.
-- **Writing Quality Check** — The report compiler runs a writing quality checklist before finalizing: flags AI-typical overused terms, checks sentence/paragraph length variation, removes throat-clearing openers. See `academic-paper/references/writing_quality_check.md`.
+- **Writing Quality Check** — The report compiler uses `academic-paper/references/writing_quality_check.md` as a diagnostic guide before finalizing (prompts for judgment subordinate to author and venue requirements, not quotas), and flags claims the cited sources do not support as `[MATERIAL GAP]` rather than hedging them (#825).
 
 
 ## Quick Start

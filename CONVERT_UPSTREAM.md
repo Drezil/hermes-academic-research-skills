@@ -4,10 +4,10 @@ This file is the maintainer runbook for reproducing this adaptation when upstrea
 
 ## Current adaptation baseline
 
-- Upstream repository: https://github.com/Imbad0202/academic-research-skills
-- Upstream commit: `94436237913091d4739870159d241660527e8338`
-- Upstream date: 2026-09-02
-- Upstream suite version: `3.21.1` (23 commits ahead of v3.19.0 tag on main)
+- Upstream repository: <https://github.com/Imbad0202/academic-research-skills>
+- Upstream commit: `6b7ee6dcae29c0fbb46e0017538f9cef84c3136b`
+- Upstream date: 2026-09-06
+- Upstream suite version: `3.21.2` (23 commits ahead of v3.19.0 tag on main)
 - Adaptation output: four Hermes skills under `skills/research/`
 
 ## Design intent
@@ -25,7 +25,7 @@ Always adapt these four upstream skill directories:
 | `deep-research/` | `skills/research/hermes-deep-research/` | 2.12.1 |
 | `academic-paper/` | `skills/research/hermes-academic-paper/` | 3.3.1 |
 | `academic-paper-reviewer/` | `skills/research/hermes-academic-paper-reviewer/` | 1.11.1 |
-| `academic-pipeline/` | `skills/research/hermes-academic-pipeline/` | 3.21.1 |
+| `academic-pipeline/` | `skills/research/hermes-academic-pipeline/` | 3.21.2 |
 
 Do not adapt upstream `.claude-plugin/`, `commands/`, `hooks/`, or `skills/` symlink directory as Hermes skills in the default distribution.
 
@@ -222,15 +222,19 @@ Decision: use concise Hermes descriptions in frontmatter. Keep full trigger deta
 ## Update checklist
 
 1. Clone or fetch upstream:
+
    ```bash
    git -C /var/lib/hermes/workspace/git/academic-research-skills fetch --all --prune
    git -C /var/lib/hermes/workspace/git/academic-research-skills pull --ff-only
    ```
+
 2. Record upstream commit and suite version from `.claude-plugin/plugin.json`.
 3. Compare upstream skill versions and changed files:
+
    ```bash
    git -C /path/to/upstream diff --stat <old-commit>..HEAD -- deep-research academic-paper academic-paper-reviewer academic-pipeline shared
    ```
+
 4. Re-run or manually apply the conversion rules above into a temporary directory.
 5. Compare temporary output with this repository.
 6. Preserve Hermes README/ATTRIBUTION/CONVERT_UPSTREAM decisions unless intentionally changed.
@@ -243,6 +247,7 @@ Decision: use concise Hermes descriptions in frontmatter. Keep full trigger deta
    - no active instructions imply Claude plugin installation in Hermes.
 8. Update this file's baseline commit/version table.
 9. Commit with a message like:
+
    ```text
    chore: port academic-research-skills vX.Y.Z to Hermes
    ```
