@@ -29,7 +29,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: c7af8b9017954c745ed7ad4afed4dba460a6c247
+  source_commit: 7e019f5b25e1b16745f8aca17ac9c42b8b9f2a66
   source_suite_version: 3.21.2
   source_skill: hermes-academic-paper
   upstream_version: 3.3.1
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-paper` from
-`Imbad0202/academic-research-skills` at commit `c7af8b9` (2026-09-09).
+`Imbad0202/academic-research-skills` at commit `7e019f5` (2026-09-15).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -99,7 +99,9 @@ Write a paper on the impact of declining birth rates on private university manag
 
 ### Trigger Keywords
 
-**English**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion, parse reviews, revision roadmap, help me with my revision, I got reviewer comments, convert citations
+**English**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion, parse reviews, revision roadmap, help me with my revision, I got reviewer comments, should we push back, conference rebuttal, grant panel response, convert citations
+
+**Español**: redactar artículo, trabajo académico, esquema de artículo, escribir resumen, enmendar mi artículo, artículo de revisión bibliográfica, verificar citas, convertir a LaTeX, convertir formato, artículo de conferencia, artículo de revista, capítulo de tesis, artículo de investigación, guía mi artículo, ayúdame a planificar mi artículo, escribir artículo paso a paso, redactar manuscrito, escribir metodología, escribir discusión, analizar opiniones de revisores, ruta de revisión, ayúdame con mi revisión, recibí comentarios de revisores, convertir formato de citas
 
 **繁體中文**: 寫論文, 學術論文, 論文大綱, 寫摘要, 修改論文, 文獻回顧論文, 檢查引用, 轉 LaTeX, 轉換格式, 研討會論文, 期刊文章, 學位論文, 研究論文, 引導我寫論文, 幫我規劃論文, 逐步寫論文, 寫方法論, 寫討論, 審查意見, 修訂路線圖, 幫我修改, 我收到審查意見, 轉換引用格式
 

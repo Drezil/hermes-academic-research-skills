@@ -30,7 +30,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: c7af8b9017954c745ed7ad4afed4dba460a6c247
+  source_commit: 7e019f5b25e1b16745f8aca17ac9c42b8b9f2a66
   source_suite_version: 3.21.2
   source_skill: hermes-deep-research
   upstream_version: 2.12.1
@@ -45,7 +45,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-deep-research` from
-`Imbad0202/academic-research-skills` at commit `c7af8b9` (2026-09-09).
+`Imbad0202/academic-research-skills` at commit `7e019f5` (2026-09-15).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -102,6 +102,8 @@ Guide my research on the impact of declining birth rates on private universities
 ### Trigger Keywords
 
 **English**: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, methodology, APA report, academic analysis, policy analysis, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, monitor this topic, set up alerts
+
+**Español**: investigación profunda, revisión de literatura, revisión sistemática, metaanálisis, síntesis de evidencia, verificación de datos, informe APA, comparación de artículos WHY HOW WHAT, escaneo de tres vías, guía mi investigación, ayúdame a razonar, monitorear este tema, configurar alertas
 
 **繁體中文**: 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 證據綜整, 事實查核, 三段式文獻掃描, WHY HOW WHAT 論文比較, 研究方法, 學術分析, 政策分析, 引導我的研究, 幫我釐清, 監測這個主題, 設定追蹤
 

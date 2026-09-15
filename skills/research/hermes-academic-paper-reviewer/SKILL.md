@@ -28,7 +28,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: c7af8b9017954c745ed7ad4afed4dba460a6c247
+  source_commit: 7e019f5b25e1b16745f8aca17ac9c42b8b9f2a66
   source_suite_version: 3.21.2
   source_skill: hermes-academic-paper-reviewer
   upstream_version: 1.11.1
@@ -43,7 +43,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-paper-reviewer` from
-`Imbad0202/academic-research-skills` at commit `c7af8b9` (2026-09-09).
+`Imbad0202/academic-research-skills` at commit `7e019f5` (2026-09-15).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -94,6 +94,8 @@ Review this paper: [paste paper or provide file]
 ### Trigger Keywords
 
 **English**: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review, calibrate reviewer, reviewer calibration, measure reviewer accuracy
+
+**Español**: revisar artículo, revisión entre pares, revisión de manuscrito, informe de árbitro, revisión simulada, evaluar desde perspectiva de revisor, calibración de revisor, medir precisión del revisor
 
 **한국어**: 논문 심사, 동료 심사, 모의 심사, 원고 심사, 심사 보고서, 심사자 관점에서 평가, 심사자 보정, 심사 정확도 측정
 

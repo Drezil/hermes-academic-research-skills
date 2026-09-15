@@ -29,7 +29,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: c7af8b9017954c745ed7ad4afed4dba460a6c247
+  source_commit: 7e019f5b25e1b16745f8aca17ac9c42b8b9f2a66
   source_suite_version: 3.21.2
   source_skill: hermes-academic-pipeline
   upstream_version: 3.21.2
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-pipeline` from
-`Imbad0202/academic-research-skills` at commit `c7af8b9` (2026-09-09).
+`Imbad0202/academic-research-skills` at commit `7e019f5` (2026-09-15).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -125,6 +125,8 @@ resume_from_passport=<hash> [stage=<n>] [mode=<m>]
 ### Trigger Keywords
 
 **English**: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow
+
+**Español**: flujo de trabajo académico, investigación a artículo, pipeline de artículo completo, desde tema de investigación hasta artículo terminado, flujo completo de investigación-publicación
 
 **한국어**: 학술 파이프라인, 연구부터 논문까지, 논문 전체 워크플로, 연구 주제 설정부터 논문 완성까지, 연구-논문 전 과정
 
