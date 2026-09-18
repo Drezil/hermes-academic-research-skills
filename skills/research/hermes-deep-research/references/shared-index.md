@@ -122,6 +122,7 @@
 - `references/shared/human_subjects_authority_registry.json`
 - `references/shared/mode_spectrum.md`
 - `references/shared/model_tiering.md`
+- `references/shared/output_language_pair.md`
 - `references/shared/policy_data/nature_policy.md`
 - `references/shared/prisma_trAIce_protocol.md`
 - `references/shared/raise_framework.md`

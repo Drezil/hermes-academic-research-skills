@@ -29,8 +29,8 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 7e019f5b25e1b16745f8aca17ac9c42b8b9f2a66
-  source_suite_version: 3.21.2
+  source_commit: 3c546bc08c56f79e0068f1ea4f0acedf5bf69b5e
+  source_suite_version: 3.22.0
   source_skill: hermes-academic-paper
   upstream_version: 3.3.1
   upstream_last_updated: 2026-08-15
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-paper` from
-`Imbad0202/academic-research-skills` at commit `7e019f5` (2026-09-15).
+`Imbad0202/academic-research-skills` at commit `3c546bc` (2026-09-16).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -128,7 +128,7 @@ Activate `plan` mode when the user wants guidance, step-by-step planning, or exp
 | Primary output | Publishable paper draft | Research report |
 | Structure | Journal-ready (IMRaD, etc.) | APA 7.0 report |
 | Citation | Multi-format (APA/Chicago/MLA/IEEE/Vancouver) | APA 7.0 only |
-| Abstract | Bilingual (zh-TW + EN) | Single language |
+| Abstract | Pair-dependent bilingual (default zh-TW + EN) — the two abstract languages follow the run's declared `output_language_pair` | Single language |
 | Peer review | Simulated 5-dimension review | Editorial review |
 | Output format | LaTeX/DOCX (via Pandoc)/PDF/Markdown | Markdown only |
 | Revision loop | Max 2 rounds with targeted feedback | Max 2 rounds |
@@ -145,7 +145,7 @@ Activate `plan` mode when the user wants guidance, step-by-step planning, or exp
 | 4 | `argument_builder_agent` | Argument construction, claim-evidence chains, logical flow, counter-argument handling; Plan mode argument stress test | Phase 3 / Plan Step 3 |
 | 5 | `draft_writer_agent` | Section-by-section full draft writing, discipline register adjustment, word count tracking | Phase 4 |
 | 6 | `citation_compliance_agent` | Citation format verification, reference list completeness, DOI checking | Phase 5a |
-| 7 | `abstract_bilingual_agent` | Bilingual abstract (zh-TW + EN), 5-7 keywords each | Phase 5b |
+| 7 | `abstract_bilingual_agent` | Pair-dependent bilingual abstract (default zh-TW + EN), keyword count from the regime table in `references/abstract_writing_guide.md` | Phase 5b |
 | 8 | `peer_reviewer_agent` | Simulated double-blind review, five-perspective categorical assessment, revision suggestions (max 2 rounds) | Phase 6 |
 | 9 | `formatter_agent` | Convert to LaTeX/DOCX (via Pandoc)/PDF/Markdown, journal formatting, cover letter, citation format conversion (APA 7 / Chicago / MLA / IEEE / Vancouver) | Phase 7 |
 | 10 | `socratic_mentor_agent` | Plan mode Socratic mentor: chapter-by-chapter guidance, convergence criteria (4 signals), question taxonomy (4 types), INSIGHT extraction | Plan Step 0-3 |
@@ -524,10 +524,10 @@ Explicit prohibitions to prevent common failure modes:
 5. **Word count compliance** — within +/-10% of target
 
 ### Bilingual Abstract Quality
-6. **Independent writing** — zh-TW and EN abstracts are independently composed, NOT mechanical translations
+6. **Independent writing** — the two abstracts of the run's declared pair (default zh-TW and EN) are independently composed, NOT mechanical translations
 7. **Structural alignment** — both abstracts cover the same key points in the same order
-8. **Keywords** — 5-7 per language, reflecting the paper's core concepts
-9. **Word count** — EN: 150-300 words; zh-TW: 300-500 characters
+8. **Keywords** — count per language from the regime table in `references/abstract_writing_guide.md`, reflecting the paper's core concepts
+9. **Word count** — per the regime table in `references/abstract_writing_guide.md` for the run's declared pair and paper type (no figure restated here)
 
 ### Citation Quality
 10. **Format compliance** — 100% adherence to selected citation style
@@ -550,7 +550,7 @@ Explicit prohibitions to prevent common failure modes:
 
 ## Output Language
 
-Follows the user's language. Academic terminology is kept in English. Bilingual abstracts are always provided regardless of the main text language.
+Follows the user's language. Academic terminology is kept in English. The bilingual abstract follows the declared output language pair (`output_language_pair`) — nothing more. The pair selects the two abstract languages; it is not a body-language setting and not an abstract-cardinality setting (Bilingual / EN-only / zh-TW-only is a separate intake answer). The default entry `zh-tw-en` is Traditional Chinese (L1) + English (L2) — the pre-#862 pair, so a run that omits the field reproduces the legacy object keys and the legacy heading literals and omits the serialized key. Registry and language roles: [`references/shared/output_language_pair.md`](../shared/output_language_pair.md). Abstract length and keyword counts: the regime table in [`references/abstract_writing_guide.md`](references/abstract_writing_guide.md).
 
 ---
 

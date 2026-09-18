@@ -5,9 +5,9 @@ This file is the maintainer runbook for reproducing this adaptation when upstrea
 ## Current adaptation baseline
 
 - Upstream repository: <https://github.com/Imbad0202/academic-research-skills>
-- Upstream commit: `7e019f5b25e1b16745f8aca17ac9c42b8b9f2a66`
-- Upstream date: 2026-09-15
-- Upstream suite version: `3.21.2` (23 commits ahead of v3.19.0 tag on main)
+- Upstream commit: `3c546bc08c56f79e0068f1ea4f0acedf5bf69b5e`
+- Upstream date: 2026-09-16
+- Upstream suite version: `3.22.0` (23 commits ahead of v3.19.0 tag on main)
 - Adaptation output: four Hermes skills under `skills/research/`
 
 ## Design intent
@@ -25,7 +25,7 @@ Always adapt these four upstream skill directories:
 | `deep-research/` | `skills/research/hermes-deep-research/` | 2.12.1 |
 | `academic-paper/` | `skills/research/hermes-academic-paper/` | 3.3.1 |
 | `academic-paper-reviewer/` | `skills/research/hermes-academic-paper-reviewer/` | 1.11.1 |
-| `academic-pipeline/` | `skills/research/hermes-academic-pipeline/` | 3.21.2 |
+| `academic-pipeline/` | `skills/research/hermes-academic-pipeline/` | 3.22.0 |
 
 Do not adapt upstream `.claude-plugin/`, `commands/`, `hooks/`, or `skills/` symlink directory as Hermes skills in the default distribution.
 
