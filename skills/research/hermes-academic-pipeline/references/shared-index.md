@@ -64,6 +64,7 @@
 - `references/shared/contracts/passport/preregistration_artifact.schema.json`
 - `references/shared/contracts/passport/rejection_log.schema.json`
 - `references/shared/contracts/passport/reset_ledger_entry.schema.json`
+- `references/shared/contracts/passport/run_ledger.schema.json`
 - `references/shared/contracts/passport/temporal_audit_results.schema.json`
 - `references/shared/contracts/passport/terminal_policies.schema.json`
 - `references/shared/contracts/passport/timeline.schema.json`
@@ -139,6 +140,7 @@
 - `references/shared/references/psychometric_terminology_glossary.md`
 - `references/shared/references/review_criteria_consumer_protocol.md`
 - `references/shared/references/review_pathway_rule_trace_protocol.md`
+- `references/shared/references/routing_core.md`
 - `references/shared/references/submission_packet_manifest_protocol.md`
 - `references/shared/references/word_count_conventions.md`
 - `references/shared/research_workflow_profiles/field_general.json`
