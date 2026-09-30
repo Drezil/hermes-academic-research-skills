@@ -136,9 +136,11 @@
 - `references/shared/references/human_subjects_authority_protocol.md`
 - `references/shared/references/intent_clarification_protocol.md`
 - `references/shared/references/irb_terminology_glossary.md`
+- `references/shared/references/per_source_method_weaknesses.md`
 - `references/shared/references/protected_hedging_phrases.md`
 - `references/shared/references/psychometric_terminology_glossary.md`
 - `references/shared/references/review_criteria_consumer_protocol.md`
+- `references/shared/references/review_form_note.md`
 - `references/shared/references/review_pathway_rule_trace_protocol.md`
 - `references/shared/references/routing_core.md`
 - `references/shared/references/submission_packet_manifest_protocol.md`
