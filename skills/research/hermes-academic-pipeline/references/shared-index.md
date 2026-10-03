@@ -56,6 +56,7 @@
 - `references/shared/contracts/passport/claim_drift.schema.json`
 - `references/shared/contracts/passport/claim_intent_manifest.schema.json`
 - `references/shared/contracts/passport/constraint_violation.schema.json`
+- `references/shared/contracts/passport/excluded_source_entry.schema.json`
 - `references/shared/contracts/passport/experiment_alignment_result.schema.json`
 - `references/shared/contracts/passport/experiment_provenance_entry.schema.json`
 - `references/shared/contracts/passport/human_read_log.schema.json`
@@ -65,6 +66,7 @@
 - `references/shared/contracts/passport/rejection_log.schema.json`
 - `references/shared/contracts/passport/reset_ledger_entry.schema.json`
 - `references/shared/contracts/passport/run_ledger.schema.json`
+- `references/shared/contracts/passport/standing_constraint_entry.schema.json`
 - `references/shared/contracts/passport/temporal_audit_results.schema.json`
 - `references/shared/contracts/passport/terminal_policies.schema.json`
 - `references/shared/contracts/passport/timeline.schema.json`

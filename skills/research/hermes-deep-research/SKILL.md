@@ -30,8 +30,8 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 333fd5eba58e28951ea89f12f03fefd78c877a47
-  source_suite_version: 3.22.2
+  source_commit: 6ab4b03bf70a118a1b3ee7f3263ed9f19031061b
+  source_suite_version: 3.23.0
   source_skill: hermes-deep-research
   upstream_version: 2.12.1
   upstream_last_updated: 2026-08-15
@@ -45,7 +45,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-deep-research` from
-`Imbad0202/academic-research-skills` at commit `333fd5e` (2026-09-30).
+`Imbad0202/academic-research-skills` at commit `6ab4b03` (2026-10-03).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -88,6 +88,8 @@ Otherwise, classify the user's input:
 
 3. **Ambiguous intent, no materials** — user provides no artifacts and no clear request:
    → Clarify per `references/shared/references/intent_clarification_protocol.md`.
+
+**Screening boundary (sr-screener):** a request to screen records the user already has (database exports, pasted abstracts, full-text PDFs) against a review's eligibility criteria, or to build a screening protocol, pilot the screening, adjudicate screening conflicts, audit exclusions, or report the selection counts, routes to `sr-screener`. A request to write a literature review, or to run a systematic review, meta-analysis, or PRISMA report, does not route to `sr-screener`. Screening starts only when the user asks for it: `deep-research` `systematic-review` mode may mention `sr-screener`, but never hands over to it automatically.
 
 **Anti-pattern (caused #133):** Receiving ambiguous cross-phase materials and silently auto-routing to a single-phase agent based on which phase the materials "look closest to." This bypasses orchestrator-level reconciliation and lets the subagent inherit the full ambiguity without independent oversight.
 <!-- routing-core:end -->
@@ -251,7 +253,7 @@ Whether the note appears must not depend on the topic, the wording, or the kind 
 
 **When not to show it.**
 
-- The note was already answered or skipped in this project or run. In a run with a passport file, look for a `checkpoint_closed` entry with `checkpoint_id: review-form-note` in the run ledger; without one, look in this conversation. Across separate sessions without a passport file the note can appear again; this is accepted. If the ledger holds a `checkpoint_opened` entry for `review-form-note` and no closing entry, the note is still awaiting its answer: show it again, append no second opening entry, and append the closing entry after the reply.
+- The note was already answered or skipped in this project or run. In a run with a passport file, look for a `checkpoint_closed` entry with `checkpoint_id: review-form-note` in what `python3 scripts/run_ledger.py show --passport-path <passport>` prints; without one, look in this conversation. Across separate sessions without a passport file the note can appear again; this is accepted. If the ledger holds a `checkpoint_opened` entry for `review-form-note` and no closing entry, the note is still awaiting its answer: show it again, append no second opening entry, and append the closing entry after the reply.
 - The author already named a review form in their own words or actions: entered `systematic-review` mode, asked for a systematic, scoping, rapid, narrative, or integrative review, or said they want no formal review. This test reads what the author said, not the content of the research question.
 
 **How to show it.**
@@ -753,7 +755,7 @@ deep-research (systematic-review) + academic-paper -> PRISMA systematic review p
 
 ## Model Tiering (#517, optional)
 
-When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's agents per `references/shared/model_tiering.md` (canonical: the full 39-agent judgment/execution table + rules). Compact rule:
+When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's agents per `references/shared/model_tiering.md` (canonical: the full 43-agent judgment/execution table + rules). Compact rule:
 
 - **Unset (default):** every agent inherits the session model — byte-equivalent pre-#517 behavior.
 - **`economy`** (frontier-tier session): execution-type agents dispatch ONE tier below the session model — floor Opus-class, never lower; judgment-type agents stay on the session model. No-op at or below the floor (announce once).
