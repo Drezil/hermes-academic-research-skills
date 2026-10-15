@@ -29,7 +29,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: d1e51716e53fc371727ea6164dd709fc8ea28c97
+  source_commit: a3ef8c79d888b90aaaaecce7f42fbc3fd082d5ab
   source_suite_version: 3.23.0
   source_skill: hermes-academic-paper
   upstream_version: 3.3.1
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-paper` from
-`Imbad0202/academic-research-skills` at commit `d1e5171` (2026-10-12).
+`Imbad0202/academic-research-skills` at commit `a3ef8c7` (2026-10-14).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -274,7 +274,7 @@ Multi-phase agents (Bucket B: `argument_builder` P3+Plan, `visualization` P4+P7)
 
 Routing into Mode B requires explicit user signal — `/ars-<mode>` slash command or `[direct-mode]` prefix. Ambiguous cross-phase input defaults to clarification per the routing core near the top of this file (Step 2) + `references/shared/references/intent_clarification_protocol.md`.
 
-**Enforcement (v3.9.2):** Phase Boundary blocks on Bucket A agents + advisory verifier (`scripts/check_pipeline_integrity.py`) + a deterministic PreToolUse write-scope guard in hook-enabled runtimes (#134 rescope, PR #294). Multi-phase envelope remains forward-scope (#134 Slices 3-5).
+**Enforcement (v3.9.2):** Phase Boundary blocks on Bucket A agents + advisory verifier (`scripts/check_pipeline_integrity.py`) + a PreToolUse write-scope guard that applies only to Bucket A roles dispatched as separate subagents of their own agent type in an install that wires the hook (the plugin install); roles run inline in the main session by default, where only the prompt-level blocks apply (#134 rescope, PR #294; #973). Multi-phase envelope remains forward-scope (#134 Slices 3-5).
 
 ## v3.6.6 Generator-Evaluator Contract Protocol
 
