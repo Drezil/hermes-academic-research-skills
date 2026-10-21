@@ -28,7 +28,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: cfd081d8f309ec65254d9f9f04c845ee78b1ec1d
+  source_commit: 3224a27a2571cefef0fddfd437004cb006f2b0cb
   source_suite_version: 3.23.1
   source_skill: hermes-academic-paper-reviewer
   upstream_version: 1.11.1
@@ -43,7 +43,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-paper-reviewer` from
-`Imbad0202/academic-research-skills` at commit `cfd081d` (2026-10-18).
+`Imbad0202/academic-research-skills` at commit `3224a27` (2026-10-21).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.

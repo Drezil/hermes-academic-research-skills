@@ -5,8 +5,8 @@ This file is the maintainer runbook for reproducing this adaptation when upstrea
 ## Current adaptation baseline
 
 - Upstream repository: <https://github.com/Imbad0202/academic-research-skills>
-- Upstream commit: `cfd081d8f309ec65254d9f9f04c845ee78b1ec1d`
-- Upstream date: 2026-10-18
+- Upstream commit: `3224a27a2571cefef0fddfd437004cb006f2b0cb`
+- Upstream date: 2026-10-21
 - Upstream suite version: `3.23.1` (23 commits ahead of v3.19.0 tag on main)
 - Adaptation output: four Hermes skills under `skills/research/`
 
