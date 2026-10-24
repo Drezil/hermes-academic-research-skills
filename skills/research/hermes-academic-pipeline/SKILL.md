@@ -2,7 +2,7 @@
 name: hermes-academic-pipeline
 title: Academic Pipeline — Research-to-Publication Orchestrator
 description: Use when coordinating the full research-to-publication workflow from research through drafting, integrity checks, review, revision, and finalization.
-version: 3.23.1
+version: 3.23.2
 author: "Hermes Agent adaptation based on Cheng-I Wu's Academic Research Skills"
 license: CC-BY-NC-4.0
 metadata:
@@ -29,11 +29,11 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 3224a27a2571cefef0fddfd437004cb006f2b0cb
-  source_suite_version: 3.23.1
+  source_commit: 09a5d0b15c7b50a20d9fc68d5947bb9897f438b5
+  source_suite_version: 3.23.2
   source_skill: hermes-academic-pipeline
-  upstream_version: 3.23.1
-  upstream_last_updated: 2026-10-16
+  upstream_version: 3.23.2
+  upstream_last_updated: 2026-10-24
   data_access_level: raw
   task_type: open-ended
   adaptation_note: Adapted to Hermes skill conventions; Claude Code plugin commands, hooks, and model routing are not installed.
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-pipeline` from
-`Imbad0202/academic-research-skills` at commit `3224a27` (2026-10-21).
+`Imbad0202/academic-research-skills` at commit `09a5d0b` (2026-10-25).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -63,7 +63,7 @@ This adaptation removes upstream Claude Code safety hooks. Use Hermes' built-in 
 
 See the trigger and mode-selection sections below. Prefer this skill when the user's task matches its academic workflow; use the linked references only when needed to avoid loading unnecessary context.
 
-# Academic Pipeline v3.23.1 — Full Academic Research Workflow Orchestrator
+# Academic Pipeline v3.23.2 — Full Academic Research Workflow Orchestrator
 
 A lightweight orchestrator that manages the complete academic pipeline from research exploration to final manuscript. It does not perform substantive work — it only detects stages, recommends modes, dispatches skills, manages transitions, and tracks state.
 
@@ -521,7 +521,7 @@ Users can enter from any stage. The orchestrator will:
 
 **Important: mid-entry cannot skip Stage 2.5**
 - If the user brings a paper and enters directly, go through Stage 2.5 (INTEGRITY) first before Stage 3 (REVIEW)
-- Only exception: User can provide a previous integrity verification report and content has not been modified
+- A previous integrity verification report does not replace Stage 2.5. When the content has not been modified since that report, Stage 2.5 still runs and the report is attached as context (see the Mid-Entry Material Passport Check in `references/agents/pipeline_orchestrator_agent.md`)
 
 ---
 
@@ -812,8 +812,8 @@ When `ARS_MODEL_TIERING` is set, the dispatching session routes this skill's age
 
 | Item | Content |
 |------|---------|
-| Skill Version | 3.23.1 |
-| Last Updated | 2026-10-16 |
+| Skill Version | 3.23.2 |
+| Last Updated | 2026-10-24 |
 | Maintainer | Cheng-I Wu |
 | Dependent Skills | deep-research v2.0+, academic-paper v2.0+, academic-paper-reviewer v1.1+ |
 | Role | Full academic research workflow orchestrator |
