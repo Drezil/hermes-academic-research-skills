@@ -4,7 +4,7 @@ This repository is a Hermes Agent adaptation of Academic Research Skills by Chen
 
 - Upstream repository: https://github.com/Imbad0202/academic-research-skills
 - Upstream version at adaptation time: 3.24.2
-- Upstream commit: `6d9388674de1ad0437ad95db3d52f92b92204d84` (2026-11-06)
+- Upstream commit: `c67a7be53f23d9dbba4030bbcd6f5ccfeda3afa9` (2026-11-11)
 - Upstream license: CC BY-NC 4.0
 
 See `LICENSE` and `NOTICE.md`.

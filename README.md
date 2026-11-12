@@ -3,7 +3,7 @@
 A Hermes Agent-compatible adaptation of [Academic Research Skills](https://github.com/Imbad0202/academic-research-skills) by Cheng-I Wu.
 
 - Upstream suite version: `3.24.2`
-- Upstream commit: `6d9388674de1ad0437ad95db3d52f92b92204d84` (2026-11-06)
+- Upstream commit: `c67a7be53f23d9dbba4030bbcd6f5ccfeda3afa9` (2026-11-11)
 - Skills: `deep-research`, `academic-paper`, `academic-paper-reviewer`, `academic-pipeline`
 
 Install manually with:

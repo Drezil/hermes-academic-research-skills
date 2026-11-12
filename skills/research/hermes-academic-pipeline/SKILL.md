@@ -29,7 +29,7 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: 6d9388674de1ad0437ad95db3d52f92b92204d84
+  source_commit: c67a7be53f23d9dbba4030bbcd6f5ccfeda3afa9
   source_suite_version: 3.24.2
   source_skill: hermes-academic-pipeline
   upstream_version: 3.24.2
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-pipeline` from
-`Imbad0202/academic-research-skills` at commit `6d93886` (2026-11-06).
+`Imbad0202/academic-research-skills` at commit `c67a7be` (2026-11-11).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
