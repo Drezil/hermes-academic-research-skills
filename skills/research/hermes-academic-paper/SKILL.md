@@ -29,8 +29,8 @@ metadata:
       - delegation
     homepage: 'https://github.com/Imbad0202/academic-research-skills'
   source_repository: 'https://github.com/Imbad0202/academic-research-skills'
-  source_commit: c67a7be53f23d9dbba4030bbcd6f5ccfeda3afa9
-  source_suite_version: 3.24.2
+  source_commit: 23bd688bbc121da6ae98ec3c4d4a7675cefc4c83
+  source_suite_version: 3.24.3
   source_skill: hermes-academic-paper
   upstream_version: 3.3.1
   upstream_last_updated: 2026-08-15
@@ -44,7 +44,7 @@ metadata:
 ## Hermes Adaptation Notes
 
 This is a Hermes Agent adaptation of upstream `hermes-academic-paper` from
-`Imbad0202/academic-research-skills` at commit `c67a7be` (2026-11-11).
+`Imbad0202/academic-research-skills` at commit `23bd688` (2026-11-15).
 
 - Use this as a Hermes skill, not as a Claude Code plugin.
 - Claude Code plugin commands, hooks, and model-routing frontmatter are not installed by this adaptation.
@@ -252,9 +252,15 @@ alignment and do not silently reconstruct a target from model memory.
 
 1. ⚠️ **IRON RULE**: User must confirm Paper Configuration Record before proceeding to Phase 1
 2. **Phase 2 -> 3**: User must approve outline (can request restructuring)
-3. ⚠️ **IRON RULE**: Max 2 revision loops; unresolved items -> "Acknowledged Limitations"
-4. **Peer Review** Critical-severity issues block progression to Phase 7
+3. ⚠️ **IRON RULE**: Max 2 revision loops; unresolved items -> "Acknowledged Limitations" (when the user picks Option A; see rule 6)
+4. **Peer Review** Critical-severity issues block progression to Phase 7 through an Accept or Option A. While a Critical issue remains, `peer_reviewer_agent` does not offer Option A; the user can still ask for early formatting, and Phase 7 then follows rule 6
 5. User can skip Phase 1 (literature) if providing own sources
+6. **Phase 6 -> 7** (`full` mode, #1087): Phase 7 starts without a stop when peer review gave an Accept verdict for the draft that goes to Phase 7. In every other case Phase 7 starts only after the user confirms it at one stop, which `formatter_agent` shows before it formats, with the draft's Review Status (`formatter_agent` § Review Status). The cases are:
+   - **Last allowed revision**: after a Round 2 Minor Revision verdict, `draft_writer_agent` makes the second and last revision, and no review follows it.
+   - **Option A**: after Round 2, the user picks Option A, and `draft_writer_agent` adds the "Acknowledged Limitations" section.
+   - **Early formatting**: the user asks for Phase 7 before an Accept, including before any review.
+
+   Option C ends the workflow, and Phase 7 does not run. Option B returns to the phase it names. If the user declines at the stop, keep the draft and all Review Reports and end the workflow, as Option C does.
 
 ---
 
@@ -516,7 +522,7 @@ Review, and put it in a separate notes line. Leave the user's excerpt or draft t
 corrected version and produce it only when the user asks. In this mode the
 agent's Auto-correct principle covers the reference list and the listed
 replacements; its Corrected Draft output belongs to `full`-mode runs that call
-it as Phase 5a, not to this mode (#1062, #1068).
+it as Phase 5a, not to this mode (#1062, #1068). For Chicago 17th, MLA 9th, IEEE, and Vancouver, the agent's Other Citation Styles: Report Only rule replaces this: the report lists findings only, with no Corrected Reference List or replacement citations. A corrected version of the user's text still comes only when the user asks, and it begins with a note that a correction for another style may be wrong (#1093).
 
 ---
 
@@ -671,7 +677,7 @@ Explicit prohibitions to prevent common failure modes:
 ### Peer Review
 14. **Five criterion-bound dimensions** — Originality, Methodological Rigor, Evidence Sufficiency, Argument Coherence, and Writing Quality; report categorical judgements with evidence and no numerical aggregation
 15. **Actionable feedback** — every criticism must include a specific suggestion
-16. **Max 2 revision rounds** — unresolved items become Acknowledged Limitations
+16. **Max 2 revision rounds** — when the user picks Option A, unresolved items become Acknowledged Limitations (Checkpoint Rule 6)
 
 ### Mandatory Inclusions
 ⚠️ **IRON RULE**: Every paper MUST include: Data Availability Statement, Ethics Declaration, Author Contributions (CRediT), Conflict of Interest Statement, Funding Acknowledgment.
